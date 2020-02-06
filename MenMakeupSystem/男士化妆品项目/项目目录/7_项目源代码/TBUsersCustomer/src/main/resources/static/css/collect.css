@@ -1,0 +1,23 @@
+.inner {
+    position: relative;
+}
+
+.banner {
+    margin-top: 20px;
+    font-size: 25px;
+    margin-bottom: 30px;
+}
+.banner img  {
+    margin-bottom: 20px;
+    width: 1080px;
+}
+.banner h4 {
+    display: inline-block;
+}
+.banner .face {
+    position: absolute;
+    top: 50px;
+    left: 300px;
+    text-align: center;
+    color: white;
+}

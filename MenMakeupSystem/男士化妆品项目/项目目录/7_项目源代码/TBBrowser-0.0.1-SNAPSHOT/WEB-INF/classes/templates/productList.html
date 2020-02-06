@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>ThreeBody男妆</title>
+		<link rel="stylesheet" href="css/base.css">
+		<link rel="stylesheet" href="css/productList.css">
+		<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	</head>
+	<body>
+		<!--头部开始-->
+		<div class="header ">
+			<div class="inner">
+				<div class="left clearfix">
+					<a th:href="@{index.html}">
+						<img th:src="@{images/logo.png}" alt="">
+					</a>
+				</div>
+				<div class="right">
+					<ul class="clearfix">
+						<li>
+							<a th:href="@{/index.html}">首页</a>
+						</li>
+						<li>
+							<a href="#">全部产品</a>
+						</li>
+						<li>
+							<a href="#">专柜地址</a>
+						</li>
+						<li>
+							<a href="#" style="margin-right: 50px">客服中心</a>
+						</li>
+						<li>
+							<a th:href="@{/login.html}">后台管理</a>
+						</li>
+						<li>
+							<a th:href="@{/myCarts.html}">我的购物车<span></span></a>
+						</li>
+						<li id="li-login">
+							<a th:href="@{/login.html}">登录</a>
+							<a th:href="@{/resiter.html}">注册</a>
+							<!--<span th:text="${session.currentUser.useraccount}"></span>-->
+						</li>
+						<li class="dropdown">
+							<a id="li-useraccount" class="dropdown-toggle" data-toggle="dropdown" >
+								账号:<span id="useraccount"></span>
+							</a>
+							<img  id="li-usericon" class="dropdown-toggle" data-toggle="dropdown" style="width:45px;height:45px; border-radius: 100%;">
+							<ul class="dropdown-menu" aria-labelledby="dropdownScale">
+								<li class="scale-item" ><a th:href="@{/personalDetails.html}"><span class="fa fa-edit"></span>个人信息</a></li>
+								<li class="scale-item" ><a th:href="@{/myOrder.html}"><span class="fa fa-edit" ></span>我的订单</a></li>
+								<li class="scale-item" ><a id="logout" >退出系统</a></li>
+							</ul>
+						</li>
+						<!--<li id="li-usericon">
+							<img id="icon" style="width: 50px;height: 50px;"></img>
+						</li>-->
+					</ul>
+				</div>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<!--头部结束-->
+		<div class="clear"></div>
+		<!--导航栏开始-->
+		<div class="nav">
+			<div class="inner">
+				<ul class="">
+					<li>
+						<p  onclick="functionone()">脸部护理</p>
+					</li>
+					<li>
+						<p  onclick="functionone()">身体护理</p>
+					</li>
+					<li>
+						<a href="#" onclick="functionone()">防晒隔离</a>
+					</li>
+					<li>
+						<a href="#">明星产品</a>
+					</li>
+					<li>
+						<a href="#">会员中心</a>
+					</li>
+					<li>
+						<a href="#">特惠礼盒</a>
+					</li>
+					<li>
+						<a href="#">品牌资讯</a>
+					</li>
+					<li>
+						<a href="#">关于我们</a>
+					</li>
+				</ul>
+				<div class="search">
+					<input type="text" placeholder="搜索三体" id="searchContent">
+					<span id="search"></span>
+				</div>
+			</div>
+		</div>
+		<!--导航栏结束-->
+
+
+		<!--广告开始-->
+		<div class="banner">
+			<div class="inner">
+				<img src="images/faceP1.jpg" alt="">
+				<div class="face">
+					<p>脸部护理</p>
+					<i>
+						碧欧泉产品蕴含大量的矿泉活性因子，<br>
+						帮助肌肤焕发光彩，重现年轻活力。
+					</i>
+				</div>
+			</div>
+
+		</div>
+		<!--广告结束-->
+		<div class="mian"  id="Table">
+			<div class="inner clearfix">
+				<div class="slide">
+					<h4>产品筛选</h4>
+					<div class="panel-group" id="accordion">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h4 class="panel-title">
+									<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+										按类型
+									</a>
+								</h4>
+							</div>
+							<div id="collapseOne" class="panel-collapse collapse in">
+								<div class="panel-body">
+									<div class="panel-body"><a id="gtone" @click="gtone()">类型1</a></div>
+									<div class="panel-body"><a id="gttwo" @click="gttwo()">类型2</a></div>
+									<div class="panel-body"><a id="gtthree" @click="gtthree()">类型3</a></div>
+									<div class="panel-body"><a id="gtfour" @click="gtfour()">类型4</a></div>
+								</div>
+							</div>
+						</div>
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h4 class="panel-title">
+									<a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+										按功能
+									</a>
+								</h4>
+							</div>
+							<div id="collapseTwo" class="panel-collapse collapse">
+								<div class="panel-body"><a id="gfone" @click="gfone()">功能1</a></div>
+								<div class="panel-body"> <a id="gftwo" @click="gftwo()">功能2</a></div>
+								<div class="panel-body"><a id="gfthree" @click="gfthree()">功能3</a></div>
+								<div class="panel-body"><a id="gffour" @click="gffour()">功能4</a></div>
+							</div>
+						</div>
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h4 class="panel-title">
+									<a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+										按系列
+									</a>
+								</h4>
+							</div>
+							<div id="collapseThree" class="panel-collapse collapse">
+								<div class="panel-body"><a id="gsone" @click="gsone()">系列1</a></div>
+								<div class="panel-body"><a id="gstwo"  @click="gstwo()">系列2</a></div>
+								<div class="panel-body"><a id="gsthree"  @click="gsthree()">系列3</a></div>
+								<div class="panel-body"><a id="gsfour"  @click="gsthree()">系列4</a></div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+				<div class="slideRight" >
+					<div class="container" style="width: 110%;">
+						<!-- <div class="row">
+							<button class="btn btn-primary btn-sm" @click="test()">点击获取数据</button>
+						</div> -->
+						<div class="row" id="publicadd">
+							<div class="col-md-4" id="pubblics" v-for="item in tableData">
+								<!--收藏按钮-->
+								<span id="comment"></span>
+								<!--产品照片-->
+								<!-- <img id="publicimages" :src=`images/${item.gphotoCode}`> </img> -->
+								<a  :href=`productDetail.html?goodsId=${item.goodsid}`><img id="publicimages" :src=`${item.gphotocode}` style="width: 150px;height: 150px;"> </img> </a>
+								<!--产品名称-->
+								<p id="pubblicname">{{ item.goodsname }}</p>
+								<!--产品详情-->
+								<p id="publicinfo">{{ item.goodsinfo }}</p>
+								<!--产品价格-->
+								<p id="publicprice">{{ item.goodsprice }}</p>
+								<br>
+								<br>
+								<!-- <button style="margin-bottom: 10px;">立即购买</button>
+								<button>加入购物车</button> -->
+							</div>
+						</div>
+						<div class="panel-footer">
+							<div class="row">
+								<div class="pager" id="pager"> <span class="form-inline">
+										<select class="form-control" name="pageSize" v- model="pageSize" v-on:change="showPage(1,true)" number>
+											<option value="9">9</option>
+											<option value="18">18</option>
+											<option value="27">27</option>
+										</select> </span> <template v-for="item in pageCount+1"> <span v-if="item==1" class="btn btn-default" @click="showPage(1)">首页</span>
+										<span v-if="item==1" class="btn btn-default" @click="showPage(pageCount-1)">上一页</span> 
+										<span v-if="item==1" class="btn btn-default" @click="showPage(item)">{{item}}</span> 
+										<span v-if="item==1&&item<showPagesStart-1" class="btn btn-default disabled">...</span> 
+										<span v-if="item>1&&item<=pageCount- 1&&item>=showPagesStart&&item<=showPageEnd&&item<=pageCount" class="btn btn- default" @click="showPage(item)">{{item}}</span> <span v-if="item==pageCount&&item>showPageEnd+1"
+										 class="btn btn-default disabled">...</span> 
+										 <span v-if="item==pageCount&&item>1" class="btn btn- default" @click="showPage(item)">{{item}}</span> 
+										 <span v-if="item==pageCount" class="btn btn-default" @click="showPage(pageCount+1)">上一页</span>
+										<span v-if="item==pageCount" class="btn btn-default" @click="showPage(pageCount)">尾页</span> </template> 
+										<span class="form-inline"> <input type="text" name="pageNum" class="pageIndex form-control" v-model="pageCurrent" @blur="showPage(pageCurrent,true)" style="width: 60px;text-align: center;"> </span>
+										<span class="form-inline">
+										{{pageCurrent}}/{{pageCount}}
+									</span> </div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+		</div>
+		</div>
+
+
+		<!--页脚开始-->
+		<div class="foot">
+			<div class="inner">
+				<ul>
+					<li>
+						<h1>脸部护理</h1>
+						<div>活泉系列-保湿</div>
+						<div>蓝源系列-抗老</div>
+						<div>奇迹系列-修护</div>
+						<div>滢澈皙白系列-美白</div>
+					</li>
+					<li>
+						<h1>身体护理</h1>
+						<div>凝乳丝滑系列-润肤</div>
+						<div>光感纤体系列-塑身</div>
+						<div>保湿香氛系列-香氛</div>
+						<div>阳光欢愉系列-清爽</div>
+					</li>
+					<li>
+						<h1>防晒隔离</h1>
+						<div>防晒</div>
+						<div>隔离</div>
+						<div>气垫</div>
+					</li>
+					<li>
+						<h1>品牌故事</h1>
+						<div>ThreeBody故事</div>
+						<div>逾60年致力于护肤 </div>
+						<div>ThreeBody灵魂成分 </div>
+						<div>ThreeBody的承诺 </div>
+					</li>
+					<li>
+						<h1>帮助中心</h1>
+						<div>订单查询</div>
+						<div>常见问题</div>
+						<div>联系我们</div>
+						<div>法律信息</div>
+						<div>网站地图</div>
+					</li>
+					<li class="footRight">
+						<h1>关注我们</h1>
+						<a href="https://weibo.com/u/6434760509"> <span style="color: red"></span></a>
+						<span id="wechat" style="color: lawngreen"></span>
+						<span id="phone" style="color: deepskyblue"></span>
+						<section class="wechat">
+							<p>了解详情请关注我们的官方微信号</p>
+							<img src="images/wechat.jpg" alt="">
+						</section>
+						<section class="phone">
+							<p>欢迎您致电我们的服务电话!</p>
+							<p>&emsp;15363391819</p>
+						</section>
+					</li>
+				</ul>
+				<div class="clear"></div>
+				<div class="copyright">
+					<p> ©ThreeBody男妆版权所有:韩山师范学院计算机与信息工程学院“三体”小组，其中成员有丘彪、徐奕海、杨小辉、廖伟俊、何佳佳、崔灵涛。
+					</p>
+					<p>
+						抄袭必追究法律责任。欢迎探讨学习！
+					</p>
+				</div>
+			</div>
+		</div>
+		<!--页脚结束-->
+
+		<!--js开始-->
+		<script src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js"></script>
+		<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
+
+
+		<script>
+			
+			var searchContentone = 1;
+			 //预加载
+			var searchContentones =sessionStorage.getItem("searchContent");
+			 console.log( searchContentones); 
+			
+			var geta=location.search;
+			var getactions= Number(geta.split("?goods=").join(""));
+			
+			console.log(getactions);
+			if(getactions > 0){
+				searchContentones =null;
+			}else{
+				getactions = -1;
+			}
+			
+			
+			//收藏特效开始
+			var $shoucang = $('.col-md-3 span');
+			$shoucang.click(function() {
+				if ($(this).css("color") == "rgb(128, 128, 128)") {
+					$(this).css("color", "red");
+				} else {
+					$(this).css("color", "grey");
+				}
+			});
+			//收藏特效结束
+			//<!--页脚“关注我们”模块特效开始-->
+			$('#wechat').mouseenter(function() {
+				$('.wechat').css({
+					display: "block"
+				})
+			}).mouseleave(function() {
+				$('.wechat').css({
+					display: "none"
+				})
+			})
+			$('#phone').mouseenter(function() {
+				$('.phone').css({
+					display: "block"
+				})
+			}).mouseleave(function() {
+				$('.phone').css({
+					display: "none"
+				})
+			})
+			//页脚“关注我们”模块特效结束-->
+
+		</script>
+		<script>
+			let vue = new Vue({
+				el: "#Table",
+				data: {
+					//分页数据 
+					tableData: [],
+					//总项目数 
+					totalCount: 200,
+					//分页数 
+					pageCount: 10,
+					//当前页面 
+					pageCurrent: 1,
+					//分页大小 
+					pageSize: 9,
+					//显示分页按钮数 
+					showPages: 6,
+					//开始显示的分页按钮 
+					showPagesStart: 1,
+					//结束显示的分页按钮 
+					showPageEnd: 100,
+					//访问接口路径（分页查询) 
+					url: '',
+					//访问接口参数urlData: '' 
+					two: getactions,
+					one: searchContentones,
+				},
+				created: function() {
+					//获取商家接口数据 
+					this.url = "http://192.168.1.102:8903/selectgoods";
+					this.urlData = {
+						goodsid: this.two,
+						goodsname: this.one,
+						order: "asc",
+						sort: "goodsid",
+						pageSize: this.pageSize,
+						pageNum: this.pageCurrent
+					};
+				},
+				methods: {
+					//分页方法 
+					showPage: function(pageIndex, forceRefresh) {
+						// console.log("我点击了分页按钮"+pageIndex); 
+						if (pageIndex > 0) {
+							if (pageIndex > this.pageCount) {
+								pageIndex = this.pageCount;
+							}
+							//处理分页点中样式 
+							var buttons = $("#pager").find("span");
+							for (var i = 0; i < buttons.length; i++) {
+								if (buttons.eq(i).html() != pageIndex) {
+									buttons.eq(i).removeClass("active");
+								} else {
+									buttons.eq(i).addClass("active");
+								}
+							}
+							//设置当前页==索引页 
+							this.pageCurrent = pageIndex;
+							this.urlData.pageNum = pageIndex;
+							this.urlData.pageSize = this.pageSize;
+							let that = this;
+							$.ajax({
+								type: "get",
+								url: this.url,
+								data: this.urlData,
+								success: function(data) {
+									console.log(data)
+									//设置显示的数据 
+									that.tableData = data.pagedatas.list;
+									//设置分页数数据 
+									that.pageCount = data.pagedatas.pages;
+									//设置数据总数 
+									that.totalCount = data.pagedatas.total;
+								},
+								error: function(data) {
+									console.log("访问用户全部信息失败");
+								}
+							});
+							//计算分页按钮数据 
+							if (this.pageCount > this.showPages) {
+								if (pageIndex <= (this.showPages - 1) / 2) {
+									this.showPagesStart = 1;
+									this.showPageEnd = this.showPages - 1;
+								} else if (pageIndex >= this.pageCount - (this.showPages - 3) / 2) {
+									this.showPagesStart = this.pageCount - this.showPages + 2;
+									this.showPageEnd = this.pageCount;
+								} else {
+									this.showPagesStart = pageIndex - (this.showPages - 3) / 2;
+									this.showPageEnd = pageIndex + (this.showPages - 3) / 2;
+								}
+							}
+						}
+					},
+
+					//点击事件的函数
+					gtone: function(){
+						console.log("我调用了gtoneClick函数")
+						this.url = "http://192.168.1.102:8903/selectgoodstype";
+						this.urlData = {
+							gtypeid: 1,
+							pageSize: this.pageSize,
+							pageNum: this.pageCurrent
+						};
+						this.showPage(1, true);
+					},
+					//点击事件的函数
+					gttwo: function(){
+						console.log("我调用了gttwoClick函数")
+						this.url = "http://192.168.1.102:8903/selectgoodstype";
+						this.urlData = {
+							gtypeid: 2,
+							pageSize: this.pageSize,
+							pageNum: this.pageCurrent
+						};
+						this.showPage(1, true);
+					},
+					//点击事件的函数
+					gtthree: function(){
+						console.log("我调用了gtthreeClick函数")
+						this.url = "http://192.168.1.102:8903/selectgoodstype";
+						this.urlData = {
+							gtypeid: 3,
+							pageSize: this.pageSize,
+							pageNum: this.pageCurrent
+						};
+						this.showPage(1, true);
+					},
+					//点击事件的函数
+					gtfour: function(){
+						console.log("我调用了gtfourClick函数")
+						this.url = "http://192.168.1.102:8903/selectgoodstype";
+						this.urlData = {
+							gtypeid: 4,
+							pageSize: this.pageSize,
+							pageNum: this.pageCurrent
+						};
+						this.showPage(1, true);
+					},
+					
+					//点击事件的函数
+					gfone: function(){
+						console.log("我调用了gfoneClick函数")
+						this.url = "http://192.168.1.102:8903/selectgoodsfunction";
+						this.urlData = {
+							gfid: 1,
+							pageSize: this.pageSize,
+							pageNum: this.pageCurrent
+						};
+						this.showPage(1, true);
+					},
+					//点击事件的函数
+					gftwo: function(){
+						console.log("我调用了gftwoClick函数")
+						this.url = "http://192.168.1.102:8903/selectgoodsfunction";
+						this.urlData = {
+							gfid: 2,
+							pageSize: this.pageSize,
+							pageNum: this.pageCurrent
+						};
+						this.showPage(1, true);
+					},
+					//点击事件的函数
+					gfthree: function(){
+						console.log("我调用了gfthreeClick函数")
+						this.url = "http://192.168.1.102:8903/selectgoodsfunction";
+						this.urlData = {
+							gfid: 3,
+							pageSize: this.pageSize,
+							pageNum: this.pageCurrent
+						};
+						this.showPage(1, true);
+					},
+					//点击事件的函数
+					gffour: function(){
+						console.log("我调用了gffourClick函数")
+						this.url = "http://192.168.1.102:8903/selectgoodsfunctione";
+						this.urlData = {
+							gfid: 4,
+							pageSize: this.pageSize,
+							pageNum: this.pageCurrent
+						};
+						this.showPage(1, true);
+					},
+					
+					//点击事件的函数
+					gsone: function(){
+						console.log("我调用了gsIdClick函数")
+						this.url = "http://192.168.1.102:8903/selectgoodsserie";
+						this.urlData = {
+							gsid: 1,
+							pageSize: this.pageSize,
+							pageNum: this.pageCurrent
+						};
+						this.showPage(1, true);
+					},
+					//点击事件的函数
+					gstwo: function(){
+						console.log("我调用了gstwoClick函数")
+						this.url = "http://192.168.1.102:8903/selectgoodsserie";
+						this.urlData = {
+							gsid: 2,
+							pageSize: this.pageSize,
+							pageNum: this.pageCurrent
+						};
+						this.showPage(1, true);
+					},
+					//点击事件的函数
+					gsthree: function(){
+						console.log("我调用了gsthreeClick函数")
+						this.url = "http://192.168.1.102:8903/selectgoodsserie";
+						this.urlData = {
+							gsid: 3,
+							pageSize: this.pageSize,
+							pageNum: this.pageCurrent
+						};
+						this.showPage(1, true);
+					},
+					//点击事件的函数
+					gsfour: function(){
+						console.log("我调用了gsfourClick函数")
+						this.url = "http://192.168.1.102:8903/selectgoodsserie";
+						this.urlData = {
+							gsid: 4,
+							pageSize: this.pageSize,
+							pageNum: this.pageCurrent
+						};
+						this.showPage(1, true);
+					},
+				}
+			});
+			 vue.showPage(1, true);
+				
+			 
+			 function functionone(){
+			 	window.location.href="productList.html?goods=1"
+			 }
+			
+
+		</script>
+		<script type="text/javascript" th:inline="javascript">
+			var currentUser = JSON.parse(sessionStorage.getItem("currentUser"));
+			console.log(currentUser);
+			if(currentUser != null){
+				var useraccount = currentUser.useraccount;
+				var usericon = currentUser.usericon;
+				if(usericon != null){
+					$("#li-login").css({display: "none"});
+					$("#li-useraccount").css({display: "none"});
+					$("#li-usericon").css({display: "block"});
+					$("#li-usericon").attr("src",usericon);
+				}else if(useraccount != null){
+					$("#li-login").css({display: "none"});
+					$("#li-usericon").css({display: "none"});
+					$("#li-useraccount").css({display: "block"});
+					$("#useraccount").text(useraccount);
+				}
+			}else{
+				$("#li-login").css({display: "block"});
+				$("#li-usericon").css({display: "none"});
+				$("#li-useraccount").css({display: "none"});
+			}
+			$('#logout').click(function () {
+				sessionStorage.removeItem("currentUser");
+				location.href = "login.html";
+			});
+		</script>
+		<!--js结束-->
+	</body>
+</html>

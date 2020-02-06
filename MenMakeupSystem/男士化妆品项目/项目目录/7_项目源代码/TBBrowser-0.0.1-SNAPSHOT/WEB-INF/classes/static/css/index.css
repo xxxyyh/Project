@@ -1,0 +1,66 @@
+/*广告栏开始*/
+.banner{
+    width: 1440px;
+    margin: 0 auto;
+
+}
+.banner img {
+    display: inline-block;
+}
+
+
+.productdisplay li {
+    margin-top: 30px;
+    float: left;
+    position: relative;
+
+}
+.productdisplay .center {
+
+    margin: 30px 78px 0;
+}
+.productdisplay span {
+    color: white;
+    position: absolute;
+    top:20px;
+    left: 30px;
+}
+.productdisplay i {
+    width: 100px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    border: 1px solid #ffffff;
+    color: white;
+    position: absolute;
+    top: 70px;
+    left: 30px;
+}
+/*广告栏结束*/
+
+
+/*脸部产品开始*/
+.faceProduct {
+    margin: 30px ;
+    background-color: #fff;
+    text-align: center;
+}
+
+.faceProduct b {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    border: 1px solid black;
+    text-align: center;
+    line-height: 40px;
+    color: white;
+    background-color: #160808;
+    margin-bottom: 30px;
+}
+.faceProduct .swiper-slide img {
+    width: 170px;
+}
+.swiper-slide p {
+    margin-top: 15px;
+}
+/*脸部产品结束*/

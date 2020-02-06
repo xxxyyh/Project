@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.threebody.orders.mapper.ShoppingCartMapper" >
+  <resultMap id="BaseResultMap" type="com.threebody.orders.entity.ShoppingCart" >
+    <id column="shoppingCartId" property="shoppingcartid" jdbcType="INTEGER" />
+    <result column="userId" property="userid" jdbcType="INTEGER" />
+    <result column="goodsId" property="goodsid" jdbcType="INTEGER" />
+    <result column="goodsNum" property="goodsnum" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    shoppingCartId, userId, goodsId, goodsNum
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.threebody.orders.entity.ShoppingCartExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from shoppingcart
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from shoppingcart
+    where shoppingCartId = #{shoppingcartid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from shoppingcart
+    where shoppingCartId = #{shoppingcartid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.threebody.orders.entity.ShoppingCartExample" >
+    delete from shoppingcart
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.threebody.orders.entity.ShoppingCart" >
+    insert into shoppingcart (shoppingCartId, userId, goodsId, 
+      goodsNum)
+    values (#{shoppingcartid,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{goodsid,jdbcType=INTEGER}, 
+      #{goodsnum,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.threebody.orders.entity.ShoppingCart" >
+    insert into shoppingcart
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="shoppingcartid != null" >
+        shoppingCartId,
+      </if>
+      <if test="userid != null" >
+        userId,
+      </if>
+      <if test="goodsid != null" >
+        goodsId,
+      </if>
+      <if test="goodsnum != null" >
+        goodsNum,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="shoppingcartid != null" >
+        #{shoppingcartid,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="goodsid != null" >
+        #{goodsid,jdbcType=INTEGER},
+      </if>
+      <if test="goodsnum != null" >
+        #{goodsnum,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.threebody.orders.entity.ShoppingCartExample" resultType="java.lang.Integer" >
+    select count(*) from shoppingcart
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update shoppingcart
+    <set >
+      <if test="record.shoppingcartid != null" >
+        shoppingCartId = #{record.shoppingcartid,jdbcType=INTEGER},
+      </if>
+      <if test="record.userid != null" >
+        userId = #{record.userid,jdbcType=INTEGER},
+      </if>
+      <if test="record.goodsid != null" >
+        goodsId = #{record.goodsid,jdbcType=INTEGER},
+      </if>
+      <if test="record.goodsnum != null" >
+        goodsNum = #{record.goodsnum,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update shoppingcart
+    set shoppingCartId = #{record.shoppingcartid,jdbcType=INTEGER},
+      userId = #{record.userid,jdbcType=INTEGER},
+      goodsId = #{record.goodsid,jdbcType=INTEGER},
+      goodsNum = #{record.goodsnum,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.threebody.orders.entity.ShoppingCart" >
+    update shoppingcart
+    <set >
+      <if test="userid != null" >
+        userId = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="goodsid != null" >
+        goodsId = #{goodsid,jdbcType=INTEGER},
+      </if>
+      <if test="goodsnum != null" >
+        goodsNum = #{goodsnum,jdbcType=INTEGER},
+      </if>
+    </set>
+    where shoppingCartId = #{shoppingcartid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.threebody.orders.entity.ShoppingCart" >
+    update shoppingcart
+    set userId = #{userid,jdbcType=INTEGER},
+      goodsId = #{goodsid,jdbcType=INTEGER},
+      goodsNum = #{goodsnum,jdbcType=INTEGER}
+    where shoppingCartId = #{shoppingcartid,jdbcType=INTEGER}
+  </update>
+</mapper>

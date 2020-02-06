@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.threebody.shoppingcart.mapper.AdminsMapper" >
+  <resultMap id="BaseResultMap" type="com.threebody.shoppingcart.entity.Admins" >
+    <id column="adminId" property="adminid" jdbcType="INTEGER" />
+    <result column="adminAccount" property="adminaccount" jdbcType="VARCHAR" />
+    <result column="adminPetName" property="adminpetname" jdbcType="VARCHAR" />
+    <result column="adminPassword" property="adminpassword" jdbcType="VARCHAR" />
+    <result column="adminIdentify" property="adminidentify" jdbcType="VARCHAR" />
+    <result column="adminGrade" property="admingrade" jdbcType="INTEGER" />
+    <result column="adminState" property="adminstate" jdbcType="VARCHAR" />
+    <result column="adminTel" property="admintel" jdbcType="VARCHAR" />
+    <result column="adminIdcard" property="adminidcard" jdbcType="VARCHAR" />
+    <result column="adminEmail" property="adminemail" jdbcType="VARCHAR" />
+    <result column="adminAge" property="adminage" jdbcType="INTEGER" />
+    <result column="adminBirth" property="adminbirth" jdbcType="DATE" />
+    <result column="adminIcon" property="adminicon" jdbcType="VARCHAR" />
+    <result column="adminIntegral" property="adminintegral" jdbcType="INTEGER" />
+    <result column="adminLoginTime" property="adminlogintime" jdbcType="TIMESTAMP" />
+    <result column="adminRegisterTime" property="adminregistertime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    adminId, adminAccount, adminPetName, adminPassword, adminIdentify, adminGrade, adminState, 
+    adminTel, adminIdcard, adminEmail, adminAge, adminBirth, adminIcon, adminIntegral, 
+    adminLoginTime, adminRegisterTime
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.threebody.shoppingcart.entity.AdminsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from admins
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from admins
+    where adminId = #{adminid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from admins
+    where adminId = #{adminid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.threebody.shoppingcart.entity.AdminsExample" >
+    delete from admins
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.threebody.shoppingcart.entity.Admins" >
+    insert into admins (adminId, adminAccount, adminPetName, 
+      adminPassword, adminIdentify, adminGrade, 
+      adminState, adminTel, adminIdcard, 
+      adminEmail, adminAge, adminBirth, 
+      adminIcon, adminIntegral, adminLoginTime, 
+      adminRegisterTime)
+    values (#{adminid,jdbcType=INTEGER}, #{adminaccount,jdbcType=VARCHAR}, #{adminpetname,jdbcType=VARCHAR}, 
+      #{adminpassword,jdbcType=VARCHAR}, #{adminidentify,jdbcType=VARCHAR}, #{admingrade,jdbcType=INTEGER}, 
+      #{adminstate,jdbcType=VARCHAR}, #{admintel,jdbcType=VARCHAR}, #{adminidcard,jdbcType=VARCHAR}, 
+      #{adminemail,jdbcType=VARCHAR}, #{adminage,jdbcType=INTEGER}, #{adminbirth,jdbcType=DATE}, 
+      #{adminicon,jdbcType=VARCHAR}, #{adminintegral,jdbcType=INTEGER}, #{adminlogintime,jdbcType=TIMESTAMP}, 
+      #{adminregistertime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.threebody.shoppingcart.entity.Admins" >
+    insert into admins
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="adminid != null" >
+        adminId,
+      </if>
+      <if test="adminaccount != null" >
+        adminAccount,
+      </if>
+      <if test="adminpetname != null" >
+        adminPetName,
+      </if>
+      <if test="adminpassword != null" >
+        adminPassword,
+      </if>
+      <if test="adminidentify != null" >
+        adminIdentify,
+      </if>
+      <if test="admingrade != null" >
+        adminGrade,
+      </if>
+      <if test="adminstate != null" >
+        adminState,
+      </if>
+      <if test="admintel != null" >
+        adminTel,
+      </if>
+      <if test="adminidcard != null" >
+        adminIdcard,
+      </if>
+      <if test="adminemail != null" >
+        adminEmail,
+      </if>
+      <if test="adminage != null" >
+        adminAge,
+      </if>
+      <if test="adminbirth != null" >
+        adminBirth,
+      </if>
+      <if test="adminicon != null" >
+        adminIcon,
+      </if>
+      <if test="adminintegral != null" >
+        adminIntegral,
+      </if>
+      <if test="adminlogintime != null" >
+        adminLoginTime,
+      </if>
+      <if test="adminregistertime != null" >
+        adminRegisterTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="adminid != null" >
+        #{adminid,jdbcType=INTEGER},
+      </if>
+      <if test="adminaccount != null" >
+        #{adminaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="adminpetname != null" >
+        #{adminpetname,jdbcType=VARCHAR},
+      </if>
+      <if test="adminpassword != null" >
+        #{adminpassword,jdbcType=VARCHAR},
+      </if>
+      <if test="adminidentify != null" >
+        #{adminidentify,jdbcType=VARCHAR},
+      </if>
+      <if test="admingrade != null" >
+        #{admingrade,jdbcType=INTEGER},
+      </if>
+      <if test="adminstate != null" >
+        #{adminstate,jdbcType=VARCHAR},
+      </if>
+      <if test="admintel != null" >
+        #{admintel,jdbcType=VARCHAR},
+      </if>
+      <if test="adminidcard != null" >
+        #{adminidcard,jdbcType=VARCHAR},
+      </if>
+      <if test="adminemail != null" >
+        #{adminemail,jdbcType=VARCHAR},
+      </if>
+      <if test="adminage != null" >
+        #{adminage,jdbcType=INTEGER},
+      </if>
+      <if test="adminbirth != null" >
+        #{adminbirth,jdbcType=DATE},
+      </if>
+      <if test="adminicon != null" >
+        #{adminicon,jdbcType=VARCHAR},
+      </if>
+      <if test="adminintegral != null" >
+        #{adminintegral,jdbcType=INTEGER},
+      </if>
+      <if test="adminlogintime != null" >
+        #{adminlogintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="adminregistertime != null" >
+        #{adminregistertime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.threebody.shoppingcart.entity.AdminsExample" resultType="java.lang.Integer" >
+    select count(*) from admins
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update admins
+    <set >
+      <if test="record.adminid != null" >
+        adminId = #{record.adminid,jdbcType=INTEGER},
+      </if>
+      <if test="record.adminaccount != null" >
+        adminAccount = #{record.adminaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.adminpetname != null" >
+        adminPetName = #{record.adminpetname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.adminpassword != null" >
+        adminPassword = #{record.adminpassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.adminidentify != null" >
+        adminIdentify = #{record.adminidentify,jdbcType=VARCHAR},
+      </if>
+      <if test="record.admingrade != null" >
+        adminGrade = #{record.admingrade,jdbcType=INTEGER},
+      </if>
+      <if test="record.adminstate != null" >
+        adminState = #{record.adminstate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.admintel != null" >
+        adminTel = #{record.admintel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.adminidcard != null" >
+        adminIdcard = #{record.adminidcard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.adminemail != null" >
+        adminEmail = #{record.adminemail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.adminage != null" >
+        adminAge = #{record.adminage,jdbcType=INTEGER},
+      </if>
+      <if test="record.adminbirth != null" >
+        adminBirth = #{record.adminbirth,jdbcType=DATE},
+      </if>
+      <if test="record.adminicon != null" >
+        adminIcon = #{record.adminicon,jdbcType=VARCHAR},
+      </if>
+      <if test="record.adminintegral != null" >
+        adminIntegral = #{record.adminintegral,jdbcType=INTEGER},
+      </if>
+      <if test="record.adminlogintime != null" >
+        adminLoginTime = #{record.adminlogintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.adminregistertime != null" >
+        adminRegisterTime = #{record.adminregistertime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update admins
+    set adminId = #{record.adminid,jdbcType=INTEGER},
+      adminAccount = #{record.adminaccount,jdbcType=VARCHAR},
+      adminPetName = #{record.adminpetname,jdbcType=VARCHAR},
+      adminPassword = #{record.adminpassword,jdbcType=VARCHAR},
+      adminIdentify = #{record.adminidentify,jdbcType=VARCHAR},
+      adminGrade = #{record.admingrade,jdbcType=INTEGER},
+      adminState = #{record.adminstate,jdbcType=VARCHAR},
+      adminTel = #{record.admintel,jdbcType=VARCHAR},
+      adminIdcard = #{record.adminidcard,jdbcType=VARCHAR},
+      adminEmail = #{record.adminemail,jdbcType=VARCHAR},
+      adminAge = #{record.adminage,jdbcType=INTEGER},
+      adminBirth = #{record.adminbirth,jdbcType=DATE},
+      adminIcon = #{record.adminicon,jdbcType=VARCHAR},
+      adminIntegral = #{record.adminintegral,jdbcType=INTEGER},
+      adminLoginTime = #{record.adminlogintime,jdbcType=TIMESTAMP},
+      adminRegisterTime = #{record.adminregistertime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.threebody.shoppingcart.entity.Admins" >
+    update admins
+    <set >
+      <if test="adminaccount != null" >
+        adminAccount = #{adminaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="adminpetname != null" >
+        adminPetName = #{adminpetname,jdbcType=VARCHAR},
+      </if>
+      <if test="adminpassword != null" >
+        adminPassword = #{adminpassword,jdbcType=VARCHAR},
+      </if>
+      <if test="adminidentify != null" >
+        adminIdentify = #{adminidentify,jdbcType=VARCHAR},
+      </if>
+      <if test="admingrade != null" >
+        adminGrade = #{admingrade,jdbcType=INTEGER},
+      </if>
+      <if test="adminstate != null" >
+        adminState = #{adminstate,jdbcType=VARCHAR},
+      </if>
+      <if test="admintel != null" >
+        adminTel = #{admintel,jdbcType=VARCHAR},
+      </if>
+      <if test="adminidcard != null" >
+        adminIdcard = #{adminidcard,jdbcType=VARCHAR},
+      </if>
+      <if test="adminemail != null" >
+        adminEmail = #{adminemail,jdbcType=VARCHAR},
+      </if>
+      <if test="adminage != null" >
+        adminAge = #{adminage,jdbcType=INTEGER},
+      </if>
+      <if test="adminbirth != null" >
+        adminBirth = #{adminbirth,jdbcType=DATE},
+      </if>
+      <if test="adminicon != null" >
+        adminIcon = #{adminicon,jdbcType=VARCHAR},
+      </if>
+      <if test="adminintegral != null" >
+        adminIntegral = #{adminintegral,jdbcType=INTEGER},
+      </if>
+      <if test="adminlogintime != null" >
+        adminLoginTime = #{adminlogintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="adminregistertime != null" >
+        adminRegisterTime = #{adminregistertime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where adminId = #{adminid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.threebody.shoppingcart.entity.Admins" >
+    update admins
+    set adminAccount = #{adminaccount,jdbcType=VARCHAR},
+      adminPetName = #{adminpetname,jdbcType=VARCHAR},
+      adminPassword = #{adminpassword,jdbcType=VARCHAR},
+      adminIdentify = #{adminidentify,jdbcType=VARCHAR},
+      adminGrade = #{admingrade,jdbcType=INTEGER},
+      adminState = #{adminstate,jdbcType=VARCHAR},
+      adminTel = #{admintel,jdbcType=VARCHAR},
+      adminIdcard = #{adminidcard,jdbcType=VARCHAR},
+      adminEmail = #{adminemail,jdbcType=VARCHAR},
+      adminAge = #{adminage,jdbcType=INTEGER},
+      adminBirth = #{adminbirth,jdbcType=DATE},
+      adminIcon = #{adminicon,jdbcType=VARCHAR},
+      adminIntegral = #{adminintegral,jdbcType=INTEGER},
+      adminLoginTime = #{adminlogintime,jdbcType=TIMESTAMP},
+      adminRegisterTime = #{adminregistertime,jdbcType=TIMESTAMP}
+    where adminId = #{adminid,jdbcType=INTEGER}
+  </update>
+</mapper>

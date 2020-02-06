@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.threebody.orders.mapper.OrderInfoMapper" >
+  <select id="selectOrdersAll" resultType="map">
+    select users.userId as userid,users.userAccount as useraccount,users.userName as username,users.userPetName as userpetname, users.userTel as usertel,users.userSex as usersex,users.userIcon as usericon,users.userIdcard as useridcard,
+    userorders.ordersId as ordersid,DATE_FORMAT(orderDate,'%Y-%m-%d %H:%i:%s') as orderdate,userAddr as useraddr,p.amount as amount,isPay as ispay
+    from userorders
+    inner join users on users.userId = userorders.userId
+	inner join (SELECT t.ordersId,SUM(t.amount) as amount
+	from(SELECT ordersId,itemsNum*goodsPrice as amount 	
+	from orderitems,goods where orderitems.goodId=goods.goodsId)t 
+	GROUP BY t.ordersId)p on p.ordersId = userorders.ordersId
+  </select>
+  <select id="selectOrderByUserId" resultType="map">
+    select users.userId as userid,users.userAccount as useraccount,users.userName as username,users.userPetName as userpetname, users.userTel as usertel,users.userSex as usersex,users.userIcon as usericon,users.userIdcard as useridcard,
+    userorders.ordersId as ordersid,DATE_FORMAT(orderDate,'%Y-%m-%d %H:%i:%s') as orderdate,userAddr as useraddr,p.amount as amount,isPay as ispay
+    from userorders
+    inner join users on users.userId = userorders.userId
+    inner join (SELECT t.ordersId,SUM(t.amount) as amount
+	from(SELECT ordersId,itemsNum*goodsPrice as amount 	
+	from orderitems,goods where orderitems.goodId=goods.goodsId)t 
+	GROUP BY t.ordersId)p on p.ordersId = userorders.ordersId
+    where userorders.userId = #{userid}
+  </select>
+  <select id="selectOrderByOrderId" resultType="map">
+    select users.userId as userid,users.userAccount as useraccount,users.userName as username,users.userPetName as userpetname, users.userTel as usertel,users.userSex as usersex,users.userIcon as usericon,users.userIdcard as useridcard,
+    userorders.ordersId as ordersid,DATE_FORMAT(orderDate,'%Y-%m-%d %H:%i:%s') as orderdate,userAddr as useraddr,p.amount as amount,isPay as ispay
+    from userorders
+    inner join users on users.userId = userorders.userId
+    inner join (SELECT t.ordersId,SUM(t.amount) as amount
+	from(SELECT ordersId,itemsNum*goodsPrice as amount 	
+	from orderitems,goods where orderitems.goodId=goods.goodsId)t 
+	GROUP BY t.ordersId)p on p.ordersId = userorders.ordersId
+    where userorders.ordersId = #{orderid}
+  </select>
+  <select id="selectOrderByAdminId" resultType="map">
+    SELECT orderitems.ordersId as orderid,orderitems.itemsNum as itemsnum,
+	goods.goodsId as goodsid,goods.goodsName as goodsname,
+	users.userAccount as useraccount,DATE_FORMAT(userorders.orderDate,'%Y-%m-%d %H:%i:%s') as orderdate,userorders.userAddr as useraddr
+	FROM admins
+	INNER JOIN goods ON admins.adminId = goods.adminId
+	INNER JOIN orderitems ON orderitems.goodId = goodsId
+	INNER JOIN userorders ON userorders.ordersId = orderitems.ordersId
+	INNER JOIN users ON users.userId = userorders.userId
+	WHERE admins.adminId = #{adminid}
+	<if test="orderid !=null and orderid !=''">
+       and orderitems.ordersid = #{orderid}
+    </if>
+  </select>
+  
+  <select id="selectOrderItemByOrderId" resultType="map">
+    select t2.userId as userid,t2.userAccount as useraccount,t2.userName as username,t2.userPetName as userpetname, t2.userTel as usertel,t2.userSex as usersex,t2.userIcon as usericon,t2.userIdcard as useridcard,
+    ordersId as ordersid,DATE_FORMAT(t2.orderDate,'%Y-%m-%d %H:%i:%s') as orderdate,t2.userAddr as useraddr,t2.isPay as ispay,goods.goodsId as goodsid,goods.goodsName as goodsname,goods.goodsPrice as goodsprice,goods.goodsBrand as goodsbrand,goods.goodsInfo as goodsinfo,itemsNum as itemsnum
+    from orderitems,
+    (SELECT users.*,orderDate,userAddr,isPay from users INNER JOIN (SELECT userorders.* from userorders where userorders.ordersId = #{orderid})t1 on users.userId = t1.userId)t2,
+	goods
+    where goods.goodsId = orderitems.goodId and orderitems.ordersId = #{orderid}
+  </select>
+</mapper>

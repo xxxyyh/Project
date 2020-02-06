@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.threebody.admins.mapper.GoodsMapper" >
+  <resultMap id="BaseResultMap" type="com.threebody.admins.entity.Goods" >
+    <id column="goodsId" property="goodsid" jdbcType="INTEGER" />
+    <result column="goodsName" property="goodsname" jdbcType="VARCHAR" />
+    <result column="adminId" property="adminid" jdbcType="INTEGER" />
+    <result column="goodsState" property="goodsstate" jdbcType="VARCHAR" />
+    <result column="goodsPrice" property="goodsprice" jdbcType="DOUBLE" />
+    <result column="goodsBrand" property="goodsbrand" jdbcType="VARCHAR" />
+    <result column="goodsStock" property="goodsstock" jdbcType="INTEGER" />
+    <result column="gfId" property="gfid" jdbcType="INTEGER" />
+    <result column="gtypeId" property="gtypeid" jdbcType="INTEGER" />
+    <result column="gsId" property="gsid" jdbcType="INTEGER" />
+    <result column="goodsInfo" property="goodsinfo" jdbcType="VARCHAR" />
+    <result column="goodsRegisterTime" property="goodsregistertime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    goodsId, goodsName, adminId, goodsState, goodsPrice, goodsBrand, goodsStock, gfId, 
+    gtypeId, gsId, goodsInfo, goodsRegisterTime
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.threebody.admins.entity.GoodsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from goods
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from goods
+    where goodsId = #{goodsid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from goods
+    where goodsId = #{goodsid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.threebody.admins.entity.GoodsExample" >
+    delete from goods
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.threebody.admins.entity.Goods" >
+    insert into goods (goodsId, goodsName, adminId, 
+      goodsState, goodsPrice, goodsBrand, 
+      goodsStock, gfId, gtypeId, 
+      gsId, goodsInfo, goodsRegisterTime
+      )
+    values (#{goodsid,jdbcType=INTEGER}, #{goodsname,jdbcType=VARCHAR}, #{adminid,jdbcType=INTEGER}, 
+      #{goodsstate,jdbcType=VARCHAR}, #{goodsprice,jdbcType=DOUBLE}, #{goodsbrand,jdbcType=VARCHAR}, 
+      #{goodsstock,jdbcType=INTEGER}, #{gfid,jdbcType=INTEGER}, #{gtypeid,jdbcType=INTEGER}, 
+      #{gsid,jdbcType=INTEGER}, #{goodsinfo,jdbcType=VARCHAR}, #{goodsregistertime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.threebody.admins.entity.Goods" >
+    insert into goods
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="goodsid != null" >
+        goodsId,
+      </if>
+      <if test="goodsname != null" >
+        goodsName,
+      </if>
+      <if test="adminid != null" >
+        adminId,
+      </if>
+      <if test="goodsstate != null" >
+        goodsState,
+      </if>
+      <if test="goodsprice != null" >
+        goodsPrice,
+      </if>
+      <if test="goodsbrand != null" >
+        goodsBrand,
+      </if>
+      <if test="goodsstock != null" >
+        goodsStock,
+      </if>
+      <if test="gfid != null" >
+        gfId,
+      </if>
+      <if test="gtypeid != null" >
+        gtypeId,
+      </if>
+      <if test="gsid != null" >
+        gsId,
+      </if>
+      <if test="goodsinfo != null" >
+        goodsInfo,
+      </if>
+      <if test="goodsregistertime != null" >
+        goodsRegisterTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="goodsid != null" >
+        #{goodsid,jdbcType=INTEGER},
+      </if>
+      <if test="goodsname != null" >
+        #{goodsname,jdbcType=VARCHAR},
+      </if>
+      <if test="adminid != null" >
+        #{adminid,jdbcType=INTEGER},
+      </if>
+      <if test="goodsstate != null" >
+        #{goodsstate,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsprice != null" >
+        #{goodsprice,jdbcType=DOUBLE},
+      </if>
+      <if test="goodsbrand != null" >
+        #{goodsbrand,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsstock != null" >
+        #{goodsstock,jdbcType=INTEGER},
+      </if>
+      <if test="gfid != null" >
+        #{gfid,jdbcType=INTEGER},
+      </if>
+      <if test="gtypeid != null" >
+        #{gtypeid,jdbcType=INTEGER},
+      </if>
+      <if test="gsid != null" >
+        #{gsid,jdbcType=INTEGER},
+      </if>
+      <if test="goodsinfo != null" >
+        #{goodsinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsregistertime != null" >
+        #{goodsregistertime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.threebody.admins.entity.GoodsExample" resultType="java.lang.Integer" >
+    select count(*) from goods
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update goods
+    <set >
+      <if test="record.goodsid != null" >
+        goodsId = #{record.goodsid,jdbcType=INTEGER},
+      </if>
+      <if test="record.goodsname != null" >
+        goodsName = #{record.goodsname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.adminid != null" >
+        adminId = #{record.adminid,jdbcType=INTEGER},
+      </if>
+      <if test="record.goodsstate != null" >
+        goodsState = #{record.goodsstate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodsprice != null" >
+        goodsPrice = #{record.goodsprice,jdbcType=DOUBLE},
+      </if>
+      <if test="record.goodsbrand != null" >
+        goodsBrand = #{record.goodsbrand,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodsstock != null" >
+        goodsStock = #{record.goodsstock,jdbcType=INTEGER},
+      </if>
+      <if test="record.gfid != null" >
+        gfId = #{record.gfid,jdbcType=INTEGER},
+      </if>
+      <if test="record.gtypeid != null" >
+        gtypeId = #{record.gtypeid,jdbcType=INTEGER},
+      </if>
+      <if test="record.gsid != null" >
+        gsId = #{record.gsid,jdbcType=INTEGER},
+      </if>
+      <if test="record.goodsinfo != null" >
+        goodsInfo = #{record.goodsinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodsregistertime != null" >
+        goodsRegisterTime = #{record.goodsregistertime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update goods
+    set goodsId = #{record.goodsid,jdbcType=INTEGER},
+      goodsName = #{record.goodsname,jdbcType=VARCHAR},
+      adminId = #{record.adminid,jdbcType=INTEGER},
+      goodsState = #{record.goodsstate,jdbcType=VARCHAR},
+      goodsPrice = #{record.goodsprice,jdbcType=DOUBLE},
+      goodsBrand = #{record.goodsbrand,jdbcType=VARCHAR},
+      goodsStock = #{record.goodsstock,jdbcType=INTEGER},
+      gfId = #{record.gfid,jdbcType=INTEGER},
+      gtypeId = #{record.gtypeid,jdbcType=INTEGER},
+      gsId = #{record.gsid,jdbcType=INTEGER},
+      goodsInfo = #{record.goodsinfo,jdbcType=VARCHAR},
+      goodsRegisterTime = #{record.goodsregistertime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.threebody.admins.entity.Goods" >
+    update goods
+    <set >
+      <if test="goodsname != null" >
+        goodsName = #{goodsname,jdbcType=VARCHAR},
+      </if>
+      <if test="adminid != null" >
+        adminId = #{adminid,jdbcType=INTEGER},
+      </if>
+      <if test="goodsstate != null" >
+        goodsState = #{goodsstate,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsprice != null" >
+        goodsPrice = #{goodsprice,jdbcType=DOUBLE},
+      </if>
+      <if test="goodsbrand != null" >
+        goodsBrand = #{goodsbrand,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsstock != null" >
+        goodsStock = #{goodsstock,jdbcType=INTEGER},
+      </if>
+      <if test="gfid != null" >
+        gfId = #{gfid,jdbcType=INTEGER},
+      </if>
+      <if test="gtypeid != null" >
+        gtypeId = #{gtypeid,jdbcType=INTEGER},
+      </if>
+      <if test="gsid != null" >
+        gsId = #{gsid,jdbcType=INTEGER},
+      </if>
+      <if test="goodsinfo != null" >
+        goodsInfo = #{goodsinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsregistertime != null" >
+        goodsRegisterTime = #{goodsregistertime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where goodsId = #{goodsid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.threebody.admins.entity.Goods" >
+    update goods
+    set goodsName = #{goodsname,jdbcType=VARCHAR},
+      adminId = #{adminid,jdbcType=INTEGER},
+      goodsState = #{goodsstate,jdbcType=VARCHAR},
+      goodsPrice = #{goodsprice,jdbcType=DOUBLE},
+      goodsBrand = #{goodsbrand,jdbcType=VARCHAR},
+      goodsStock = #{goodsstock,jdbcType=INTEGER},
+      gfId = #{gfid,jdbcType=INTEGER},
+      gtypeId = #{gtypeid,jdbcType=INTEGER},
+      gsId = #{gsid,jdbcType=INTEGER},
+      goodsInfo = #{goodsinfo,jdbcType=VARCHAR},
+      goodsRegisterTime = #{goodsregistertime,jdbcType=TIMESTAMP}
+    where goodsId = #{goodsid,jdbcType=INTEGER}
+  </update>
+</mapper>

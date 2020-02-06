@@ -1,0 +1,19 @@
+spring: 
+  application:   
+    name: eureka-client-customer-useraddress
+    
+server: 
+  port: 8909
+  
+#feign自带断路器
+feign: 
+  hystrix:    enabled: false 
+
+#Eureka注册到服务中心
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://192.168.1.112:8761/eureka/    #注册中心地址
+  instance: 
+    preferIpAddress: true
+    instance-id: ${spring.cloud.client.ipAddress}:${server.port}

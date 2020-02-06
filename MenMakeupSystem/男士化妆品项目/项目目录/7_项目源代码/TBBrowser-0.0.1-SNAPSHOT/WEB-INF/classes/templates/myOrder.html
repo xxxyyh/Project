@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html xmlns:th="http:www.thymeleaf.org">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>我的订单</title>
+		<link rel="stylesheet" th:href="@{/css/base.css}">
+		<link rel="stylesheet" th:href="@{/css/bootstrap.css}">
+		<link rel="stylesheet" th:href="@{/css/bootstrap-table.css}">
+		<link rel="stylesheet" th:href="@{/css/bootstrap-theme.css}">
+		<link rel="stylesheet" th:href="@{/css/bootstrap-dropdownhover.min.css}">
+		<link rel="stylesheet" th:href="@{/css/toastr.css}">
+	</head>
+
+	<body>
+		<!--头部开始-->
+		<div class="header ">
+			<div class="inner">
+				<div class="left clearfix">
+					<a th:href="@{/index.html}">
+						<img th:src="@{/images/logo.png}" alt="">
+					</a>
+				</div>
+				<div class="right">
+					<ul class="clearfix">
+						<li>
+							<a th:href="@{/index.html}">首页</a>
+						</li>
+						<li>
+							<a href="#">全部产品</a>
+						</li>
+						<li>
+							<a href="#">专柜地址</a>
+						</li>
+						<li>
+							<a href="#" style="margin-right: 50px">客服中心</a>
+						</li>
+						<li>
+							<a href="#">订阅电子杂志</a>
+						</li>
+						<li>
+							<a th:href="@{aboutUs.html}">我的购物车<span></span></a>
+						</li>
+						<li id="li-login">
+							<a th:href="@{/login.html}">登录</a>
+							<a th:href="@{/resiter.html}">注册</a>
+							<!--<span th:text="${session.currentUser.useraccount}"></span>-->
+						</li>
+						<li class="dropdown">
+							<a id="li-useraccount" class="dropdown-toggle" data-toggle="dropdown" >
+								账号:<span id="useraccount"></span>
+							</a>
+							<img  id="li-usericon" class="dropdown-toggle" data-toggle="dropdown" style="width:45px;height:45px; border-radius: 100%;">
+							<ul class="dropdown-menu" aria-labelledby="dropdownScale">
+								<li class="scale-item" ><a th:href="@{/personalDetails.html}"><span class="fa fa-edit"></span>个人信息</a></li>
+								<li class="scale-item" ><a th:href="@{/myOrder.html}"><span class="fa fa-edit" ></span>我的订单</a></li>
+								<li class="scale-item" ><a th:href="logout">退出系统</a></li>
+							</ul>
+						</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<!--头部结束-->
+		<div class="clear"></div>
+		<!--导航栏开始-->
+		<div class="nav">
+			<div class="inner">
+				<ul class="clearfix">
+					<li>
+						<a href="#">脸部护理</a>
+					</li>
+					<li>
+						<a href="#">身体护理</a>
+					</li>
+					<li>
+						<a href="#">防晒隔离</a>
+					</li>
+					<li>
+						<a href="#">明星产品</a>
+					</li>
+					<li>
+						<a href="#">会员中心</a>
+					</li>
+					<li>
+						<a href="#">特惠礼盒</a>
+					</li>
+					<li>
+						<a href="#">品牌资讯</a>
+					</li>
+					<li>
+						<a href="#">关于我们</a>
+					</li>
+				</ul>
+				<div class="search">
+					<input type="text" placeholder="搜索三体">
+					<span></span>
+				</div>
+			</div>
+		</div>
+		<!--导航栏结束-->
+
+		<!-- 用户订单start -->
+		<div class="container">
+			<div class="row">
+				<div class="sec-title text-center">
+					<h3>订单信息</h3>
+					<span class="double-border"></span>
+				</div>
+				<div class="modal-body" style="text-align:left;height:600px;">
+					<div class="table-responsive">
+						<form id="formSearch" class="form-horizontal">
+							<div class="form-group" style="margin:15px">
+								<div class="col-sm-2">
+									<input type="hidden" class="form-control" id="userid" />
+								</div>
+								<label class="control-label col-sm-2" for="orderid">订单编号:</label>
+								<div class="col-sm-4">
+
+									<input type="text" class="form-control" id="orderid" />
+								</div>
+								<div class="col-sm-4" style="text-align:center;">
+									<button type="button" id="btn_query" class="btn btn-primary">
+										<span class="fa fa-search" aria-hidden="true"></span> 查 询
+									</button>
+								</div>
+							</div>
+						</form>
+						<div id="toolbar" class="btn-group">
+							<button id="btn_delete" type="button" class="btn btn-default">
+								<span class="fa fa-remove" aria-hidden="true"></span> 删除
+							</button>
+						</div>
+						<table class="table table-striped table-bordered table-hover" id="td_order">
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 用户订单end -->
+		<!--订单详情模态框start-->
+		<!--商品容器模板start-->
+		<div class="form-group" style="display: none;" id="goodscontent">
+			<div class="col-sm-3">
+				<img style="width: 100px;height: 105px;" id="gphotocode" />
+			</div>
+			<div class="col-sm-7">
+				<span>商品名字: <span id="goodsname"></span></span>&emsp;&emsp;&emsp;
+				<span>商品品牌: <span id="goodsbrand"></span></span>
+				<br>
+				<span>商品数量: <span id="goodsstock"></span></span>&emsp;&emsp;&emsp;
+				<span>商品单价: <span id="goodsprice"></span></span>
+				<br>
+				<span>下单时间: <span id="orderdate"></span></span>
+				<br>
+				<span>收货地址: <span id="useraddr"></span></span>
+				<br>
+				<p id="gInfo">商品简介:<a id="goodsinfo"  data-toggle="tooltip" data-placement="left"></a></p>
+			</div>
+			<div class="col-sm-2" id="pingjiaBox">
+<!--
+				<div id="pingjia" class="btn btn-info" data-toggle="modal" data-target="#pingjiaMyModal" onclick="pingjia()">评价</div>
+-->
+			</div>
+		</div>
+		<!-- 模态框（Modal） -->
+		<div class="modal fade" id="pingjiaMyModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+							&times;
+						</button>
+						<h4 class="modal-title" id="myModalLabel">
+							评价商品
+						</h4>
+					</div>
+					<div class="modal-body">
+						<table class="table">
+							<thead>
+								<tr>
+									<th>
+										<span>商品名称:</span>
+										<span id="gname"></span>
+										<input type="hidden" id="gid" name="gid">
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+							<tr>
+								<td>
+									<textarea id="gevatext" style="width: 560px;min-height: 80px; resize:none;border: 1px solid #ccc;"></textarea>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<b>评价星级：</b>
+									<em class="star"></em>
+									<em class="star"></em>
+									<em class="star"></em>
+									<em class="star"></em>
+									<em class="star"></em>
+								</td>
+							</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">取消
+						</button>
+						<button id="evaBtn" type="button" class="btn btn-primary">
+							评价
+						</button>
+					</div>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal -->
+		</div>
+		<!--商品容器模板end-->
+		<div class="modal fade" id="orderModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h4 class="modal-title" id="myModalLabel">订单编号:<span id="oid"></span></h4>
+					</div>
+					<div class="modal-body">
+						<form class="form-horizontal" role="form" id="goodsfrom">
+							
+						</form>
+					</div>
+					<div class="modal-footer">
+						<a class="btn btn-default" data-dismiss="modal">关闭</a>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal -->
+		</div>
+		<!--订单详情模态框end-->
+		<!--页脚开始-->
+		<div class="clear"></div>
+		<div class="foot">
+			<div class="inner">
+				<ul>
+					<li>
+						<h1>脸部护理</h1>
+						<div>活泉系列-保湿</div>
+						<div>蓝源系列-抗老</div>
+						<div>奇迹系列-修护</div>
+						<div>滢澈皙白系列-美白</div>
+					</li>
+					<li>
+						<h1>身体护理</h1>
+						<div>凝乳丝滑系列-润肤</div>
+						<div>光感纤体系列-塑身</div>
+						<div>保湿香氛系列-香氛</div>
+						<div>阳光欢愉系列-清爽</div>
+					</li>
+					<li>
+						<h1>防晒隔离</h1>
+						<div>防晒</div>
+						<div>隔离</div>
+						<div>气垫</div>
+					</li>
+					<li>
+						<h1>品牌故事</h1>
+						<div>ThreeBody故事</div>
+						<div>逾60年致力于护肤 </div>
+						<div>ThreeBody灵魂成分 </div>
+						<div>ThreeBody的承诺 </div>
+					</li>
+					<li>
+						<h1>帮助中心</h1>
+						<div>订单查询</div>
+						<div>常见问题</div>
+						<div>联系我们</div>
+						<div>法律信息</div>
+						<div>网站地图</div>
+					</li>
+					<li class="footRight">
+						<h1>关注我们</h1>
+						<a href="https://weibo.com/u/6434760509"> <span style="color: red"></span></a>
+						<span id="wechat" style="color: lawngreen"></span>
+						<span id="phone" style="color: deepskyblue"></span>
+						<section class="wechat">
+							<p>了解详情请关注我们的官方微信号</p>
+							<img th:src="@{/images/wechat.jpg}" alt="">
+						</section>
+						<section class="phone">
+							<p>欢迎您致电我们的服务电话!</p>
+							<p>&emsp;15363391819</p>
+						</section>
+					</li>
+				</ul>
+				<div class="clear"></div>
+				<div class="copyright">
+					<p> ©ThreeBody男妆版权所有:韩山师范学院计算机与信息工程学院“三体”小组，其中成员有丘彪、徐奕海、杨小辉、廖伟俊、何佳佳、崔灵涛。
+					</p>
+					<p>
+						抄袭必追究法律责任。欢迎探讨学习！
+					</p>
+				</div>
+			</div>
+		</div>
+		<!--页脚结束-->
+
+		<!--js开始-->
+		<script th:src="@{/js/jquery.min.js}"></script>
+		<script th:src="@{/js/bootstrap.min.js}"></script>
+		<script th:src="@{/js/bootstrap-table.js}"></script>
+		<script th:src="@{/js/bootstrap-table-zh-CN.js}"></script>
+		<script th:src="@{/js/echarts.common.min.js}"></script>
+		<script th:src="@{/js/tip.js}"></script>
+		<script th:src="@{/js/restful.js}"></script>
+		<script th:src="@{/js/toastr.js}"></script>
+
+
+		<!--初始化提示框start-->
+		<script>
+			toastr.options.positionClass = 'toast-top-center';
+		</script>
+		<!--初始化提示框end-->
+		<!--页脚“关注我们”模块特效开始-->
+		<script>
+			$('#wechat').mouseenter(function () {
+				$('.wechat').css({display:"block"})
+			}).mouseleave(function () {
+				$('.wechat').css({display:"none"})
+			});
+			$('#phone').mouseenter(function () {
+				$('.phone').css({display:"block"})
+			}).mouseleave(function () {
+				$('.phone').css({display:"none"})
+			})
+		</script>
+		<!--页脚“关注我们”模块特效结束-->
+
+		<!-- 自定义js -->
+		<script type="text/javascript" th:inline="javascript">
+
+			var currentUser = JSON.parse(sessionStorage.getItem("currentUser"));
+			/*
+			 * 登录状态
+			 * */
+			console.log(currentUser);
+			if(currentUser != null) {
+				var useraccount = currentUser.useraccount;
+				var usericon = currentUser.usericon;
+				if(usericon != null) {
+					$("#li-login").css({
+						display: "none"
+					});
+					$("#li-useraccount").css({
+						display: "none"
+					});
+					$("#li-usericon").css({
+						display: "block"
+					});
+					$("#li-usericon").attr("src", usericon);
+				} else if(useraccount != null) {
+					$("#li-login").css({
+						display: "none"
+					});
+					$("#li-usericon").css({
+						display: "none"
+					});
+					$("#li-useraccount").css({
+						display: "block"
+					});
+					$("#useraccount").text(useraccount);
+				}
+				$("#userid").val(currentUser.userid);
+			}
+			else{
+				if(confirm("您还没有登录，是否前往登录？")){
+					location.href = "login.html";
+				}else{
+					location.href = "index.html";
+				}
+			}
+		</script>
+
+		<!-- 订单表格 -->
+		<script>
+			$(function() {
+
+				//为表格的每一行添加“详情”按钮的点击事件
+				window.operateEvents = {
+					'click .RoleOfedit': function(e, value, row, index) {
+				    	orderDetails(row.ordersid);
+				    	$("#orderModal").modal('show');
+					}
+				};
+				//初始化表格
+				var oTable = new TableInit();
+				oTable.Init();
+
+				//初始化按钮
+				var oButtonInit = new ButtonInit();
+				oButtonInit.Init();
+			});
+
+			//定义表格类
+			var TableInit = function() {
+				var oTableInit = new Object();
+				oTableInit.Init = function() {
+					$("#td_order").bootstrapTable({
+						headers: {
+							'Access-Control-Allow-Origin': '*',
+							'Content-Type': 'application/json; charset=UTF-8'
+						},
+						dataType: "json",
+						url: "http://192.168.1.109:8901/selectOrderByUserId", //请求后台的URL（*）
+						method: "get", //请求方式（*）
+						toolbar: "#toolbar", //工具按钮用哪个容器
+						queryParamsType: "page", //默认风格
+						queryParams: oTableInit.queryParams, //传递参数（*）
+						pagination: true, //是否显示分页（*）
+						sidePagination: "server", //分页方式：client客户端分页，server服务端分页（*）
+						pageSize: 5, //每页的记录行数（*）
+						pageList: [5, 10, 25, 50, 100],
+						sortable: true,
+						sortName: "userorders.ordersId",
+						sortOrder: "asc",
+						silentSort: true, // 换页的时候自动记住排序
+						showColumns: false,
+						minimumCountColumns: 2,
+						showRefresh: false, //显示刷新按钮
+						clickToSelect: true, //点击选中功能
+						showToggle: false,
+						columns: [{
+							checkbox: true
+						}, {
+							field: "ordersid",
+							title: "订单编号",
+							align: "center",
+							valign: "middle",
+							sortable: true // 开启排序功能
+						}, {
+							field: "useraccount",
+							title: "用户账号",
+							align: "center",
+							valign: "middle",
+							sortable: true // 开启排序功能
+						}, {
+							field: "orderdate",
+							title: "订单时间",
+							align: "center",
+							valign: "middle",
+							sortable: true // 开启排序功能
+						}, {
+							field: "useraddr",
+							title: "收货地址",
+							align: "center",
+							valign: "middle",
+							sortable: true // 开启排序功能
+						}, {
+							field: "amount",
+							title: "金额/元",
+							align: "center",
+							valign: "middle",
+							sortable: true // 开启排序功能
+						}, {
+							field: "ispay",
+							title: "是否支付",
+							align: "center",
+							valign: "middle",
+							sortable: true // 开启排序功能
+						}, {
+							field: "operate",
+							title: "操作",
+							align: "center",
+							formatter: operateFormatter,
+							events: operateEvents
+						}], //改造JsonResult后就不需要配置这个属性了
+						responseHandler: function(res) { //表格数据设置
+							//console.log(res);
+							return {
+								"total": res.pagedatas.total, //总记录数
+								"rows": res.pagedatas.list //数据
+							};
+						}
+					});
+				};
+
+				//为表格添加操作按钮
+				function operateFormatter(value, row, index) {
+					return ['<button type="button" class="RoleOfedit btn btn-info" >详情</button>'].join('')
+				}
+
+				//得到查询的参数
+				oTableInit.queryParams = function(params) {
+					//console.log(params);
+					var temp = { //这里的键的名字和控制器的变量名必须一致，这边改动，控制器也需要改成一样的
+						pageSize: params.pageSize, //页面大小
+						pageNum: params.pageNumber, //页码
+						//search: params.search,  //搜索框
+						sort: params.sortName, //排序字段
+						order: params.sortOrder, //排序方式
+						userid: $("#userid").val(),
+						orderid: $("#orderid").val(),
+					};
+					return temp;
+				};
+
+				return oTableInit;
+			};
+
+			var ButtonInit = function() {
+				var oInit = new Object();
+
+				oInit.Init = function() {
+
+					$("#btn_delete").click(function() {
+						var arrselections = commonCheck(false);
+						if(arrselections == null) return;
+
+						Tip.confirm({
+							message: "确认要删除选择的数据吗？"
+						}).on(function(e) {
+							if(!e) return;
+							var cus = arrselections;
+							$.delAll("http://192.168.1.109:8901/deleteOrders", cus, function(res) {
+								commonChange(res);
+							});
+						});
+					});
+
+					$("#btn_query").click(function() {
+						$("#td_order").bootstrapTable("refresh");
+					});
+				};
+
+				return oInit;
+			};
+
+			//统一取选中数据并做校验
+			function commonCheck(only) {
+				var arrselections = $("#td_order").bootstrapTable("getSelections");
+				console.log(arrselections[0]);
+				if(arrselections.length <= 0) {
+					toastr.warning("请选择有效数据");
+					return null;
+				}
+				return arrselections;
+			}
+
+			//针对增删改的返回内容做统一化处理
+			function commonChange(res) {
+				if(res.state == 0) {
+					console.log(res);
+
+					if(res.data == true) {
+						res.message = "删除成功！";
+						//						alert("删除成功！");
+					} else {
+						res.message = "删除失败！";
+						//						alert("删除失败！");
+					}
+					toastr.success(res.message);
+					$("#td_order").bootstrapTable("refresh");
+				} else {
+					toastr.error("出错了！");
+				}
+			}
+
+			//订单详情模态框
+			function orderDetails(orderid){
+				console.log(orderid);
+				var goodsList;
+				$.ajax({
+					type: "get",
+					headers: {
+						'Access-Control-Allow-Origin': '*',
+
+					},
+					dataType: "json",
+					url: "http://192.168.1.109:8901/selectOrderItemByOrderId",
+					data: {"orderid":orderid},
+					async: false,
+					success: function(data) {
+						console.log(data);
+						goodsList = data.datas;
+					}
+				});	
+				console.log(goodsList);
+				$('#oid').text(orderid);
+				$("#goodsfrom").empty();					
+
+				for(var i = 0;i<goodsList.length;i++){
+			      $("#goodscontent").find("#gphotocode").attr("src",goodsList[i].gphotocode);
+			      $("#goodscontent").find("#goodsname").text(goodsList[i].goodsname);
+			      $("#goodscontent").find("#goodsbrand").text(goodsList[i].goodsbrand);
+			      $("#goodscontent").find("#goodsstock").text(goodsList[i].itemsnum);
+			      $("#goodscontent").find("#goodsprice").text(goodsList[i].goodsprice);
+			      $("#goodscontent").find("#orderdate").text(goodsList[i].orderdate);
+			      $("#goodscontent").find("#useraddr").text(goodsList[i].useraddr);
+			      $("#goodscontent").find("#goodsinfo").text(goodsList[i].goodsinfo);
+			      $("#goodscontent").find("#goodsinfo").attr("title",goodsList[i].goodsinfo);
+			      $("#goodscontent").find("#pingjiaBox").append('<div id="pingjia" class="btn btn-info" data-toggle="modal" data-target="#pingjiaMyModal" onclick=pingjia("'+goodsList[i].goodsid+'","'+goodsList[i].goodsname+'")>评价</div>');
+					$("#goodscontent").css("display", "block");
+			      var goods = $("#goodscontent").prop("outerHTML");
+			      $("#goodsfrom").append(goods);
+			      $("#goodscontent").css("display", "none");
+			      $("#pingjiaBox").empty();
+			   	}
+			}
+		</script>
+
+		<!--提示信息-->
+		<script>
+			$(function () { $("[data-toggle='tooltip']").tooltip(); });
+		</script>
+
+		<!--评价-->
+		<script>
+			/*评价星级*/
+			var starCount =0;
+			function pingjia(goodsid,goodsname) {
+				$("#orderModal").modal('hide');
+				$("#gname").text(goodsname);
+				$("#gid").val(goodsid);
+				console.log(goodsid+goodsname);
+			}
+
+			/*提交评价*/
+			$('#evaBtn').click(function () {
+				var goodsid = $('#gid').val();
+				var gevalevel = starCount;
+				var gevatext = $('#gevatext').val();
+				var userid = currentUser.userid;
+				if(gevatext.length<=0){
+					alert("请输入评价内容！");
+				}else{
+					$.ajax({
+						headers: {
+							'Access-Control_Allow-Origin': '*',
+							'Content-Type': 'application/json;charset=UTF-8'
+						},
+						type: "post",
+						url : "http://192.168.1.109:8905/insertGoodsEvaluation",
+						dataType: "json",
+						async: false,
+						data: JSON.stringify({"goodsid":goodsid,"gevalevel":gevalevel,"gevatext":gevatext,"userid":userid}),
+						success: function (data) {
+							console.log(data);
+							if(data.data == true){
+								alert("评价成功！");
+								$('#gevatext').val("");
+								$("#pingjiaMyModal").modal("hide");
+
+							}else{
+								alert("评价失败！");
+							}
+						},
+						error: function () {
+							alert("发送失败！");
+						}
+					})
+				}
+				starCount = 0;
+			});
+
+			var $star = $('.star');
+			$star.click(function () {
+				if($(this).css( "background-color")=="rgba(0, 0, 0, 0)"){
+					$(this).css( "background-color","red");
+					$(this).prevAll('em').css( "background-color","red");
+				}else{
+					$(this).nextAll('em').css( "background-color","rgba(0, 0, 0, 0)");
+				}
+
+				for (var i =0 ;i<$star.length;i++){
+					if($star.eq(i).css( "background-color")=="rgb(255, 0, 0)"){
+						starCount++;
+					}
+				}
+				console.log(starCount);
+			});
+		</script>
+		<!--js结束-->
+		<script type="text/javascript" th:inline="javascript">
+			var currentUser = JSON.parse(sessionStorage.getItem("currentUser"));
+			console.log(currentUser);
+			if(currentUser != null){
+				var useraccount = currentUser.useraccount;
+				var usericon = currentUser.usericon;
+				if(usericon != null){
+					$("#li-login").css({display: "none"});
+					$("#li-useraccount").css({display: "none"});
+					$("#li-usericon").css({display: "block"});
+					$("#li-usericon").attr("src",usericon);
+				}else if(useraccount != null){
+					$("#li-login").css({display: "none"});
+					$("#li-usericon").css({display: "none"});
+					$("#li-useraccount").css({display: "block"});
+					$("#useraccount").text(useraccount);
+				}
+			}else{
+				$("#li-login").css({display: "block"});
+				$("#li-usericon").css({display: "none"});
+				$("#li-useraccount").css({display: "none"});
+			}
+		</script>
+
+
+
+	</body>
+
+</html>

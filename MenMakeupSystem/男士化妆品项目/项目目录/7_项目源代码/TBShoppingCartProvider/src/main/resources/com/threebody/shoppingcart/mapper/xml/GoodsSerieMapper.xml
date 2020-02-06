@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.threebody.shoppingcart.mapper.GoodsSerieMapper" >
+  <resultMap id="BaseResultMap" type="com.threebody.shoppingcart.entity.GoodsSerie" >
+    <id column="gsId" property="gsid" jdbcType="INTEGER" />
+    <result column="gsName" property="gsname" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    gsId, gsName
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.threebody.shoppingcart.entity.GoodsSerieExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from goodsserie
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from goodsserie
+    where gsId = #{gsid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from goodsserie
+    where gsId = #{gsid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.threebody.shoppingcart.entity.GoodsSerieExample" >
+    delete from goodsserie
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.threebody.shoppingcart.entity.GoodsSerie" >
+    insert into goodsserie (gsId, gsName)
+    values (#{gsid,jdbcType=INTEGER}, #{gsname,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.threebody.shoppingcart.entity.GoodsSerie" >
+    insert into goodsserie
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="gsid != null" >
+        gsId,
+      </if>
+      <if test="gsname != null" >
+        gsName,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="gsid != null" >
+        #{gsid,jdbcType=INTEGER},
+      </if>
+      <if test="gsname != null" >
+        #{gsname,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.threebody.shoppingcart.entity.GoodsSerieExample" resultType="java.lang.Integer" >
+    select count(*) from goodsserie
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update goodsserie
+    <set >
+      <if test="record.gsid != null" >
+        gsId = #{record.gsid,jdbcType=INTEGER},
+      </if>
+      <if test="record.gsname != null" >
+        gsName = #{record.gsname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update goodsserie
+    set gsId = #{record.gsid,jdbcType=INTEGER},
+      gsName = #{record.gsname,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.threebody.shoppingcart.entity.GoodsSerie" >
+    update goodsserie
+    <set >
+      <if test="gsname != null" >
+        gsName = #{gsname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where gsId = #{gsid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.threebody.shoppingcart.entity.GoodsSerie" >
+    update goodsserie
+    set gsName = #{gsname,jdbcType=VARCHAR}
+    where gsId = #{gsid,jdbcType=INTEGER}
+  </update>
+</mapper>

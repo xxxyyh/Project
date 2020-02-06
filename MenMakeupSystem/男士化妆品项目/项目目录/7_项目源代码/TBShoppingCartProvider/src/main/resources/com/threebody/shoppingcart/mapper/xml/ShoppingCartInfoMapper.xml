@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.threebody.shoppingcart.mapper.ShoppingCartInfoMapper" >
+ 
+ <select id="selectShoppingCartInfo" parameterType="Integer" resultType="map" >
+select shoppingcart.shopcartId as shopcartid,
+shoppingcart.userId as userid,
+shoppingcart.goodsId as goodsid,
+shoppingcart.goodsNum as goodsnum,
+goods.goodsName as goodsname,
+goods.goodsState as goodsstate, 
+goods.goodsPrice as goodsprice,
+goods.goodsBrand as goodsbrand,
+goods.goodsStock as goodsstock,
+goods.goodsInfo as goodsinfo,
+DATE_FORMAT(goods.goodsRegisterTime,'%Y-%m-%d %H:%i:%s') as goodsregistertime,
+goodsfunction.gfName as gfname,
+goodsserie.gsName as gsname,
+goodstype.gtypeName as gtypename
+from  shoppingcart  
+inner JOIN goods
+ON goods.goodsId=shoppingcart.goodsId 
+inner JOIN goodsfunction
+ON goods.gfId=goodsfunction.gfId
+inner JOIN goodsserie
+ON goodsserie.gsId=goods.gsId
+inner JOIN goodstype
+ON goodstype.gtypeId=goods.gtypeId
+where shoppingcart.userId=#{userId}
+ </select>
+ 
+
+
+</mapper>

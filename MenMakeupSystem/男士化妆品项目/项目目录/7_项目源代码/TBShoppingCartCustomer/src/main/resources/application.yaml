@@ -1,0 +1,11 @@
+spring: 
+  application:   
+    name: eureka-client-customer-shoppingcart
+    
+    
+server: 
+  port: 8911
+  
+#feign自带断路器
+feign: 
+  hystrix:    enabled: false

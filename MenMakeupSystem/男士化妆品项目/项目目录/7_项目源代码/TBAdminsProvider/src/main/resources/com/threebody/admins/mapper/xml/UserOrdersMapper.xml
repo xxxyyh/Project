@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.threebody.admins.mapper.UserOrdersMapper" >
+  <resultMap id="BaseResultMap" type="com.threebody.admins.entity.UserOrders" >
+    <id column="ordersId" property="ordersid" jdbcType="VARCHAR" />
+    <result column="userId" property="userid" jdbcType="INTEGER" />
+    <result column="orderDate" property="orderdate" jdbcType="TIMESTAMP" />
+    <result column="userAddr" property="useraddr" jdbcType="VARCHAR" />
+    <result column="isPay" property="ispay" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ordersId, userId, orderDate, userAddr, isPay
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.threebody.admins.entity.UserOrdersExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from userorders
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from userorders
+    where ordersId = #{ordersid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from userorders
+    where ordersId = #{ordersid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.threebody.admins.entity.UserOrdersExample" >
+    delete from userorders
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.threebody.admins.entity.UserOrders" >
+    insert into userorders (ordersId, userId, orderDate, 
+      userAddr, isPay)
+    values (#{ordersid,jdbcType=VARCHAR}, #{userid,jdbcType=INTEGER}, #{orderdate,jdbcType=TIMESTAMP}, 
+      #{useraddr,jdbcType=VARCHAR}, #{ispay,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.threebody.admins.entity.UserOrders" >
+    insert into userorders
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ordersid != null" >
+        ordersId,
+      </if>
+      <if test="userid != null" >
+        userId,
+      </if>
+      <if test="orderdate != null" >
+        orderDate,
+      </if>
+      <if test="useraddr != null" >
+        userAddr,
+      </if>
+      <if test="ispay != null" >
+        isPay,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ordersid != null" >
+        #{ordersid,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="orderdate != null" >
+        #{orderdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="useraddr != null" >
+        #{useraddr,jdbcType=VARCHAR},
+      </if>
+      <if test="ispay != null" >
+        #{ispay,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.threebody.admins.entity.UserOrdersExample" resultType="java.lang.Integer" >
+    select count(*) from userorders
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update userorders
+    <set >
+      <if test="record.ordersid != null" >
+        ordersId = #{record.ordersid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userid != null" >
+        userId = #{record.userid,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderdate != null" >
+        orderDate = #{record.orderdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.useraddr != null" >
+        userAddr = #{record.useraddr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ispay != null" >
+        isPay = #{record.ispay,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update userorders
+    set ordersId = #{record.ordersid,jdbcType=VARCHAR},
+      userId = #{record.userid,jdbcType=INTEGER},
+      orderDate = #{record.orderdate,jdbcType=TIMESTAMP},
+      userAddr = #{record.useraddr,jdbcType=VARCHAR},
+      isPay = #{record.ispay,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.threebody.admins.entity.UserOrders" >
+    update userorders
+    <set >
+      <if test="userid != null" >
+        userId = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="orderdate != null" >
+        orderDate = #{orderdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="useraddr != null" >
+        userAddr = #{useraddr,jdbcType=VARCHAR},
+      </if>
+      <if test="ispay != null" >
+        isPay = #{ispay,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ordersId = #{ordersid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.threebody.admins.entity.UserOrders" >
+    update userorders
+    set userId = #{userid,jdbcType=INTEGER},
+      orderDate = #{orderdate,jdbcType=TIMESTAMP},
+      userAddr = #{useraddr,jdbcType=VARCHAR},
+      isPay = #{ispay,jdbcType=VARCHAR}
+    where ordersId = #{ordersid,jdbcType=VARCHAR}
+  </update>
+</mapper>

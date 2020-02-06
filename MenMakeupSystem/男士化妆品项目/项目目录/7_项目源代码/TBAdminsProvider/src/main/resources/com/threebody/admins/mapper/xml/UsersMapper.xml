@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.threebody.admins.mapper.UsersMapper" >
+  <resultMap id="BaseResultMap" type="com.threebody.admins.entity.Users" >
+    <id column="userId" property="userid" jdbcType="INTEGER" />
+    <result column="userAccount" property="useraccount" jdbcType="VARCHAR" />
+    <result column="userName" property="username" jdbcType="VARCHAR" />
+    <result column="userPetName" property="userpetname" jdbcType="VARCHAR" />
+    <result column="userPassword" property="userpassword" jdbcType="VARCHAR" />
+    <result column="userSex" property="usersex" jdbcType="VARCHAR" />
+    <result column="userState" property="userstate" jdbcType="VARCHAR" />
+    <result column="userTel" property="usertel" jdbcType="VARCHAR" />
+    <result column="userIdcard" property="useridcard" jdbcType="VARCHAR" />
+    <result column="userEmail" property="useremail" jdbcType="VARCHAR" />
+    <result column="userAge" property="userage" jdbcType="INTEGER" />
+    <result column="userBirth" property="userbirth" jdbcType="DATE" />
+    <result column="userIcon" property="usericon" jdbcType="VARCHAR" />
+    <result column="userIntegral" property="userintegral" jdbcType="INTEGER" />
+    <result column="userLoginTime" property="userlogintime" jdbcType="TIMESTAMP" />
+    <result column="userRegisterTime" property="userregistertime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    userId, userAccount, userName, userPetName, userPassword, userSex, userState, userTel, 
+    userIdcard, userEmail, userAge, userBirth, userIcon, userIntegral, userLoginTime, 
+    userRegisterTime
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.threebody.admins.entity.UsersExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from users
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from users
+    where userId = #{userid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from users
+    where userId = #{userid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.threebody.admins.entity.UsersExample" >
+    delete from users
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.threebody.admins.entity.Users" >
+    insert into users (userId, userAccount, userName, 
+      userPetName, userPassword, userSex, 
+      userState, userTel, userIdcard, 
+      userEmail, userAge, userBirth, 
+      userIcon, userIntegral, userLoginTime, 
+      userRegisterTime)
+    values (#{userid,jdbcType=INTEGER}, #{useraccount,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, 
+      #{userpetname,jdbcType=VARCHAR}, #{userpassword,jdbcType=VARCHAR}, #{usersex,jdbcType=VARCHAR}, 
+      #{userstate,jdbcType=VARCHAR}, #{usertel,jdbcType=VARCHAR}, #{useridcard,jdbcType=VARCHAR}, 
+      #{useremail,jdbcType=VARCHAR}, #{userage,jdbcType=INTEGER}, #{userbirth,jdbcType=DATE}, 
+      #{usericon,jdbcType=VARCHAR}, #{userintegral,jdbcType=INTEGER}, #{userlogintime,jdbcType=TIMESTAMP}, 
+      #{userregistertime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.threebody.admins.entity.Users" >
+    insert into users
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        userId,
+      </if>
+      <if test="useraccount != null" >
+        userAccount,
+      </if>
+      <if test="username != null" >
+        userName,
+      </if>
+      <if test="userpetname != null" >
+        userPetName,
+      </if>
+      <if test="userpassword != null" >
+        userPassword,
+      </if>
+      <if test="usersex != null" >
+        userSex,
+      </if>
+      <if test="userstate != null" >
+        userState,
+      </if>
+      <if test="usertel != null" >
+        userTel,
+      </if>
+      <if test="useridcard != null" >
+        userIdcard,
+      </if>
+      <if test="useremail != null" >
+        userEmail,
+      </if>
+      <if test="userage != null" >
+        userAge,
+      </if>
+      <if test="userbirth != null" >
+        userBirth,
+      </if>
+      <if test="usericon != null" >
+        userIcon,
+      </if>
+      <if test="userintegral != null" >
+        userIntegral,
+      </if>
+      <if test="userlogintime != null" >
+        userLoginTime,
+      </if>
+      <if test="userregistertime != null" >
+        userRegisterTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="useraccount != null" >
+        #{useraccount,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="userpetname != null" >
+        #{userpetname,jdbcType=VARCHAR},
+      </if>
+      <if test="userpassword != null" >
+        #{userpassword,jdbcType=VARCHAR},
+      </if>
+      <if test="usersex != null" >
+        #{usersex,jdbcType=VARCHAR},
+      </if>
+      <if test="userstate != null" >
+        #{userstate,jdbcType=VARCHAR},
+      </if>
+      <if test="usertel != null" >
+        #{usertel,jdbcType=VARCHAR},
+      </if>
+      <if test="useridcard != null" >
+        #{useridcard,jdbcType=VARCHAR},
+      </if>
+      <if test="useremail != null" >
+        #{useremail,jdbcType=VARCHAR},
+      </if>
+      <if test="userage != null" >
+        #{userage,jdbcType=INTEGER},
+      </if>
+      <if test="userbirth != null" >
+        #{userbirth,jdbcType=DATE},
+      </if>
+      <if test="usericon != null" >
+        #{usericon,jdbcType=VARCHAR},
+      </if>
+      <if test="userintegral != null" >
+        #{userintegral,jdbcType=INTEGER},
+      </if>
+      <if test="userlogintime != null" >
+        #{userlogintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userregistertime != null" >
+        #{userregistertime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.threebody.admins.entity.UsersExample" resultType="java.lang.Integer" >
+    select count(*) from users
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update users
+    <set >
+      <if test="record.userid != null" >
+        userId = #{record.userid,jdbcType=INTEGER},
+      </if>
+      <if test="record.useraccount != null" >
+        userAccount = #{record.useraccount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.username != null" >
+        userName = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userpetname != null" >
+        userPetName = #{record.userpetname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userpassword != null" >
+        userPassword = #{record.userpassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usersex != null" >
+        userSex = #{record.usersex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userstate != null" >
+        userState = #{record.userstate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usertel != null" >
+        userTel = #{record.usertel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.useridcard != null" >
+        userIdcard = #{record.useridcard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.useremail != null" >
+        userEmail = #{record.useremail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userage != null" >
+        userAge = #{record.userage,jdbcType=INTEGER},
+      </if>
+      <if test="record.userbirth != null" >
+        userBirth = #{record.userbirth,jdbcType=DATE},
+      </if>
+      <if test="record.usericon != null" >
+        userIcon = #{record.usericon,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userintegral != null" >
+        userIntegral = #{record.userintegral,jdbcType=INTEGER},
+      </if>
+      <if test="record.userlogintime != null" >
+        userLoginTime = #{record.userlogintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.userregistertime != null" >
+        userRegisterTime = #{record.userregistertime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update users
+    set userId = #{record.userid,jdbcType=INTEGER},
+      userAccount = #{record.useraccount,jdbcType=VARCHAR},
+      userName = #{record.username,jdbcType=VARCHAR},
+      userPetName = #{record.userpetname,jdbcType=VARCHAR},
+      userPassword = #{record.userpassword,jdbcType=VARCHAR},
+      userSex = #{record.usersex,jdbcType=VARCHAR},
+      userState = #{record.userstate,jdbcType=VARCHAR},
+      userTel = #{record.usertel,jdbcType=VARCHAR},
+      userIdcard = #{record.useridcard,jdbcType=VARCHAR},
+      userEmail = #{record.useremail,jdbcType=VARCHAR},
+      userAge = #{record.userage,jdbcType=INTEGER},
+      userBirth = #{record.userbirth,jdbcType=DATE},
+      userIcon = #{record.usericon,jdbcType=VARCHAR},
+      userIntegral = #{record.userintegral,jdbcType=INTEGER},
+      userLoginTime = #{record.userlogintime,jdbcType=TIMESTAMP},
+      userRegisterTime = #{record.userregistertime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.threebody.admins.entity.Users" >
+    update users
+    <set >
+      <if test="useraccount != null" >
+        userAccount = #{useraccount,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        userName = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="userpetname != null" >
+        userPetName = #{userpetname,jdbcType=VARCHAR},
+      </if>
+      <if test="userpassword != null" >
+        userPassword = #{userpassword,jdbcType=VARCHAR},
+      </if>
+      <if test="usersex != null" >
+        userSex = #{usersex,jdbcType=VARCHAR},
+      </if>
+      <if test="userstate != null" >
+        userState = #{userstate,jdbcType=VARCHAR},
+      </if>
+      <if test="usertel != null" >
+        userTel = #{usertel,jdbcType=VARCHAR},
+      </if>
+      <if test="useridcard != null" >
+        userIdcard = #{useridcard,jdbcType=VARCHAR},
+      </if>
+      <if test="useremail != null" >
+        userEmail = #{useremail,jdbcType=VARCHAR},
+      </if>
+      <if test="userage != null" >
+        userAge = #{userage,jdbcType=INTEGER},
+      </if>
+      <if test="userbirth != null" >
+        userBirth = #{userbirth,jdbcType=DATE},
+      </if>
+      <if test="usericon != null" >
+        userIcon = #{usericon,jdbcType=VARCHAR},
+      </if>
+      <if test="userintegral != null" >
+        userIntegral = #{userintegral,jdbcType=INTEGER},
+      </if>
+      <if test="userlogintime != null" >
+        userLoginTime = #{userlogintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userregistertime != null" >
+        userRegisterTime = #{userregistertime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where userId = #{userid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.threebody.admins.entity.Users" >
+    update users
+    set userAccount = #{useraccount,jdbcType=VARCHAR},
+      userName = #{username,jdbcType=VARCHAR},
+      userPetName = #{userpetname,jdbcType=VARCHAR},
+      userPassword = #{userpassword,jdbcType=VARCHAR},
+      userSex = #{usersex,jdbcType=VARCHAR},
+      userState = #{userstate,jdbcType=VARCHAR},
+      userTel = #{usertel,jdbcType=VARCHAR},
+      userIdcard = #{useridcard,jdbcType=VARCHAR},
+      userEmail = #{useremail,jdbcType=VARCHAR},
+      userAge = #{userage,jdbcType=INTEGER},
+      userBirth = #{userbirth,jdbcType=DATE},
+      userIcon = #{usericon,jdbcType=VARCHAR},
+      userIntegral = #{userintegral,jdbcType=INTEGER},
+      userLoginTime = #{userlogintime,jdbcType=TIMESTAMP},
+      userRegisterTime = #{userregistertime,jdbcType=TIMESTAMP}
+    where userId = #{userid,jdbcType=INTEGER}
+  </update>
+</mapper>

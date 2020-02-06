@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http:www.thymeleaf.org">
+
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+	</head>
+
+	<body>
+		<input type="file" name="files" id="files" multiple="multiple"/>
+ 
+		<button type="button" class="layui-btn" id="testListAction">
+		<i class="fas fa-upload"></i>开始上传
+		</button>
+		<script type="text/javascript" th:src="@{js/jquery-1.10.2.js}"></script>
+		<script type="text/javascript">
+			$("#testListAction").click(function() {   
+				var filrarr = document.getElementById("files").files;
+				var fd = new FormData();
+            	for(var i =0;i<$("#files")[0].files.length;i++){
+            		fd.append("goodsPhotos",$("#files")[0].files[i]);
+            	}
+				if(filrarr.length>4) {
+					alert("最多上传4张图片！");
+				}else{
+					$.ajax({
+						url: "goodsPhotoUpload",
+						type: "POST",
+						data: fd,
+						contentType: false,
+						processData: false,
+						success: function(data) {
+							console.log(data);
+						}
+					});
+				}
+
+			});
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+	
+	<!-- 指定数据连接驱动jar地址 -->
+	<classPathEntry location="C:\\Users\\Admin\\.m2\\repository\\mysql\\mysql-connector-java\\5.1.5\\mysql-connector-java-5.1.5.jar" />
+
+	<!-- 一个数据库一个context -->
+	<context id="TBAdminsProvider" targetRuntime="MyBatis3">
+		<!-- 注释 -->
+		<commentGenerator >
+			<property name="suppressAllComments" value="true"/><!-- 是否取消注释 -->
+		</commentGenerator>
+
+		<!-- jdbc连接 -->
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://localhost:3306/threebody"
+			userId="root"
+			password="123456" />
+		
+		<!-- 生成实体类地址 -->	
+		<javaModelGenerator targetPackage="com.threebody.admins.entity"
+			targetProject="TBAdminsProvider" >
+			<!-- 是否针对string类型的字段在set的时候进行trim调用 -->
+			<property name="trimStrings" value="true"/>
+		</javaModelGenerator>
+		
+		<!-- 生成mapxml文件 -->
+		<sqlMapGenerator targetPackage="com.threebody.admins.mapper.xml"
+			targetProject="TBAdminsProvider" >
+		</sqlMapGenerator>
+		
+		<!-- 生成mapxml对应client，也就是接口dao -->	
+		<javaClientGenerator targetPackage="com.threebody.admins.mapper"
+			targetProject="TBAdminsProvider" type="XMLMAPPER" >
+		</javaClientGenerator>
+
+		<!-- 配置表信息 -->
+
+		<table schema="threebody" tableName="users" domainObjectName="Users">
+		</table>
+
+		<table schema="threebody" tableName="admins" domainObjectName="Admins">
+		</table>
+
+		<table schema="threebody" tableName="goods" domainObjectName="Goods">
+		</table>
+
+		<table schema="threebody" tableName="goodstype" domainObjectName="GoodsType">
+		</table>
+
+		<table schema="threebody" tableName="goodsfunction" domainObjectName="GoodsFunction">
+		</table>
+		
+		<table schema="threebody" tableName="goodsserie" domainObjectName="GoodsSerie">
+		</table>
+		
+		<table schema="threebody" tableName="goodsphoto" domainObjectName="GoodsPhoto">
+		</table>
+		
+		<table schema="threebody" tableName="goodsevaluation" domainObjectName="GoodsEvaluation">
+		</table>
+		
+		<table schema="threebody" tableName="shoppingcart" domainObjectName="ShoppingCart">
+		</table>
+		
+		<table schema="threebody" tableName="useraddress" domainObjectName="UserAddress">
+		</table>
+		
+		<table schema="threebody" tableName="userorders" domainObjectName="UserOrders">
+		</table>
+		
+		<table schema="threebody" tableName="orderitems" domainObjectName="OrderItems">
+		</table>
+		
+		<table schema="threebody" tableName="delivery" domainObjectName="Delivery">
+		</table>
+
+	</context>
+</generatorConfiguration>

@@ -1,0 +1,147 @@
+
+.smallNav {
+    margin: 20px 0;
+}
+.inner span {
+    margin-right: 8px;
+    font-size: 16px;
+}
+.smallNav .inner a {
+    font-size: 16px;
+    text-decoration: none;
+    color: #160808;
+}
+.detail {
+    background-color: black;
+}
+.leftDetail {
+    float: left;
+    margin-bottom: 30px;
+}
+
+.rightDetail {
+    float: right;
+    width: 600px;
+    height: 341px;
+    margin-bottom: 30px;
+    padding: 10px 30px;
+    position: relative;
+}
+.rightDetail .shoucang {
+    position: absolute;
+    top:5px;
+    right: 20px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.rightDetail h1 {
+    font-size: 24px;
+}
+.rightDetail p {
+    font-size: 16px;
+    font-family: 宋体;
+    color: #aaaaaa;
+}
+
+.rightDetail button {
+    width: 200px;
+    height: 40px;
+    background-color: red;
+    border: none;
+    color: white;
+    font-size: 20px;
+    border-radius: 5px;
+    margin-right: 25px;
+}
+.price span {
+    display: inline-block;
+    width: 99px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    border: 1px solid #cccccc;
+    margin: 5px 0 5px 10px;
+}
+.selectNumber {
+    position: relative;
+    margin: 15px 0;
+}
+.selectNumber span {
+    width: 20px;
+    height: 30px;
+    border: 1px solid #cccccc;
+    line-height: 30px;
+    text-align: center;
+    position: absolute;
+    cursor: pointer;
+}
+.selectNumber .del {
+    top:-10px;
+    left: 85px;
+}
+.selectNumber .add{
+    top:-10px;
+    left: 163px;
+}
+.selectNumber input {
+    width: 60px;
+    height: 30px;
+    margin:0 20px;
+    text-align: center;
+}
+.kucun i {
+    display: inline-block;
+    width: 99px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    border: 1px solid #cccccc;
+    margin: 5px 0 20px 3px;
+}
+.container {
+    padding-left: 40px;
+}
+.cHeight {
+    min-height: 600px;
+    /*
+    border: 1px solid #cccccc;
+    */
+}
+.slideleft {
+    /*
+    border: 1px solid #cccccc;
+    */
+}
+.slideleft img {
+    width: 100px;
+    height: 100px;
+}
+.productDetail {
+    width: 825px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+.productDetail .container {
+    width: 100%;
+}
+.productDetail img {
+    display: block;
+    width: 800px;
+    margin-bottom: 20px;
+    margin-left: -35px;
+}
+.comment{
+    width: 100%;
+    border: 1px solid #cccccc;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+.comment b {
+    color: red;
+    font-weight: 600;
+}
+.productDetail .col-md-8 {
+    padding-top: 100px;
+    text-align: center;
+}

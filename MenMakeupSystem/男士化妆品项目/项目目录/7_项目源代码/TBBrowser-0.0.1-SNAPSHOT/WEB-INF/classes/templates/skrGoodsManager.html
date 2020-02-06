@@ -1,0 +1,651 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http:www.thymeleaf.org">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta content="" name="description" />
+	<meta content="webthemez" name="author" />
+	<title>商品管理</title>
+	<link rel="stylesheet" th:href="@{/css/skrGoodsBase.css}">
+	<script type="text/javascript" th:src="@{/js/loader.js}"></script>
+</head>
+<body>
+	<div id="wrapper">
+		<!--头部：页面标题栏-->
+		<div th:replace="part/navmenu::#header"></div>
+		<!--导航栏：页面菜单栏-->
+		<div th:replace="part/navmenu::#skrside"></div>
+		<!--表格-->
+		<div id="page-wrapper">
+			<div id="page-inner">
+				<div class="row">
+					<div class="col-md-12">
+						<!-- start dataTables -->
+						<!-- 表格格式：面板中嵌套表格 -->
+						<div class="panel panel-default">
+							<!-- 面板头放：页面标题，刷新按钮，添加按钮 -->
+							<div class="panel-heading">
+								<h3>商品管理</h3> 
+							</div>
+							<!-- 面板体放：表格内容，按照dataTable格式来构造-->
+							<div class="panel-body">
+								<form id="formSearch" class="form-horizontal">
+									<div class="form-group" style="margin:15px">
+										<label class="control-label col-sm-2" for="gname">商品名称:</label>
+										<div class="col-sm-2">
+											<input type="hidden" class="form-control" id="adminid"/>
+											<input type="text" class="form-control" id="gname"/>
+										</div>
+										<label class="control-label col-sm-2" for="gbrand">品牌:</label>
+										<div class="col-sm-2">
+											<input type="text" class="form-control" id="gbrand"/>
+										</div>
+										<div class="col-sm-4" style="text-align:center;">
+											<button type="button" id="btn_query" class="btn btn-primary">
+												<span class="glyphicon glyphicon-search" aria-hidden="true"></span> 查 询
+											</button>
+										</div>
+									</div>
+								</form>
+								<div id="toolbar" class="btn-group">
+									<button id="btn_add" type="button" class="btn btn-default">
+										<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 新增
+									</button>
+									<button id="btn_edit" type="button" class="btn btn-default">
+										<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> 修改
+									</button>
+									<button id="btn_delete" type="button" class="btn btn-default">
+										<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> 删除
+									</button>
+								</div>
+								<!-- @@@@@@@@@@@@     表格数据     @@@@@@@@@@@@@ -->
+								<table id="tb_goods" class="table table-striped table-bordered table-hover"></table>
+								<!-- @@@@@@@@@@@@     表格数据     @@@@@@@@@@@@@ -->
+							</div>
+						</div>
+						<!--End dataTables -->
+						
+						<!--商品评价模态框start-->
+						<!--评价容器模板start-->
+						<div class="form-group" style="display: none;" id="evaluateContent">
+							<div class="col-sm-3">
+								<img style="width: 100px;height: 105px;" id="usericon" />
+							</div>
+							<div class="col-sm-8">
+								<p><span id="useraccount"></span> <span id="gevadate"></span>
+									<em class="star"></em>
+									<em class="star"></em>
+									<em class="star"></em>
+									<em class="star"></em>
+									<em class="star"></em>
+									<br>
+								<textarea id="gevatext" readonly="readonly" style="width: 400px;min-height: 50px;resize: none;border: none;"></textarea>
+							</div>
+						</div>
+						<!--评价容器模板end-->
+						<div class="modal fade" id="evaluateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+							<div class="modal-dialog">
+								<div class="modal-content" >
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+										<h4 class="modal-title" id="myModalLabel">用户评价</h4>
+									</div>
+									<div class="modal-body" style="overflow-y:scroll;height: 550px">
+										<form class="form-horizontal" role="form" id="evaluatefrom">
+											
+										</form>
+									</div>
+									<div class="modal-footer">
+										<a class="btn btn-default" data-dismiss="modal">关闭</a>
+									</div>
+								</div>
+								<!-- /.modal-content -->
+							</div>
+							<!-- /.modal -->
+						</div>
+						<!--商品评价模态框end-->
+						
+						<!-- 按钮触发模态框 -->
+						<!-- 模态框（Modal） myModal-->
+						<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+							aria-labelledby="myModalLabel" aria-hidden="true" >
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal"
+											aria-hidden="true">×</button>
+										<!-- 表单嵌套表格：规范表单格式 -->
+										<form role="form" id="editForm">
+											<div class="form-group">
+												<table class="table" style="font: '黑体';">
+													<thead>
+														<tr>
+															<th>商品信息：<input type="hidden" id="goodsid" name="goodsid" class="form-control"></th>
+															<th></th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr>
+															<td><b>商品名称：</b></td>
+															<td><input type="text" id="goodsname" name="goodsname" class="form-control"/></td>
+														</tr>
+														<tr>
+															<td><b>商品品牌：</b></td>
+															<td><input type="text" id="goodsbrand" name="goodsbrand" class="form-control"/></td>
+														</tr>
+														<tr>
+															<td><b>功能划分：</b></td>
+															<td>
+																<select id="gfname" name="gfname" class="form-control">
+																</select>
+															</td>
+														</tr>
+														<tr>
+															<td><b>类型划分：</b></td>
+															<td>
+																<select id="gtypename" name="gtypename" class="form-control">
+																</select>
+															</td>
+														</tr>
+														<tr>
+															<td><b>系列划分：</b></td>
+															<td>
+																<select id="gsname" name="gsname" class="form-control">
+																</select>
+															</td>
+														</tr>
+														<tr>
+															<td><b>商品状态：</b></td>
+															<td>
+																<select id="goodsstate" name="goodsstate" class="form-control">
+																	<option>上架</option>
+																	<option>下架</option>
+																</select>
+															</td>
+														</tr>
+														<tr>
+															<td><b>商品单价：</b></td>
+															<td><input type="number" id="goodsprice" name="goodsprice" min="1" class="form-control"/></td>
+														</tr>
+														<tr>
+															<td><b>商品库存：</b></td>
+															<td>
+																<input type="text" id="goodsstock" name="goodsstock" class="form-control"/>
+															</td>
+														</tr>
+														<tr>
+															<td><b>商品简介：</b></td>
+															<td><input type="text" id="goodsinfo" name="goodsinfo" class="form-control"/></td>
+														</tr>
+														<tr>
+															<td><b>商品图片：</b></td>
+															<td><input type="file" name="files" id="files" multiple="multiple"/></td>
+														</tr>
+													</tbody>
+												</table>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+													<input value="提交" class="btn btn-primary" id="btn_submit">
+												</div>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+							<!-- /.modal-dialog -->
+						</div>
+						<!-- /.modal -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 自定义js -->
+	<script type="text/javascript" th:inline="javascript">
+		var currentUser = JSON.parse(sessionStorage.getItem("currentUser"));
+		/*
+		 * 登录状态
+		 * */
+		console.log(currentUser);
+		if(currentUser.adminaccount != null) {
+			//显示账号
+			$("#currentAccount").text(currentUser.adminaccount);
+			if(currentUser.adminidentify == "商家"){
+				$("#adminid").val(currentUser.adminid);
+			}else{
+				toastr.error("该功能为商家功能！");
+				location.href = "allGoodsManager.html";
+			}
+		}
+		else{
+			if(confirm("您还没有登录，是否前往登录？")){
+				location.href = "login.html";
+			}else{
+				location.href = "index.html";
+			}
+		}
+	</script>
+	<script type="text/javascript">
+		$(function(){
+			$.ajax({
+				type: "get",
+				headers: {
+					'Access-Control-Allow-Origin': '*',
+					'Content-Type': 'application/json; charset=UTF-8'
+				},
+				dataType: "json",
+				url: "http://192.168.1.102:8903/selectallother",
+				async: false,
+				success: function(data) {
+					for(var i=0;i<data.datas[0].length;i++){
+						var option1 = "<option value="+data.datas[0][i].gtypeid+">"+data.datas[0][i].gtypename+"</option>";
+						$("#gtypename").append(option1);
+					}
+					for(var i=0;i<data.datas[1].length;i++){
+						var option2 = "<option value="+data.datas[1][i].gsid+">"+data.datas[1][i].gsname+"</option>";
+						$("#gsname").append(option2);
+					}
+					for(var i=0;i<data.datas[2].length;i++){
+						var option3 = "<option value="+data.datas[2][i].gfid+">"+data.datas[2][i].gfname+"</option>";
+						$("#gfname").append(option3);
+					}
+				}
+			});
+			
+			//为表格的每一行添加“查看评价”按钮的点击事件
+			window.operateEvents = {
+				'click .RoleOfedit': function(e, value, row, index) {
+			    	evaluateDetails(row.goodsid);
+			    	$("#evaluateModal").modal('show');
+				}
+			};
+			//初始化表格
+			var oTable = new TableInit();
+			oTable.Init();
+
+			//初始化按钮
+			var oButtonInit = new ButtonInit();
+			oButtonInit.Init();
+		});
+		
+		//定义表格类
+		var TableInit = function(){
+			var oTableInit = new Object();
+			
+			oTableInit.Init = function(){
+				$("#tb_goods").bootstrapTable({
+					headers: {
+						'Access-Control-Allow-Origin': '*',
+						'Content-Type': 'application/json; charset=UTF-8'
+					},
+					dataType: "json",
+					url : "http://192.168.1.102:8903/selectGoodsByExample", //请求后台的URL（*）
+					method : "get", //请求方式（*）
+					toolbar : "#toolbar", //工具按钮用哪个容器
+					queryParamsType : "page", //默认风格
+					queryParams : oTableInit.queryParams,//传递参数（*）
+					pagination: true, //是否显示分页（*）
+					sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
+					pageSize: 5,                       //每页的记录行数（*）
+					pageList: [5,10,25,50,100], 
+					sortable: true,
+					sortName: "goodsid",
+					sortOrder: "asc",
+					silentSort: true,  // 换页的时候自动记住排序
+					showColumns: true,
+					minimumCountColumns: 2,
+					showRefresh: true,
+					clickToSelect: true,    //点击选中功能
+					showToggle: true,
+					columns : [ {
+						checkbox : true
+					}, {
+						field : "goodsid",
+						title : "商品编号",
+						align: "center",
+	                    valign: "middle",
+	                    sortable: true // 开启排序功能
+					}, {
+						field : "gphotocode",
+						title : "图片",
+						align: "center",
+						valign: "middle",
+						sortable: false, // 开启排序功能
+						formatter:function(value,row,index){
+						    var s = '<img style="width:80px;height:50px;" src="'+row.gphotocode+'" />';
+						    return s;
+						} 
+					}, {
+						field : "goodsname",
+						title : "商品名称",
+						align: "center",
+	                    valign: "middle",
+	                    sortable: true // 开启排序功能
+					}, {
+						field : "goodsbrand",
+						title : "品牌",
+						align: "center",
+	                    valign: "middle",
+	                    sortable: true // 开启排序功能
+					}, {
+						field : "gfname",
+						title : "功能划分",
+						align: "center",
+	                    valign: "middle",
+	                    sortable: true // 开启排序功能
+					}, {
+						field : "gtypename",
+						title : "类型划分",
+						align: "center",
+	                    valign: "middle",
+	                    sortable: true // 开启排序功能
+					}, {
+						field : "gsname",
+						title : "系列划分",
+						align: "center",
+	                    valign: "middle",
+	                    sortable: true // 开启排序功能
+					}, {
+						field : "goodsprice",
+						title : "单价",
+						align: "center",
+	                    valign: "middle",
+	                    sortable: true // 开启排序功能
+					}, {
+						field : "goodsstock",
+						title : "库存",
+						align: "center",
+	                    valign: "middle",
+	                    sortable: true // 开启排序功能
+					}, {
+						field : "goodsstate",
+						title : "操作",
+						align: "center",
+	                    formatter: function (val) {
+						    var s;
+						    if(val == "上架"){
+						    	s = '<span style="color:green;">上架</span>';
+						    }else{
+						    	s = '<span style="color:red;">下架</span>';
+						    }
+						    return s;
+						} 
+					}, {
+						field : "goodsinfo",
+						title : "简介",
+						align: "center",
+	                    valign: "middle",
+	                    sortable: true // 开启排序功能
+					}, {
+						field : "goodsregistertime",
+						title : "入库时间",
+						align: "center",
+	                    valign: "middle",
+	                    sortable: true // 开启排序功能
+					}, {
+						field: "operate",
+						title: "操作",
+						align: "center",
+						formatter: operateFormatter,
+						events: operateEvents
+					}],  //改造JsonResult后就不需要配置这个属性了
+					responseHandler: function(res) {  //表格数据设置 
+						//console.log(res);
+		                return {
+		                    "total": res.pagedatas.total,//总记录数
+		                    "rows": res.pagedatas.list   //数据
+		                 };
+	            	}
+				});
+			}
+			//为表格添加操作按钮
+			function operateFormatter(value, row, index) {
+				return ['<button type="button" class="RoleOfedit btn btn-info" >查看评价</button>'].join('')
+			}
+			//得到查询的参数
+			oTableInit.queryParams = function(params) {
+				//console.log(params);
+				var temp = { //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+					pageSize: params.pageSize,   //页面大小
+					pageNum: params.pageNumber,  //页码
+					//search: params.search,  //搜索框
+					sort: params.sortName,    //排序字段
+					order: params.sortOrder,  //排序方式
+					adminid : $("#adminid").val(),
+					goodsName : $("#gname").val(),
+					goodsBrand: $("#gbrand").val()
+				};
+				return temp;
+			};
+			
+			return oTableInit;
+		}
+		
+		var ButtonInit = function() {
+			var oInit = new Object();
+	
+			oInit.Init = function() {
+				
+				$("#btn_add").click(function(){
+					$("#myModal").find(".form-control").val(""); // 清空模态框里头的数据
+					$("#myModal").modal();
+				});
+				
+				$("#btn_edit").click(function(){
+					var arrselections = commonCheck(true);
+					if(arrselections==null)return;
+					$("#editForm").setForm(arrselections[0]);
+					$("#myModal").modal();
+				});
+				
+				
+				$("#btn_delete").click(function() {
+					var arrselections = commonCheck(false);
+					if(arrselections==null)return;
+	
+					Tip.confirm({
+						message : "确认要删除选择的数据吗？"
+					}).on(function(e) {
+						if (!e) return;
+						var cus = arrselections;
+						$.delAll("http://192.168.1.102:8903/deletegoods", cus, function(res) {
+							console.log(res);
+							res.data = goodsPhotoDelete(res.message);
+							commonChange(res);
+						});
+					});
+				});
+				
+				$("#btn_submit").click(function(){
+					var param = $("#editForm").serializeJson();
+					console.log(param);
+					param["gfid"] = param["gfname"];
+					delete param["gfname"];
+					param["gtypeid"] = param["gtypename"];
+					delete param["gtypename"];
+					param["gsid"] = param["gsname"];
+					delete param["gsname"];
+
+					if($("#goodsid").val()!=""){   //不为空则做修改
+						console.log(param);
+						$.edit("http://192.168.1.102:8903/updategoodsbyexampleselectiv",param,function(res){
+							console.log("修改返回商品图片路径");
+							console.log(res);
+							//将商品从项目下删除
+							var deleteResult = goodsPhotoDelete(res.message);
+							if(deleteResult.indexOf("成功") != -1){
+								//将新的图片上传到项目下
+								res.data = insertGoodsPhoto(param["goodsid"]);								
+							}
+							commonChange(res);
+						});
+					}else{
+						param["adminid"] = currentUser.adminid;
+						$.add("http://192.168.1.102:8903/insertgoodsselective",param,function(res){
+							res.data = insertGoodsPhoto(res.data);
+							commonChange(res);
+						});
+					}
+				});
+	
+				$("#btn_query").click(function() {
+					$("#tb_goods").bootstrapTable("refresh");
+				});
+			};
+	
+			return oInit;
+		};
+		
+		//统一取选中数据并做校验
+		function commonCheck(only){
+			var arrselections = $("#tb_goods").bootstrapTable("getSelections");
+			console.log(arrselections[0]);
+			if(only&&arrselections.length > 1){
+				toastr.warning("只能选择一行进行编辑");
+				return null;
+			}
+			if (arrselections.length <= 0) {
+				toastr.warning("请选择有效数据");
+				return null;
+			}
+			return arrselections;
+		}
+		
+		//针对增删改的返回内容做统一化处理
+		function commonChange(res){
+			if (res.state == 0) {
+				if(res.data == true ) {
+					toastr.success("操作成功！");
+				}else if(res.data == false){
+					toastr.success("操作失败！");
+				}else if(res.data != null){
+					toastr.success("操作成功！");
+				}else{
+					toastr.success("操作失败！");
+				}
+	        	$("#myModal").modal("hide");
+	        	$("#tb_goods").bootstrapTable("refresh");
+	    	}else{
+	    		toastr.error(res.message);
+	    	}
+		}
+		
+		//用户评价模态框
+		function evaluateDetails(goodsid){
+			console.log(goodsid);
+			var evaluateList;
+			$.ajax({
+				type: "post",
+				headers: {
+					'Access-Control-Allow-Origin': '*',
+					'Content-Type': 'application/json; charset=UTF-8'
+				},
+				dataType: "json",
+				url: "http://192.168.1.112:8907/selectGoodsEvaluationByGoodsId",
+				data: JSON.stringify({"goodsid":goodsid}),
+				async: false,
+				success: function(data) {
+					console.log(data);
+					evaluateList = data.datas;
+				}
+			});	
+			console.log(evaluateList);
+			$("#evaluatefrom").empty();	
+			
+			for(var i = 0;i<evaluateList.length;i++){
+		      	$("#evaluateContent").find("#usericon").attr("src",evaluateList[i].usericon);
+		      	$("#evaluateContent").find("#useraccount").text(evaluateList[i].useraccount);
+		      	$("#evaluateContent").find("#gevadate").text(evaluateList[i].gevadate);
+		      	$("#evaluateContent").find("#gevatext").text("评价:"+evaluateList[i].gevatext);
+				
+
+				$(".star").eq(evaluateList[i].gevalevel-1).prevAll('em').css( "background-color","red");
+				$(".star").eq(evaluateList[i].gevalevel-1).css( "background-color","red");
+				$(".star").eq(evaluateList[i].gevalevel-1).nextAll('em').css( "background-color","rgba(0, 0, 0, 0)");
+				
+		      	$("#evaluateContent").css("display", "block");
+		      	var evaluate = $("#evaluateContent").prop("outerHTML");
+		      	$("#evaluatefrom").append(evaluate);
+		      	$("#evaluateContent").css("display", "none"); 
+		   	}
+		}
+		
+		//商品图片上传到项目制定文件下
+		function goodsPhotoUpload(){
+			var result;
+			var filrarr = document.getElementById("files").files;
+			var fd = new FormData();
+        	for(var i =0;i<$("#files")[0].files.length;i++){
+        		fd.append("goodsPhotos",$("#files")[0].files[i]);
+        	}
+			if(filrarr.length>6) {
+				alert("最多上传6张图片！");
+			}else{
+				$.ajax({
+					url: "goodsPhotoUpload",
+					type: "POST",
+					data: fd,
+					contentType: false,
+					processData: false,
+					async: false,
+					success: function(data) {
+						console.log(data);
+						result = data;
+					}
+				});
+			}
+			return result;
+		}
+		
+		//商品图片从项目中删除
+		function goodsPhotoDelete(photoPaths){
+			var result;
+			$.ajax({
+				url: "goodsPhotoDelete",
+				type: "delete",
+				data: {"photoPaths":photoPaths},
+				async: false,
+				success: function(data) {
+					console.log(data);
+					result = data;
+				}
+			});
+			console.log("图片删除："+result);
+			return result;
+		}
+		
+		//将商品的图片路径保存到数据库中
+		function insertGoodsPhoto(goodsid){
+			var result;
+			var uploadResult = goodsPhotoUpload();
+			if(uploadResult == "上传失败！"){
+				alert("商品图片上传失败！");
+				result=false;
+			}else if(uploadResult == "上传失败，文件为空！"){
+				alert("商品图片不能为空！");
+				result=false;
+			}else{
+				$.ajax({
+					type: "POST",
+					headers: {
+						'Access-Control-Allow-Origin': '*'
+					},
+					dataType: "json",
+					url: "http://192.168.1.102:8903/insertGoodsPhoto",
+					data: {"goodsid":goodsid,"photoPaths":uploadResult},
+					async: false,
+					success: function(data) {
+						console.log("图片路径保存到数据库:"+data.data);
+						result = data.data;
+					}
+				});	
+			}
+			return result;
+		}
+		$('#logout').click(function () {
+			sessionStorage.removeItem("currentUser");
+			location.href = "login.html";
+		});
+	</script>
+</body>
+</html>

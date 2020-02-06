@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html xmlns:th="http:www.thymeleaf.org">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>ThreeBody男妆官网</title>
+		<meta name="description" content="欢迎访问ThreeBody男妆官网，了解更多ThreeBody脸部护理系列产品，ThreeBody肌底液、ThreeBody乳液等面部护理产品帮助有效改善肌肤状态，修弥干渴损伤，点亮年轻活力。">
+		<meta name="keywords" content="脸部护理，ThreeBody肌底液，ThreeBody乳液 ThreeBody,男妆,ThreeBody护肤品,ThreeBody男妆官网">
+		<link rel="stylesheet" th:href="@{css/base.css}">
+		<link rel="stylesheet" th:href="@{css/index.css}">
+		<link rel="stylesheet" th:href="@{/css/swiper.min.css}">
+	</head>
+
+	<body>
+		<div class="header ">
+			<div class="inner">
+				<div class="left clearfix">
+					<a href="@{index.html}">
+						<img th:src="@{images/logo.png}" alt="">
+					</a>
+				</div>
+				<div class="right">
+					<ul class="clearfix">
+						<li>
+							<a th:href="@{/index.html}">首页</a>
+						</li>
+						<li>
+							<a href="#">全部产品</a>
+						</li>
+						<li>
+							<a href="#">专柜地址</a>
+						</li>
+						<li>
+							<a href="#" style="margin-right: 50px">客服中心</a>
+						</li>
+						<li>
+							<a href="#">订阅电子杂志</a>
+						</li>
+						<li>
+							<a th:href="@{/login.html}">登录</a>
+							<a th:href="@{/resiter.html}">注册</a>
+						</li>
+						<li>
+							<a th:href="@{/aboutUs.html}">我的购物车<span></span></a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div class="clear"></div>
+		<div class="nav">
+			<div class="inner">
+				<ul class="">
+					<li>
+						<a href="#">脸部护理</a>
+					</li>
+					<li>
+						<a href="#">身体护理</a>
+					</li>
+					<li>
+						<a href="#">防晒隔离</a>
+					</li>
+					<li>
+						<a href="#">明星产品</a>
+					</li>
+					<li>
+						<a href="#">会员中心</a>
+					</li>
+					<li>
+						<a href="#">特惠礼盒</a>
+					</li>
+					<li>
+						<a href="#">品牌资讯</a>
+					</li>
+					<li>
+						<a href="#">关于我们</a>
+					</li>
+				</ul>
+				<div class="search">
+					<input type="text" placeholder="搜索三体">
+					<span></span>
+				</div>
+			</div>
+		</div>
+		<div class="clear"></div>
+		<div class="banner">
+			<div class="swiper-container swiper1">
+				<div class="swiper-wrapper ">
+					<div class="swiper-slide">
+						<a href="#">
+							<img th:src="@{images/banner1.jpg}" alt="">
+						</a>
+					</div>
+					<div class="swiper-slide">
+						<a href="#">
+							<img th:src="@{images/banner2.jpg}" alt="">
+						</a>
+					</div>
+					<div class="swiper-slide">
+						<a href="#">
+							<img th:src="@{images/banner3.jpg}" alt="">
+						</a>
+					</div>
+					<div class="swiper-slide">
+						<a href="#">
+							<img th:src="@{images/banner4.jpg}" alt="">
+						</a>
+					</div>
+				</div>
+				<!-- 如果需要分页器 -->
+				<div class="swiper-pagination"></div>
+
+				<!-- 如果需要导航按钮 -->
+				<div class="swiper-button-prev"></div>
+				<div class="swiper-button-next"></div>
+
+			</div>
+		</div>
+		<div class="clear"></div>
+		<div class="productdisplay">
+			<div class="inner">
+				<ul class="clearfix">
+					<li>
+						<a href="#">
+							<img th:src="@{images/pricesets.jpg}" alt="">
+							<span>特惠礼盒</span>
+							<i>立即购买</i>
+						</a>
+					</li>
+					<li class="center">
+						<a href="#">
+							<img th:src="@{images/Customize_Gift.jpg}" alt="">
+							<span>满额礼赠</span>
+							<i>立即购买</i>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<img th:src="@{images/Try_On.jpg}" alt=" ">
+                        <span>男士专区</span>
+                        <i>立即购买</i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="faceProduct ">
+        <div class="inner ">
+            <a href="# ">
+                <span>脸</span>
+                <span>部</span>
+                <span>产</span>
+                <span>品</span>
+            </a>
+            <div class="swiper-container swiper2 ">
+                <div class="swiper-wrapper ">
+                    <div class="swiper-slide ">
+                        <img th:src="@{images/p1.webp} " alt=" ">
+                        <p>奇迹日夜修护愈颜礼盒</p>
+                        <p>￥850</p>
+                    </div>
+                    <div class="swiper-slide ">
+                        <img th:src="@{images/p2.png} " alt=" ">
+                        <p>奇迹日夜修护愈颜礼盒</p>
+                        <p>￥850</p>
+                    </div>
+                    <div class="swiper-slide ">
+                        <img th:src="@{images/p3.webp} " alt=" ">
+                        <p>奇迹日夜修护愈颜礼盒</p>
+                        <p>￥850</p>
+                    </div>
+                    <div class="swiper-slide ">
+                        <img th:src="@{images/p4.webp} " alt=" "> <p>奇迹日夜修护愈颜礼盒</p>
+                        <p>￥850</p>
+                    </div>
+                    <div class="swiper-slide ">
+                        <img th:src="@{images/p5.png} " alt=" ">
+                        <p>奇迹日夜修护愈颜礼盒</p>
+                        <p>￥850</p>
+                    </div>
+                    <div class="swiper-slide ">
+                        <img th:src="@{images/p6.webp} " alt=" ">
+                        <p>奇迹日夜修护愈颜礼盒</p>
+                        <p>￥850</p>
+                    </div>
+                    <div class="swiper-slide ">
+                        <img th:src="@{images/p7.webp} " alt=" ">
+                        <p>奇迹日夜修护愈颜礼盒</p>
+                        <p>￥850</p>
+                    </div>
+                </div>
+
+                <!-- 如果需要导航按钮 -->
+                <div class="swiper-button-prev " style="color: white "></div>
+                <div class="swiper-button-next "></div>
+            </div>
+        </div>
+    </div>
+    <div class="faceProduct ">
+        <div class="inner ">
+            <a href="# ">
+                <b>脸</b>
+                <b>部</b>
+                <b>产</b>
+                <b>品</b>
+            </a>
+            <div class="swiper-container swiper2 ">
+                <div class="swiper-wrapper ">
+                    <div class="swiper-slide ">
+                        <img th:src="@{images/p1.webp} " alt=" ">
+                        <p>奇迹日夜修护愈颜礼盒</p>
+                        <p>￥850</p>
+                    </div>
+                    <div class="swiper-slide ">
+                        <img th:src="@{images/p2.png} " alt=" ">
+                        <p>奇迹日夜修护愈颜礼盒</p>
+                        <p>￥850</p>
+                    </div>
+                    <div class="swiper-slide ">
+                        <img th:src="@{images/p3.webp} " alt=" ">
+                        <p>奇迹日夜修护愈颜礼盒</p>
+                        <p>￥850</p>
+                    </div>
+                    <div class="swiper-slide ">
+                        <img th:src="@{images/p4.webp} " alt=" "> <p>奇迹日夜修护愈颜礼盒</p>
+                        <p>￥850</p>
+                    </div>
+                    <div class="swiper-slide ">
+                        <img th:src="@{images/p5.png} " alt=" ">
+                        <p>奇迹日夜修护愈颜礼盒</p>
+                        <p>￥850</p>
+                    </div>
+                    <div class="swiper-slide ">
+                        <img th:src="@{images/p6.webp} " alt=" ">
+                        <p>奇迹日夜修护愈颜礼盒</p>
+                        <p>￥850</p>
+                    </div>
+                    <div class="swiper-slide ">
+                        <img th:src="@{images/p7.webp} " alt=" ">
+                        <p>奇迹日夜修护愈颜礼盒</p>
+                        <p>￥850</p>
+                    </div>
+                </div>
+
+                <div class="swiper-pagination "></div>
+            </div>
+        </div>
+    </div>
+    <div class="faceProduct ">
+        <div class="inner ">
+            <a href="# ">
+                <b>脸</b>
+                <b>部</b>
+                <b>产</b>
+                <b>品</b>
+            </a>
+            <div class="swiper-container swiper2 ">
+                <div class="swiper-wrapper ">
+                    <div class="swiper-slide ">
+                        <img th:src="@{images/p1.webp} " alt=" ">
+                        <p>奇迹日夜修护愈颜礼盒</p>
+                        <p>￥850</p>
+                    </div>
+                    <div class="swiper-slide ">
+                        <img th:src="@{images/p2.png} " alt=" ">
+                        <p>奇迹日夜修护愈颜礼盒</p>
+                        <p>￥850</p>
+                    </div>
+                    <div class="swiper-slide ">
+                        <img th:src="@{images/p3.webp} " alt=" ">
+                        <p>奇迹日夜修护愈颜礼盒</p>
+                        <p>￥850</p>
+                    </div>
+                    <div class="swiper-slide ">
+                        <img th:src="@{images/p4.webp} " alt=" ">
+                        <p>奇迹日夜修护愈颜礼盒</p>
+                        <p>￥850</p>
+                    </div>
+                    <div class="swiper-slide ">
+                        <img th:src="@{images/p5.png} " alt=" ">
+                        <p>奇迹日夜修护愈颜礼盒</p>
+                        <p>￥850</p>
+                    </div>
+                    <div class="swiper-slide ">
+                        <img th:src="@{images/p6.webp} " alt=" ">
+                        <p>奇迹日夜修护愈颜礼盒</p>
+                        <p>￥850</p>
+                    </div>
+                    <div class="swiper-slide ">
+                        <img th:src="@{images/p7.webp} " alt=" ">
+                        <p>奇迹日夜修护愈颜礼盒</p>
+                        <p>￥850</p>
+                    </div>
+                </div>
+
+                <!-- 如果需要导航按钮 -->
+                <div class="swiper-button-prev " style="color: white "></div>
+                <div class="swiper-button-next "></div>
+            </div>
+        </div>
+    </div>
+    <div class="faceProduct ">
+        <div class="inner ">
+            <a href="# ">
+                <span>脸</span>
+                <span>部</span>
+                <span>产</span>
+                <span>品</span>
+            </a>
+            <div class="swiper-container swiper2 ">
+                <div class="swiper-wrapper ">
+                    <div class="swiper-slide ">
+                        <img th:src="@{images/p1.webp} " alt=" ">
+                        <p>奇迹日夜修护愈颜礼盒</p>
+                        <p>￥850</p>
+                    </div>
+                    <div class="swiper-slide ">
+                        <img th:src="@{images/p2.png} " alt=" ">
+                        <p>奇迹日夜修护愈颜礼盒</p>
+                        <p>￥850</p>
+                    </div>
+                    <div class="swiper-slide ">
+                        <img th:src="@{images/p3.webp} " alt=" ">
+                        <p>奇迹日夜修护愈颜礼盒</p>
+                        <p>￥850</p>
+                    </div>
+                    <div class="swiper-slide ">
+                        <img th:src="@{images/p4.webp} " alt=" ">
+                        <p>奇迹日夜修护愈颜礼盒</p>
+                        <p>￥850</p>
+                    </div>
+                    <div class="swiper-slide ">
+                        <img th:src="@{images/p5.png} " alt=" ">
+                        <p>奇迹日夜修护愈颜礼盒</p>
+                        <p>￥850</p>
+                    </div>
+                    <div class="swiper-slide ">
+                        <img th:src="@{images/p6.webp} " alt=" ">
+                        <p>奇迹日夜修护愈颜礼盒</p>
+                        <p>￥850</p>
+                    </div>
+                    <div class="swiper-slide ">
+                        <img th:src="@{images/p7.webp} " alt=" ">
+                        <p>奇迹日夜修护愈颜礼盒</p>
+                        <p>￥850</p>
+                    </div>
+                </div>
+
+                <!-- 如果需要导航按钮 -->
+                <div class="swiper-button-prev " style="color: white "></div>
+                <div class="swiper-button-next "></div>
+            </div>
+        </div>
+    </div>
+    <div class="faceProduct ">
+        <div class="inner ">
+            <a href="# ">
+                <span>脸</span>
+                <span>部</span>
+                <span>产</span>
+                <span>品</span>
+            </a>
+            <div class="swiper-container swiper2 ">
+                <div class="swiper-wrapper ">
+                    <div class="swiper-slide ">
+                        <img th:src="@{images/p1.webp} " alt=" ">
+                        <p>奇迹日夜修护愈颜礼盒</p>
+                        <p>￥850</p>
+                    </div>
+                    <div class="swiper-slide ">
+                        <img th:src="@{images/p2.png} " alt=" ">
+                        <p>奇迹日夜修护愈颜礼盒</p>
+                        <p>￥850</p>
+                    </div>
+                    <div class="swiper-slide ">
+                        <img th:src="@{images/p3.webp} " alt=" ">
+                        <p>奇迹日夜修护愈颜礼盒</p>
+                        <p>￥850</p>
+                    </div>
+                    <div class="swiper-slide ">
+                        <img th:src="@{images/p4.webp} " alt=" ">
+                        <p>奇迹日夜修护愈颜礼盒</p>
+                        <p>￥850</p>
+                    </div>
+                    <div class="swiper-slide ">
+                        <img th:src="@{images/p5.png} " alt=" ">
+                        <p>奇迹日夜修护愈颜礼盒</p>
+                        <p>￥850</p>
+                    </div>
+                    <div class="swiper-slide ">
+                        <img th:src="@{images/p6.webp} " alt=" ">
+                        <p>奇迹日夜修护愈颜礼盒</p>
+                        <p>￥850</p>
+                    </div>
+                    <div class="swiper-slide ">
+                        <img th:src="@{images/p7.webp} " alt=" ">
+                        <p>奇迹日夜修护愈颜礼盒</p>
+                        <p>￥850</p>
+                    </div>
+                </div>
+
+                <!-- 如果需要导航按钮 -->
+                <div class="swiper-button-prev " style="color: white "></div>
+                <div class="swiper-button-next "></div>
+            </div>
+        </div>
+    </div>
+
+
+
+<div class="foot ">
+    <div class="inner ">
+        <ul>
+            <li>
+                <h1>脸部护理</h1>
+                <div>活泉系列-保湿</div>
+                <div>蓝源系列-抗老</div>
+                <div>奇迹系列-修护</div>
+                <div>滢澈皙白系列-美白</div>
+            </li>
+            <li>
+                <h1>身体护理</h1>
+                <div>凝乳丝滑系列-润肤</div>
+                <div>光感纤体系列-塑身</div>
+                <div>保湿香氛系列-香氛</div>
+                <div>阳光欢愉系列-清爽</div>
+            </li>
+            <li>
+                <h1>防晒隔离</h1>
+                <div>防晒</div>
+                <div>隔离</div>
+                <div>气垫</div>
+            </li>
+            <li>
+                <h1>品牌故事</h1>
+                <div>ThreeBody故事</div>
+                <div>逾60年致力于护肤 </div>
+                <div>ThreeBody灵魂成分 </div>
+                <div>ThreeBody的承诺 </div>
+            </li>
+            <li>
+                <h1>帮助中心</h1>
+                <div>订单查询</div>
+                <div>常见问题</div>
+                <div>联系我们</div>
+                <div>法律信息</div>
+                <div>网站地图</div>
+            </li>
+            <li class="footRight ">
+                <h1>关注我们</h1>
+                <a href="https://weibo.com/u/6434760509 "> <span style="color: red "></span></a>
+                <span id="wechat " style="color: lawngreen "></span>
+                <span id="phone " style="color: deepskyblue "></span>
+                <section class="wechat ">
+                    <p>了解详情请关注我们的官方微信号</p>
+                    <img th:src="@{images/wechat.jpg} " alt=" ">
+                </section>
+                <section class="phone ">
+                    <p>欢迎您致电我们的服务电话!</p>
+                    <p>&emsp;15363391819</p>
+                </section>
+            </li>
+        </ul>
+        <div class="clear "></div>
+        <div class="copyright ">
+            <p> ©ThreeBody男妆版权所有:韩山师范学院计算机与信息工程学院“三体”小组，其中成员有丘彪、徐奕海、杨小辉、廖伟俊、何佳佳、崔灵涛。
+            </p>
+            <p>
+                抄袭必追究法律责任。欢迎探讨学习！
+            </p>
+        </div>
+    </div>
+</div>
+    <!--banner js结束-->
+<script th:src="@{js/swiper.min.js} "></script>
+    <script>
+        var swiper1 = new Swiper ('.swiper1', {
+            loop: true, // 循环模式选项
+            // 如果需要分页器
+            pagination: {
+                el: '.swiper-pagination',
+            },
+            // 如果需要前进后退按钮
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            }
+        });
+        var swiper2 = new Swiper('.swiper2', {
+            loop: true,
+            paginationClickable: true,
+            slidesPerView: 5,
+            spaceBetween: 50,
+            pagination: {
+                el: '.swiper-pagination',
+            },
+            breakpoints: {
+                1024: {
+                    slidesPerView: 4,
+                    spaceBetween: 40
+                },
+                768: {
+                    slidesPerView: 3,
+                    spaceBetween: 30
+                },
+                640: {
+                    slidesPerView: 2,
+                    spaceBetween: 20
+                },
+                320: {
+                    slidesPerView: 1,
+                    spaceBetween: 10
+                }
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            }
+            });
+    </script>
+    <!--banner js结束-->
+
+    <!--foot js开始-->
+<script th:src="@{js/jquery.min.js} "></script>
+<script>
+    $('#wechat').mouseenter(function () {
+        $('.wechat').css({display:"block "})
+    }).mouseleave(function () {
+        $('.wechat').css({display:"none "})
+    })
+    $('#phone').mouseenter(function () {
+        $('.phone').css({display:"block "})
+    }).mouseleave(function () {
+        $('.phone').css({display:"none "})
+    })
+</script>
+</body>
+</html>

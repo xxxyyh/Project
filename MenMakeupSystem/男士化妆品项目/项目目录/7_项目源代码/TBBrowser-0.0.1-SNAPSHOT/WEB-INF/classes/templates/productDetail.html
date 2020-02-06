@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html xmlns:th="http:www.thymeleaf.org"><html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>产品详情</title>
+    <link rel="stylesheet" th:href="@{/css/base.css}">
+    <link rel="stylesheet" th:href="@{/css/productDetail.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/pgwslideshow.css}">
+    <link rel="stylesheet" th:href="@{https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css}">
+</head>
+<body>
+<!--头部开始-->
+<div class="header ">
+    <div class="inner">
+        <div class="left clearfix">
+            <a th:href="@{index.html}">
+                <img th:src="@{images/logo.png}" alt="">
+            </a>
+        </div>
+        <div class="right">
+            <ul class="clearfix">
+                <li>
+                    <a th:href="@{/index.html}">首页</a>
+                </li>
+                <li>
+                    <a href="#">全部产品</a>
+                </li>
+                <li>
+                    <a href="#">专柜地址</a>
+                </li>
+                <li>
+                    <a href="#" style="margin-right: 50px">客服中心</a>
+                </li>
+                <li>
+                    <a th:href="@{/login.html}">后台管理</a>
+                </li>
+                <li>
+                    <a th:href="@{/myCarts.html}">我的购物车<span></span></a>
+                </li>
+                <li id="li-login">
+                    <a th:href="@{/login.html}">登录</a>
+                    <a th:href="@{/resiter.html}">注册</a>
+                    <!--<span th:text="${session.currentUser.useraccount}"></span>-->
+                </li>
+                <li class="dropdown">
+                    <a id="li-useraccount" class="dropdown-toggle" data-toggle="dropdown" >
+                        账号:<span id="useraccount"></span>
+                    </a>
+                    <img  id="li-usericon" class="dropdown-toggle" data-toggle="dropdown" style="width:45px;height:45px; border-radius: 100%;">
+                    <ul class="dropdown-menu" aria-labelledby="dropdownScale">
+                        <li class="scale-item" ><a th:href="@{/personalDetails.html}"><span class="fa fa-edit"></span>个人信息</a></li>
+                        <li class="scale-item" ><a th:href="@{/myOrder.html}"><span class="fa fa-edit" ></span>我的订单</a></li>
+                        <li class="scale-item" ><a id="logout">退出系统</a></li>
+                    </ul>
+                </li>
+                <!--<li id="li-usericon">
+                    <img id="icon" style="width: 50px;height: 50px;"></img>
+                </li>-->
+            </ul>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+<div class="clear"></div>
+<div class="nav">
+    <div class="inner">
+        <ul class="">
+            <li>
+                <p onclick="functionone()">脸部护理</p>
+            </li>
+            <li>
+                <a href="#" onclick="functionone()">身体护理</a>
+            </li>
+            <li>
+                <a href="#" onclick="functionone()">防晒隔离</a>
+            </li>
+            <li>
+                <a href="#" onclick="functionone()">明星产品</a>
+            </li>
+            <li>
+                <a href="#">会员中心</a>
+            </li>
+            <li>
+                <a href="#">特惠礼盒</a>
+            </li>
+            <li>
+                <a href="#">品牌资讯</a>
+            </li>
+            <li>
+                <a href="#">关于我们</a>
+            </li>
+        </ul>
+        <div class="search">
+            <input type="text" placeholder="搜索三体">
+            <span></span>
+        </div>
+    </div>
+</div>
+<!--导航栏结束-->
+
+<!--导航路径开始-->
+<!--<div class="smallNav">
+    <div class="inner">
+        <span><a href="">首页</a></span>
+        <span> > </span>
+        <span><a href="">产品部位</a></span>
+        <span> > </span>
+        <span><a href="">产品类型/产品功能/产品系列</a></span>
+        <span> > </span>
+        <span>产品名称</span>
+    </div>
+</div>-->
+<!--导航路径结束-->
+
+<!--产品详情开始-->
+<div id="product" class="inner clearfix">
+    <div class="jq22-container leftDetail">
+        <div class="jq22-content bgcolor-3">
+            <ul id="pgwSlideshow" class="pgwSlideshow">
+               
+            </ul>
+        </div>
+    </div>
+    <div class="rightDetail">
+        <span class="shoucang">收藏&emsp;</span>
+        <h1 id="goodsname">商品名字</h1>
+        <p id="goodsinfo">商品详情</p>
+        <div class="price">
+            <b>商品价格:</b>
+            <span id="goodsprice">50</span>
+        </div>
+        <div class="selectNumber">
+            <b >购买数量：</b>
+            <span class="del">-</span>
+            <input  id="addnumber"  type="text" onchange="changNumber(this)" value="1" >  
+            <span class="add">+</span>&emsp;&emsp;&emsp;&emsp;
+        </div>
+        <div class="kucun">
+            <b>库&emsp;&emsp;存：</b>
+            <i id="goodsstock">50</i>
+        </div>
+        <button onclick="buynow()">立即购买</button>
+        <!--data-toggle="modal" data-target="#myModal"-->
+        <button onclick="addcart()" >加入购物车</button>
+    </div>
+</div>
+<!--加入购物车模态框-->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" 
+                        aria-hidden="true">×
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    	信息提示
+                </h4>
+            </div>
+            <div class="modal-body" style="text-align: center;font-weight: 600;font-size: 24px;">
+                	成功加入购物车，赶紧去下单吧！
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" 
+                        data-dismiss="modal">关闭
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+​
+
+
+
+
+<div class="container inner" style="padding-left: 40px;">
+    <div class="row cHeight">
+        <div class="col-md-2 slideleft">
+            <h3 id="adminpetname">店铺名</h3>
+            <span >商家状态：</span><span id="adminstate" class="status">在线</span>
+            <br>
+            <br>
+            <span>店铺评分：</span><span id="admingrade" class="status">5星</span>
+            <br>
+            <br>
+            <span>联系方式：</span><span id="admintel" class="status">在线</span>
+        </div>
+        <div class="col-md-1"></div>
+        <div class="col-md-9">
+            <ul id="myTab" class="nav nav-tabs">
+                <li class="active">
+                    <a href="#gDetail" data-toggle="tab">
+                        商品详情
+                    </a>
+                </li>
+                <li>
+                    <a href="#discuss" data-toggle="tab">
+                        评价
+                    </a>
+                </li>
+            </ul>
+            <div id="myTabContent" class="tab-content">
+                <div class="tab-pane fade in active" id="gDetail">
+                    <div class="productDetail">
+                        <div class="container">
+                            <div id="rowphotos" class="row">
+                               <!-- <div class="col-md-12">
+                                    <img th:src="@{/images/pdetail1.jpg}" alt="">
+                                </div>-->
+                               
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="discuss">
+                    <!--<div class="comment">
+                        <p>评论内容</p>
+                        <span>评论时间</span>
+                        <span>评论用户名</span>
+                        <span>购买的产品名称</span>
+                        <b>评价星级</b>
+                    </div>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--产品详情结束-->
+
+
+<!--页脚开始-->
+<div class="foot">
+    <div class="inner">
+        <ul>
+            <li>
+                <h1>脸部护理</h1>
+                <div>活泉系列-保湿</div>
+                <div>蓝源系列-抗老</div>
+                <div>奇迹系列-修护</div>
+                <div>滢澈皙白系列-美白</div>
+            </li>
+            <li>
+                <h1>身体护理</h1>
+                <div>凝乳丝滑系列-润肤</div>
+                <div>光感纤体系列-塑身</div>
+                <div>保湿香氛系列-香氛</div>
+                <div>阳光欢愉系列-清爽</div>
+            </li>
+            <li>
+                <h1>防晒隔离</h1>
+                <div>防晒</div>
+                <div>隔离</div>
+                <div>气垫</div>
+            </li>
+            <li>
+                <h1>品牌故事</h1>
+                <div>ThreeBody故事</div>
+                <div>逾60年致力于护肤 </div>
+                <div>ThreeBody灵魂成分 </div>
+                <div>ThreeBody的承诺 </div>
+            </li>
+            <li>
+                <h1>帮助中心</h1>
+                <div>订单查询</div>
+                <div>常见问题</div>
+                <div>联系我们</div>
+                <div>法律信息</div>
+                <div>网站地图</div>
+            </li>
+            <li class="footRight">
+                <h1>关注我们</h1>
+                <a th:href="@{https://weibo.com/u/6434760509}"> <span style="color: red"></span></a>
+                <span id="wechat" style="color: lawngreen"></span>
+                <span id="phone" style="color: deepskyblue"></span>
+                <section class="wechat">
+                    <p>了解详情请关注我们的官方微信号</p>
+                    <img th:src="@{/images/wechat.jpg}" alt="">
+                </section>
+                <section class="phone">
+                    <p>欢迎您致电我们的服务电话!</p>
+                    <p>&emsp;15363391819</p>
+                </section>
+            </li>
+        </ul>
+        <div class="clear"></div>
+        <div class="copyright">
+            <p> ©ThreeBody男妆版权所有:韩山师范学院计算机与信息工程学院“三体”小组，其中成员有丘彪、徐奕海、杨小辉、廖伟俊、何佳佳、崔灵涛。
+            </p>
+            <p>
+                抄袭必追究法律责任。欢迎探讨学习！
+            </p>
+        </div>
+    </div>
+</div>
+<!--页脚结束-->
+<script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/pgwslideshow.min.js}"></script>
+<script type="text/javascript">
+
+	$(function(){
+		//从主页跳到商品详情
+        var str=location.search;
+        var a = Number(str.split("?goodsId=").join(""));
+        window.sessionStorage.setItem('goodsId',a);
+        var currentUser = JSON.parse(sessionStorage.getItem("currentUser"));
+        if(currentUser!=null){
+        	window.sessionStorage.setItem('userId',currentUser.userid);
+        }
+		$.ajax({
+		type:"GET",
+		headers: {
+				 'Access-Control-Allow-Origin': '*'  //此写法表明同意发送跨域请求
+				},
+		url:"http://192.168.1.112:8907/selectGoodsWithPhotoandAdmin",
+		dataType:"json",
+		data:{"goodsId": a},
+		async:true,
+		success:function(data){
+			console.log(data);
+			console.log($('#goodsname'));
+			window.sessionStorage.setItem('goodsPhotoCode',data.data.goodsid);
+			window.sessionStorage.setItem('adminPetname',data.data.adminpetname);
+			window.sessionStorage.setItem('goodsName',data.data.goodsname);
+			window.sessionStorage.setItem('goodsPrice',data.data.goodsprice);
+			window.sessionStorage.setItem('goodsInfo',data.data.goodsinfo);
+			window.sessionStorage.setItem('goodsPhotoCode',data.data.gphotocode[0]);
+			$('#goodsname').html(data.data.goodsname);
+			$('#goodsprice').html(data.data.goodsprice);
+			$('#goodsinfo').html(data.data.goodsinfo);
+			$('#goodsstock').html(data.data.goodsstock);
+			$('#adminpetname').html(data.data.adminpetname);
+			$('#adminstate').html(data.data.adminstate);
+			$('#admingrade').html(data.data.admingrade);
+			$('#admintel').html(data.data.admintel);
+			$('#product').attr("value",data.data.goodsid);
+			for(var i=0;i<data.data.gphotocode.length;i++){
+				//轮播图插入图片
+				$('#pgwSlideshow').append('<li>'+'<img src="/TBBrowser-0.0.1-SNAPSHOT/'+data.data.gphotocode[i]+'">'+'</li>');
+				//详情插入图片
+				$('#rowphotos').append('<div class="col-md-12">'+
+                '<img src="/TBBrowser-0.0.1-SNAPSHOT/'+data.data.gphotocode[i]+'" alt="">'+
+            	'</div>');
+			}
+			//轮播图显示
+			$('.pgwSlideshow').pgwSlideshow({
+            transitionEffect:'fading',
+            autoSlide:true
+        	});
+        	
+        	
+		},
+		error:function(){
+			console.log("执行selectSCByUserid错误");
+		}
+		});
+		
+		
+		
+		/*这个ajax的作用是查看是否为收藏商品*/
+		$.ajax({
+			type:"post",
+			url:"http://192.168.1.112:8907/selectCollection",
+			async:true,
+			headers: {
+				 'Access-Control-Allow-Origin': '*'  //此写法表明同意发送跨域请求
+				},
+			contentType:"application/json",	
+			dataType:"json",
+			data:JSON.stringify({"goodsid":window.sessionStorage.getItem("goodsId"),"userid":window.sessionStorage.getItem("userId")}),
+			success:function(data){
+				if(data.message=='success'){
+					$('.shoucang').css("color","rgb(255,0,0)");
+				}else{
+					console.log('没有登录');
+				}
+			},
+			error:function(){
+				console.log("执行ajax错误");
+			}
+		});
+		
+		
+		
+		/*这个ajax作用是查找该商品的所有评价*/
+		$.ajax({
+			type:"post",
+			url:"http://192.168.1.112:8907/selectGoodsEvaluationByGoodsId",
+			async:true,
+			headers: {
+				 'Access-Control-Allow-Origin': '*'  //此写法表明同意发送跨域请求
+				},
+			contentType:"application/json",	
+			dataType:"json",
+			data:JSON.stringify({"goodsid":window.sessionStorage.getItem("goodsId")}),
+			success:function(data){
+				console.log(data);
+					for(var i=0;i<data.datas.length;i++){
+						$('#discuss').append('<div class="comment">'+
+                        '<p>'+ data.datas[i].gevatext+'</p>'+
+                        '<span>'+ data.datas[i].gevadate+'</span>'+
+                        '<span>'+ data.datas[i].userpetname+'</span>'+
+                        '<span>'+ data.datas[i].goodsname+'</span>'+
+                       '<b>'+ data.datas[i].gevalevel+'</b>'+
+                     '</div>');
+					}
+        			
+			},
+			error:function(){
+				console.log("执行ajax错误");
+			}
+		});
+		
+		
+		
+		
+		
+
+	});
+	
+	
+	function buynow(){
+			//立即购买
+			if(window.sessionStorage.getItem('userId')==null){
+				var isYes=confirm('请您先登录');
+				if(isYes){
+					window.location.href='login.html';
+					return ;
+				}
+				else{
+					return;
+				}
+				
+			}
+
+			var goodsnum=$('#addnumber').attr("value");
+			window.sessionStorage.setItem('addNumber',goodsnum);
+			var good=new Map();
+			good['goodsbrand']=window.sessionStorage.getItem('adminPetname');
+			good['goodsid']=window.sessionStorage.getItem('goodsId');
+			good['goodsinfo']=window.sessionStorage.getItem('goodsInfo');
+			good['goodsname']=window.sessionStorage.getItem('goodsName');
+			good['goodsphotocode']=window.sessionStorage.getItem('goodsPhotoCode');
+			good['goodsprice']=window.sessionStorage.getItem('goodsPrice');
+			good['goodsnum']=window.sessionStorage.getItem('addNumber');
+			good['total']=parseInt(good['goodsprice'])*parseInt(good['goodsnum']);
+			var goodslist=new Array();
+			goodslist.push(good);
+			window.sessionStorage.setItem('goodsList',JSON.stringify(goodslist));
+			window.location.href='payments.html';
+			
+			
+		}
+		
+		
+		
+		//将商品添加到购物车
+		function addcart(){
+			
+			if(window.sessionStorage.getItem('userId')==null){
+				var isYes=confirm('请您先登录');
+				if(isYes){
+					window.location.href='login.html';
+					return ;
+				}else{
+					return;
+				}
+				
+			}
+			
+			
+			
+				
+			var goodsid=$('#product').attr("value");
+			var goodsnum=$('#addnumber').attr("value");
+			$.ajax({
+				type:"POST",
+				headers: {
+				 'Access-Control-Allow-Origin': '*'  //此写法表明同意发送跨域请求
+				},
+				url:"http://192.168.1.112:8911/insertShoppingCarSelective",
+				contentType:"application/json",	
+				dataType:"json",
+				data:JSON.stringify({"userid":window.sessionStorage.getItem('userId'),"goodsid":goodsid,"goodsnum":goodsnum}),
+				async:true,
+				success:function(data){
+					if(data.message=="success"){
+						alert('成功加入购物车');	
+					}
+				},
+				error:function(){
+					console.log("发送ajax出错");
+				}
+			});
+		}
+
+		function changNumber(myinfo){
+			
+			if(window.sessionStorage.getItem('userId')==null){
+				return;
+				
+			}
+
+			$('#addnumber').attr('value',myinfo.value);
+			
+		}
+
+
+
+</script>
+
+
+
+<script>
+  
+    /*收藏特效*/
+    var $shoucang = $('.shoucang');
+    $shoucang.click(function () {
+    	
+    	if(window.sessionStorage.getItem('userId')==null){
+    		alert('对不起,您还没登录!');
+    		return ;
+    	}
+    	
+    	
+        if($(this).css("color")=="rgb(51, 51, 51)"){            
+            console.log("添加收藏");
+            $.ajax({
+	            type:"post",
+				url:"http://192.168.1.112:8907/insertCollection",
+				async:false,
+				headers: {
+					 'Access-Control-Allow-Origin': '*',  //此写法表明同意发送跨域请求
+					 'Content-Type': "application/json;charset=utf-8"
+				},
+				dataType:"json",
+				data:JSON.stringify({"goodsid":window.sessionStorage.getItem("goodsId"),"userid":window.sessionStorage.getItem("userId")}),
+				success:function(data){
+					if(data.message=='success'){
+						console.log("添加收藏");
+					}
+				},
+				error:function(){
+					console.log("执行ajax错误");
+				}
+            });
+           $(this).css("color","rgb(255, 0, 0)");
+        }else {
+            $.ajax({
+	            type:"post",
+				url:"http://192.168.1.112:8907/deleteCollection",
+				async:false,
+				headers: {
+					 'Access-Control-Allow-Origin': '*',  //此写法表明同意发送跨域请求
+					 'Content-Type': "application/json;charset=utf-8"
+				},
+				dataType:"json",
+				data:JSON.stringify({"goodsid":window.sessionStorage.getItem("goodsId"),"userid":window.sessionStorage.getItem("userId")}),
+				success:function(data){
+					if(data.message=='success'){
+						console.log("取消收藏");
+					}
+				},
+				error:function(){
+					console.log("执行ajax错误");
+				}
+            });
+             $(this).css("color","rgb(51, 51, 51)");
+        }
+    })
+    /*购买数量*/
+    var $add = $('.add');
+    var $del = $('.del');
+    var $selectInput = $('.selectNumber input');
+    var count = $selectInput.val();
+    $add.click(function () {
+        count = Number(count)+1;
+        console.log(count);
+        $selectInput.attr("value",count);
+        
+    });
+    $del.click(function () {
+        count = Number(count)-1;
+        if(count<=0){
+            count=1;
+        }
+        $selectInput.attr("value",count);
+    })
+</script>
+
+<!--页脚“关注我们”模块特效开始-->
+<script>
+    $('#wechat').mouseenter(function () {
+        $('.wechat').css({display:"block"})
+    }).mouseleave(function () {
+        $('.wechat').css({display:"none"})
+    })
+    $('#phone').mouseenter(function () {
+        $('.phone').css({display:"block"})
+    }).mouseleave(function () {
+        $('.phone').css({display:"none"})
+    })
+</script>
+<!--页脚“关注我们”模块特效结束-->
+<!--用户头像-->
+<script type="text/javascript" th:inline="javascript">
+    var currentUser = JSON.parse(sessionStorage.getItem("currentUser"));
+    console.log(currentUser);
+    if(currentUser != null){
+        var useraccount = currentUser.useraccount;
+        var usericon = currentUser.usericon;
+        if(usericon != null){
+            $("#li-login").css({display: "none"});
+            $("#li-useraccount").css({display: "none"});
+            $("#li-usericon").css({display: "block"});
+            $("#li-usericon").attr("src",usericon);
+        }else if(useraccount != null){
+            $("#li-login").css({display: "none"});
+            $("#li-usericon").css({display: "none"});
+            $("#li-useraccount").css({display: "block"});
+            $("#useraccount").text(useraccount);
+        }
+    }else{
+        $("#li-login").css({display: "block"});
+        $("#li-usericon").css({display: "none"});
+        $("#li-useraccount").css({display: "none"});
+    }
+    $('#logout').click(function () {
+        sessionStorage.removeItem("currentUser");
+        location.href = "login.html";
+    });
+</script>
+<!--js结束-->
+</body>
+</html>

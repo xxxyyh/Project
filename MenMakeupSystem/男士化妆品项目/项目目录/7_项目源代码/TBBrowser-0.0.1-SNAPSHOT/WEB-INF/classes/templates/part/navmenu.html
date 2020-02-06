@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http:www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>index</title>
+</head>
+<body>
+	<nav class="navbar navbar-default top-navbar" role="navigation"
+		id="header">
+		<div class="navbar-header">
+			<a class="navbar-brand" href="#"> <strong>男妆后台管理系统</strong>
+			</a>
+		</div>
+		<ul class="nav navbar-top-links navbar-right">
+			<li class="dropdown"><a class="dropdown-toggle"
+				data-toggle="dropdown" href="#" aria-expanded="false">
+					<span id="currentAccount"></span> 
+					<i class="fa fa-user fa-fw"></i> <i
+					class="fa fa-caret-down"></i>
+			</a>
+				<ul class="dropdown-menu dropdown-user">
+					<li><a id="logout"><i
+							class="fa fa-sign-out fa-fw"></i> 登出 </a></li>
+				</ul></li>
+		</ul>
+	</nav>
+
+	<nav class="navbar-default navbar-side" role="navigation" id="side">
+		<div class="sidebar-collapse">
+			<ul class="nav" id="main-menu">
+				<!--管理员查看-->
+				<li id="li-allStatistical"><a th:href="@{statistical.html}"> <i
+						class="fa fa-desktop"></i>统计信息
+				</a></li>
+				<!--管理员查看-->
+				<li id="li-customer"><a th:href="@{customerManager.html}"> <i
+						class="fa fa-table"></i>客户管理
+				</a></li>
+				<!--管理员查看-->
+				<li id="li-allGoods"><a th:href="@{allGoodsManager.html}"> <i
+						class="fa fa-table"></i>商品管理
+				</a></li>
+
+				<!--管理员查看-->
+				<li id="li-allOrder"><a th:href="@{allOrderManager.html}"> <i
+						class="fa fa-desktop"></i>订单管理
+				</a></li>	
+			</ul>
+		</div>
+	</nav>
+	<nav class="navbar-default navbar-side" role="navigation" id="skrside">
+		<div class="sidebar-collapse">
+			<ul class="nav" id="main-menu">
+				<!--商家查看-->
+				<li id="li-skrStatistical"><a th:href="@{skrStatistical.html}"> <i
+						class="fa fa-desktop"></i>统计信息
+				</a></li>
+				<!--商家查看-->
+				<li id="li-skrGoods"><a th:href="@{skrGoodsManager.html}"> <i
+						class="fa fa-table"></i>商品管理
+				</a></li>
+				<!--商家查看-->
+				<li id="li-skrOrder"><a th:href="@{skrOrderManager.html}"> <i
+						class="fa fa-desktop"></i>订单管理
+				</a></li>
+			</ul>
+		</div>
+	</nav>
+</body>
+</html>

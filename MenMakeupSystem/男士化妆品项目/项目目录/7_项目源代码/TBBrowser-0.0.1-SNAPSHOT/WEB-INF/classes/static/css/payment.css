@@ -1,0 +1,48 @@
+.address {
+    margin-top: 15px;
+    margin-bottom: 30px;
+    position: relative;
+}
+.delAddress {
+    display:inline-block;width: 70px;height: 20px;border: 1px solid #ccc;text-align: center;background-color: red;color: white;
+}
+.address li {
+    position: relative;
+    line-height: 30px;
+    margin-left: 50px;
+}
+
+input[type="radio"] {
+    width: 20px;
+    height: 20px;
+    opacity: 1;
+}
+.arriveAddress {
+    display: inline;
+}
+b {
+    display: none;
+}
+.modal-body .container {
+    width: 598px;
+}
+.row {
+    margin-bottom: 20px;
+}
+.row input {
+    width: 350px;
+}
+.account {
+    float: right;
+    width: 400px;
+    height: 230px;
+    border: 1px solid #CCCCCC;
+    padding: 40px 40px;
+
+}
+.account button {
+    width: 150px;
+    height: 45px;
+    background-color: red;
+    border: none;
+}

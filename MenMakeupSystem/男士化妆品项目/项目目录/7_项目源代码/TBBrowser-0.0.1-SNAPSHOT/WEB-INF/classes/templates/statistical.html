@@ -1,0 +1,225 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http:www.thymeleaf.org">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta content="" name="description" />
+		<meta content="webthemez" name="author" />
+		<title>商品管理</title>
+		<script type="text/javascript" th:src="@{/js/loader.js}"></script>
+		<title>统计报表</title>
+	</head>
+
+	<body>
+		<div id="wrapper">
+			<!--头部：页面标题栏-->
+			<div th:replace="part/navmenu::#header"></div>
+			<!--导航栏：页面菜单栏-->
+			<div th:replace="part/navmenu::#side"></div>
+			<!--表格-->
+			<div id="page-wrapper">
+				<div id="page-inner">
+					<div class="row">
+						<div class="col-md-3">
+							
+						</div>
+						<div class="col-md-6 col-sm-12 col-xs-12">
+							<div class="panel panel-default">
+								<div class="panel-heading">品牌销量柱状图</div>
+								<div class="panel-body">
+									<div id="quantity-bar-echarts" style="width:470px;height:300px"></div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-3">
+							
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-3">
+							
+						</div>
+						<div class="col-md-6 col-sm-12 col-xs-12">
+							<div class="panel panel-default">
+								<div class="panel-heading">品牌销量环形图</div>
+								<div class="panel-body">
+									<div id="quantity-doughnut-echarts" style="width:470px;height:300px"></div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-3">
+							
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--<jsp:include page="/part/manager.js.jsp"></jsp:include>-->
+		<script type="text/javascript">
+			var types = new Array();
+			var nums = new Array();
+			var amounts = new Array();
+
+			//echarts图表初始化：获得图表对象
+			var qbeCharts = echarts.init(document.getElementById("quantity-bar-echarts"));
+			var qdeCharts = echarts.init(document.getElementById("quantity-doughnut-echarts"));
+//			var tbeCharts = echarts.init(document.getElementById("total-bar-echarts"));
+//			var tdeCharts = echarts.init(document.getElementById("total-doughnut-echarts"));
+
+			$.ajax({
+				type: "get",
+				headers: {
+					'Access-Control-Allow-Origin': '*',
+					'Content-Type': 'application/json; charset=UTF-8'
+				},
+				dataType: "json",
+				url: "http://192.168.1.112:8907/selectSalesAmount",
+				async: false,
+				success: function(data) {
+					//					console.log(data.datas);
+					var types = [];
+					var nums = [];
+					var seriesData = [];
+					$.each(data.datas, function() {
+						types.push(this.goodsbrand);
+						nums.push(this.itemsnum);
+						var m = new Map();
+						m["name"] = this.goodsbrand;
+						m["value"] = this.itemsnum;
+						seriesData.push(m);
+					});
+					console.log(seriesData);
+					//配置柱状图表
+					var qbeOption = {
+						xAxis: {
+							type: 'category',
+							data: types
+						},
+						yAxis: {
+							type: 'value'
+						},
+						series: [{
+							data: nums,
+							type: 'bar'
+						}]
+					};
+					//配置圆饼图表
+					var qdeOption = {
+						title: {
+							text: '品牌销量',
+							subtext: '商品',
+							x: 'center'
+						},
+						tooltip: {
+							trigger: 'item',
+							formatter: "{a} <br/>{b} : {c} ({d}%)"
+						},
+						legend: {
+							orient: 'vertical',
+							left: 'left',
+							data: types
+						},
+						series: [{
+							name: '访问来源',
+							type: 'pie',
+							radius: '55%',
+							center: ['50%', '60%'],
+							data: seriesData,
+							itemStyle: {
+								emphasis: {
+									shadowBlur: 10,
+									shadowOffsetX: 0,
+									shadowColor: 'rgba(0, 0, 0, 0.5)'
+								}
+							}
+						}]
+					};
+					var option2 = {
+						title: {
+							text: '某站点用户访问来源',
+							subtext: '纯属虚构',
+							x: 'center'
+						},
+						tooltip: {
+							trigger: 'item',
+							formatter: "{a} <br/>{b} : {c} ({d}%)"
+						},
+						legend: {
+							orient: 'vertical',
+							left: 'left',
+							data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎']
+						},
+						series: [{
+							name: '访问来源',
+							type: 'pie',
+							radius: '55%',
+							center: ['50%', '60%'],
+							data: [{
+									value: 335,
+									name: '直接访问'
+								},
+								{
+									value: 310,
+									name: '邮件营销'
+								},
+								{
+									value: 234,
+									name: '联盟广告'
+								},
+								{
+									value: 135,
+									name: '视频广告'
+								},
+								{
+									value: 1548,
+									name: '搜索引擎'
+								}
+							],
+							itemStyle: {
+								emphasis: {
+									shadowBlur: 10,
+									shadowOffsetX: 0,
+									shadowColor: 'rgba(0, 0, 0, 0.5)'
+								}
+							}
+						}]
+					};
+					//将图表配置，设置到图表对象中！
+					qbeCharts.setOption(qbeOption);
+					qdeCharts.setOption(qdeOption);
+//					qdeCharts.setOption(option2);
+				}
+			});
+
+			//发起ajax请求，往后台获取图表数据
+			/*$.post("showcharts.html",{},function(data){
+				data = JSON.parse(data); 
+				$.each(data,function(){
+					types.push(this.GTYPE);
+					nums.push(this.NUM);
+					amounts.push(this.AMOUNT);
+				});
+				//配置图表
+				var qbeOption = {
+				    xAxis: {
+				        type: 'category',
+				        data: types
+				    },
+				    yAxis: {
+				        type: 'value'
+				    },
+				    series: [{
+				        data: nums,
+				        type: 'bar'
+				    }]
+				};
+
+				//将图表配置，设置到图表对象中！
+				qbeCharts.setOption(qbeOption);
+			});*/
+		</script>
+	</body>
+
+</html>

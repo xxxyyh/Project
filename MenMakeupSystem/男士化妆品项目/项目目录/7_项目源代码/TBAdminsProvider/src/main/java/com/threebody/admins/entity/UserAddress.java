@@ -1,0 +1,43 @@
+package com.threebody.admins.entity;
+
+public class UserAddress {
+    private Integer userid;
+
+    private String useraddr;
+
+    private String usertel;
+
+    private String userconsignee;
+
+    public Integer getUserid() {
+        return userid;
+    }
+
+    public void setUserid(Integer userid) {
+        this.userid = userid;
+    }
+
+    public String getUseraddr() {
+        return useraddr;
+    }
+
+    public void setUseraddr(String useraddr) {
+        this.useraddr = useraddr == null ? null : useraddr.trim();
+    }
+
+    public String getUsertel() {
+        return usertel;
+    }
+
+    public void setUsertel(String usertel) {
+        this.usertel = usertel == null ? null : usertel.trim();
+    }
+
+    public String getUserconsignee() {
+        return userconsignee;
+    }
+
+    public void setUserconsignee(String userconsignee) {
+        this.userconsignee = userconsignee == null ? null : userconsignee.trim();
+    }
+}

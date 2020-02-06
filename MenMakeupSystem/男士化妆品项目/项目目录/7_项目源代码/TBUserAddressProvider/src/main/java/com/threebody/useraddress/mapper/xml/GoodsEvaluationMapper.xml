@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.threebody.useraddress.mapper.GoodsEvaluationMapper" >
+  <resultMap id="BaseResultMap" type="com.threebody.useraddress.entity.GoodsEvaluation" >
+    <id column="gevaId" property="gevaid" jdbcType="INTEGER" />
+    <result column="goodsId" property="goodsid" jdbcType="INTEGER" />
+    <result column="gevaText" property="gevatext" jdbcType="VARCHAR" />
+    <result column="userId" property="userid" jdbcType="INTEGER" />
+    <result column="gevaLevel" property="gevalevel" jdbcType="INTEGER" />
+    <result column="gevaDate" property="gevadate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    gevaId, goodsId, gevaText, userId, gevaLevel, gevaDate
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.threebody.useraddress.entity.GoodsEvaluationExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from goodsevaluation
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from goodsevaluation
+    where gevaId = #{gevaid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from goodsevaluation
+    where gevaId = #{gevaid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.threebody.useraddress.entity.GoodsEvaluationExample" >
+    delete from goodsevaluation
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.threebody.useraddress.entity.GoodsEvaluation" >
+    insert into goodsevaluation (gevaId, goodsId, gevaText, 
+      userId, gevaLevel, gevaDate
+      )
+    values (#{gevaid,jdbcType=INTEGER}, #{goodsid,jdbcType=INTEGER}, #{gevatext,jdbcType=VARCHAR}, 
+      #{userid,jdbcType=INTEGER}, #{gevalevel,jdbcType=INTEGER}, #{gevadate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.threebody.useraddress.entity.GoodsEvaluation" >
+    insert into goodsevaluation
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="gevaid != null" >
+        gevaId,
+      </if>
+      <if test="goodsid != null" >
+        goodsId,
+      </if>
+      <if test="gevatext != null" >
+        gevaText,
+      </if>
+      <if test="userid != null" >
+        userId,
+      </if>
+      <if test="gevalevel != null" >
+        gevaLevel,
+      </if>
+      <if test="gevadate != null" >
+        gevaDate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="gevaid != null" >
+        #{gevaid,jdbcType=INTEGER},
+      </if>
+      <if test="goodsid != null" >
+        #{goodsid,jdbcType=INTEGER},
+      </if>
+      <if test="gevatext != null" >
+        #{gevatext,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="gevalevel != null" >
+        #{gevalevel,jdbcType=INTEGER},
+      </if>
+      <if test="gevadate != null" >
+        #{gevadate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.threebody.useraddress.entity.GoodsEvaluationExample" resultType="java.lang.Integer" >
+    select count(*) from goodsevaluation
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update goodsevaluation
+    <set >
+      <if test="record.gevaid != null" >
+        gevaId = #{record.gevaid,jdbcType=INTEGER},
+      </if>
+      <if test="record.goodsid != null" >
+        goodsId = #{record.goodsid,jdbcType=INTEGER},
+      </if>
+      <if test="record.gevatext != null" >
+        gevaText = #{record.gevatext,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userid != null" >
+        userId = #{record.userid,jdbcType=INTEGER},
+      </if>
+      <if test="record.gevalevel != null" >
+        gevaLevel = #{record.gevalevel,jdbcType=INTEGER},
+      </if>
+      <if test="record.gevadate != null" >
+        gevaDate = #{record.gevadate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update goodsevaluation
+    set gevaId = #{record.gevaid,jdbcType=INTEGER},
+      goodsId = #{record.goodsid,jdbcType=INTEGER},
+      gevaText = #{record.gevatext,jdbcType=VARCHAR},
+      userId = #{record.userid,jdbcType=INTEGER},
+      gevaLevel = #{record.gevalevel,jdbcType=INTEGER},
+      gevaDate = #{record.gevadate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.threebody.useraddress.entity.GoodsEvaluation" >
+    update goodsevaluation
+    <set >
+      <if test="goodsid != null" >
+        goodsId = #{goodsid,jdbcType=INTEGER},
+      </if>
+      <if test="gevatext != null" >
+        gevaText = #{gevatext,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        userId = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="gevalevel != null" >
+        gevaLevel = #{gevalevel,jdbcType=INTEGER},
+      </if>
+      <if test="gevadate != null" >
+        gevaDate = #{gevadate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where gevaId = #{gevaid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.threebody.useraddress.entity.GoodsEvaluation" >
+    update goodsevaluation
+    set goodsId = #{goodsid,jdbcType=INTEGER},
+      gevaText = #{gevatext,jdbcType=VARCHAR},
+      userId = #{userid,jdbcType=INTEGER},
+      gevaLevel = #{gevalevel,jdbcType=INTEGER},
+      gevaDate = #{gevadate,jdbcType=TIMESTAMP}
+    where gevaId = #{gevaid,jdbcType=INTEGER}
+  </update>
+</mapper>

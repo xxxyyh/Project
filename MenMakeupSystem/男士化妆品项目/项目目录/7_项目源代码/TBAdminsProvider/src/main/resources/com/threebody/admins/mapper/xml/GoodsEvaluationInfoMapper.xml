@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.threebody.admins.mapper.GoodsEvaluationInfoMapper" >
+ 
+ <select id="selectGoodsEvaluationInfo" parameterType="Integer" resultType="map" >
+ select 
+ gevaId as gevaid,
+ goodsName as goodsname,
+ gevaText as gevatext,
+ userAccount as useraccount,
+ userIcon as usericon,
+ userPetName as userpetname,
+ gevaLevel as gevalevel,
+DATE_FORMAT(gevaDate,'%Y年%m月%d日 %H:%i:%s') as gevadate
+from goodsevaluation,goods,users
+where goodsevaluation.goodsId=goods.goodsId  and goodsevaluation.userId=users.userId and goodsevaluation.goodsId=#{goodsId}
+ </select>
+
+
+</mapper>

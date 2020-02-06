@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html xmlns:th="http:www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>支付界面</title>
+		<link rel="stylesheet" th:href="@{/css/city-picker.css}">
+		<link rel="stylesheet" th:href="@{/css/payment.css}">
+		<link rel="stylesheet" th:href="@{/css/base.css}">
+		<link rel="stylesheet" th:href="@{/css/myCarts.css}">
+		<link rel="stylesheet" th:href="@{/css/bootstrap.css}">
+		<script th:src="@{/js/pick-pcc.min.1.0.1.js}"></script>
+		<script th:src="@{/js/jquery-1.10.2.js}"></script>
+		<script th:src="@{/js/bootstrap.min.js}"></script>
+	</head>
+
+	<body>
+		<!--头部开始-->
+		<div class="header ">
+			<div class="inner">
+				<div class="left clearfix">
+					<a th:href="@{index.html}">
+						<img th:src="@{images/logo.png}" alt="">
+					</a>
+				</div>
+				<div class="right">
+					<ul class="clearfix">
+						<li>
+							<a th:href="@{/index.html}">首页</a>
+						</li>
+						<li>
+							<a href="#">全部产品</a>
+						</li>
+						<li>
+							<a href="#">专柜地址</a>
+						</li>
+						<li>
+							<a href="#" style="margin-right: 50px">客服中心</a>
+						</li>
+						<li>
+							<a th:href="@{/login.html}">后台管理</a>
+						</li>
+						<li>
+							<a th:href="@{/myCarts.html}">我的购物车<span></span></a>
+						</li>
+						<li id="li-login">
+							<a th:href="@{/login.html}">登录</a>
+							<a th:href="@{/resiter.html}">注册</a>
+							<!--<span th:text="${session.currentUser.useraccount}"></span>-->
+						</li>
+						<li class="dropdown">
+							<a id="li-useraccount" class="dropdown-toggle" data-toggle="dropdown" >
+								账号:<span id="useraccount"></span>
+							</a>
+							<img  id="li-usericon" class="dropdown-toggle" data-toggle="dropdown" style="width:45px;height:45px; border-radius: 100%;">
+							<ul class="dropdown-menu" aria-labelledby="dropdownScale">
+								<li class="scale-item" ><a th:href="@{/personalDetails.html}"><span class="fa fa-edit"></span>个人信息</a></li>
+								<li class="scale-item" ><a th:href="@{/myOrder.html}"><span class="fa fa-edit" ></span>我的订单</a></li>
+								<li class="scale-item" ><a id="logout">退出系统</a></li>
+							</ul>
+						</li>
+						<!--<li id="li-usericon">
+							<img id="icon" style="width: 50px;height: 50px;"></img>
+						</li>-->
+					</ul>
+				</div>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<!--头部结束-->
+		<div class="clear"></div>
+		<!--导航栏开始-->
+		<div class="nav">
+			<div class="inner">
+				<ul class="clearfix">
+					<li>
+						<a href="#">脸部护理</a>
+					</li>
+					<li>
+						<a href="#">身体护理</a>
+					</li>
+					<li>
+						<a href="#">防晒隔离</a>
+					</li>
+					<li>
+						<a href="#">明星产品</a>
+					</li>
+					<li>
+						<a href="#">会员中心</a>
+					</li>
+					<li>
+						<a href="#">特惠礼盒</a>
+					</li>
+					<li>
+						<a href="#">品牌资讯</a>
+					</li>
+					<li>
+						<a href="#">关于我们</a>
+					</li>
+				</ul>
+				<div class="search">
+					<input type="text" placeholder="搜索三体">
+					<span></span>
+				</div>
+			</div>
+		</div>
+		<!--导航栏结束-->
+
+		<!--收货地址-->
+		<div class="inner">
+			<div>
+				<ul class="ulAddress">
+				</ul>
+				<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" style="width: 160px;height: 40px;margin-bottom: 30px;">使用新地址</button>
+				<!-- 模态框（Modal） -->
+				<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					<div class="modal-dialog" style="width: 900px;">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+								<h4 class="modal-title" id="myModalLabel">新增地址</h4>
+							</div>
+							<div class="modal-body">
+								<table class="table">
+									<tr>
+										<th>地址信息：</th>
+										<th>
+											<div class="city-picker-selector" id="city-picker-selector" style="margin-bottom: 20px">
+												<div class="selector-item storey province">
+													<a href="javascript:;" class="selector-name reveal">北京市</a>
+													<input type="hidden" name="userProvinceId" class="input-price val-error" value="110000" data-required="userProvinceId">
+													<div class="selector-list listing hide">
+														<ul>
+															<li>北京市</li>
+															<li>天津市</li>
+															<li>河北省</li>
+															<li>山西省</li>
+														</ul>
+													</div>
+												</div>
+												<div class="selector-item storey city">
+													<a href="javascript:;" class="selector-name reveal">北京市</a>
+													<input type="hidden" name="userCityId" class="input-price val-error" value="110100" data-required="userCityId">
+													<div class="selector-list listing hide">
+														<ul>
+															<li>北京市</li>
+														</ul>
+													</div>
+												</div>
+												<div class="selector-item storey district">
+													<a href="javascript:;" class="selector-name reveal">海淀区</a>
+													<input type="hidden" name="userDistrictId" class="input-price val-error" value="110108" data-required="userDistrictId" onchange="createAddress()">
+													<div class="selector-list listing hide">
+														<ul>
+															<li>东城区</li>
+															<li>西城区</li>
+														</ul>
+													</div>
+												</div>
+											</div>
+											<!-- end .city-picker-selector -->
+										</th>
+									</tr>
+									<tr>
+										<th >详细地址：</th>
+										<th><textarea id="addressDetail" style="width: 640px;height: 80px;margin-left: -113px;resize:none;" ></textarea></th>
+									</tr>
+									<tr>
+										<th >收货人：</th>
+										<th><input id="userConsignee" type="text" style="width: 640px;height: 30px;margin-left: -113px;" /></th>
+									</tr>
+									<tr>
+										<th >联系电话：</th>
+										<th><input id="userTel" type="text" style="width: 640px;height: 30px;margin-left: -113px;" /></th>
+									</tr>
+								</table>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+							<button onclick="addNewAddress()" type="button" class="btn btn-primary">新增地址</button>
+						</div>
+					</div>
+					<!-- /.modal-content -->
+				</div>
+				<!-- /.modal -->
+			</div>
+
+		</div>
+		<!--订单详情-->
+		<div class="inner">
+			<div>
+				<table class="table table-bordered">
+					<tbody class="tbody">
+						<tr>
+							<th class="col-md-1">店铺名字</th>
+							<th>商品详情</th>
+							<th class="col-md-1">单价</th>
+							<th class="col-md-2">商品数量</th>
+							<th class="col-md-1">小计</th>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+		<div class="inner clearfix">
+			<div class="account">
+				<p>总计：<span id="totalPrice"></span></p>
+				<p>寄送至：<span></span></p>
+				<p>收货人: <span></span></p>
+				<p>联系电话：<span></span></p>
+				<button onclick="payMoney()" id="resultTotal" style="float: right;" data-toggle="modal" data-target="#orderDetail">结算</button>
+			</div>
+		</div>
+	<!-- 订单详情模态框（Modal） -->
+	<div class="modal fade" id="orderDetail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+						&times;
+					</button>
+					<h4 class="modal-title" id="myModalLabel">
+						订单编号：<span id="orderNumber"></span>
+					</h4>
+				</div>
+				<div class="modal-body">
+					   <div id="orderDetailList" class="container">
+					   		<div class="row" id="shouhuoAddress">
+					   			<div class="col-md-12">
+					   				<span></span>	&nbsp;
+					   			<span id="modelUserName">收货人</span>
+					   			&emsp;
+					   			<span id="modelUserTel">联系电话</span>
+					   			<br />
+					   			<span id="modelUserAddress">收货地址</span>
+					   			</div>
+					   		</div>
+					   		
+					   		
+					   		<!--<div class="row" style="min-height: 100px;">
+					   			<div class="col-md-5" style="width: 150px;height: 100px;">
+					   				<img src="images/about3.jpg" alt="" style="width: 100px;height: 100px;border: 1px solid #CCCCCC;"/>
+					   			</div>
+					   			<div class="col-md-7">
+					   				<div>商品名字</div>
+					   				<div>商品简介</div>
+					   				<div>商品价格</div>
+					   				<div>购买数量</div>
+					   			</div>
+					   		</div>-->
+					   		
+					   		
+					   		
+					   </div>
+				</div>
+				<div class="modal-footer">
+					<span id="modelTotalPrice">总价：</span>
+					<button type="button" class="btn btn-default" data-dismiss="modal">取消
+					</button>
+					<button id="payButton" type="button" class="btn btn-info" data-dismiss="modal">支付
+					</button>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal -->
+	</div>
+		<!--页脚开始-->
+		<div class="foot">
+			<div class="inner">
+				<ul>
+					<li>
+						<h1>脸部护理</h1>
+						<div>活泉系列-保湿</div>
+						<div>蓝源系列-抗老</div>
+						<div>奇迹系列-修护</div>
+						<div>滢澈皙白系列-美白</div>
+					</li>
+					<li>
+						<h1>身体护理</h1>
+						<div>凝乳丝滑系列-润肤</div>
+						<div>光感纤体系列-塑身</div>
+						<div>保湿香氛系列-香氛</div>
+						<div>阳光欢愉系列-清爽</div>
+					</li>
+					<li>
+						<h1>防晒隔离</h1>
+						<div>防晒</div>
+						<div>隔离</div>
+						<div>气垫</div>
+					</li>
+					<li>
+						<h1>品牌故事</h1>
+						<div>ThreeBody故事</div>
+						<div>逾60年致力于护肤 </div>
+						<div>ThreeBody灵魂成分 </div>
+						<div>ThreeBody的承诺 </div>
+					</li>
+					<li>
+						<h1>帮助中心</h1>
+						<div>订单查询</div>
+						<div>常见问题</div>
+						<div>联系我们</div>
+						<div>法律信息</div>
+						<div>网站地图</div>
+					</li>
+					<li class="footRight">
+						<h1>关注我们</h1>
+						<a href="https://weibo.com/u/6434760509"> <span style="color: red"></span></a>
+						<span id="wechat" style="color: lawngreen"></span>
+						<span id="phone" style="color: deepskyblue"></span>
+						<section class="wechat">
+							<p>了解详情请关注我们的官方微信号</p>
+							<img src="../images/wechat.jpg" alt="">
+						</section>
+						<section class="phone">
+							<p>欢迎您致电我们的服务电话!</p>
+							<p>&emsp;15363391819</p>
+						</section>
+					</li>
+				</ul>
+				<div class="clear"></div>
+				<div class="copyright">
+					<p> ©ThreeBody男妆版权所有:韩山师范学院计算机与信息工程学院“三体”小组，其中成员有丘彪、徐奕海、杨小辉、廖伟俊、何佳佳、崔灵涛。
+					</p>
+					<p>
+						抄袭必追究法律责任。欢迎探讨学习！
+					</p>
+				</div>
+			</div>
+		</div>
+		<!--页脚结束-->
+
+		<!--js开始-->
+
+		<script th:src="@{/js/jquery-1.10.2.js}"></script>
+		<script th:src="@{/js/bootstrap.min.js}"></script>
+		<script th:src="@{/js/citydata.js}"></script>
+		<script th:src="@{/js/cityPicker-1.0.0.js}"></script>
+		<script type="text/javascript">
+			
+			
+			
+	        var currentUser = JSON.parse(sessionStorage.getItem("currentUser"));
+			if(currentUser!=null){
+				window.sessionStorage.setItem('userId',currentUser.userid);
+			}
+			if(window.sessionStorage.getItem('userId')==null){
+				alert('对不起，您还没登录！');
+				window.location.href='login.html';
+			}
+			
+			
+			
+			
+			var result = 0;
+			var $unitTotal = $('.unitTotal');
+			var $resultTotal = $('#resultTotal');
+			$(function() {
+				
+				$.ajax({
+					type: "get",
+					url: "http://192.168.1.102:8909/selectAddressByUserid",
+					headers: {
+						'Access-Control-Allow-Origin': '*',
+					},
+					dataType: "json",
+					data: {'userid':window.sessionStorage.getItem('userId')},
+					async: true,
+					success: function(data) {
+						
+						for(var i = 0; i < data.datas.length; i++) {
+							if(i == 0) {
+								$('.ulAddress').append('<li class="' + "address" + '"><b class="' + "arriveAddress" + '">寄送到：</b>' +
+									'<input type="' + "radio" + '" name="' + "item" + '"  checked>' +
+									'<span>' + data.datas[i].useraddr +'</span>'+'<span>&emsp;（</span>'+'<span>' + data.datas[i].userconsignee +'</span>'+'<span>&emsp;收）</span>'+'<span>' + data.datas[i].usertel +'</span>'+
+									'<a class="delAddress" onclick="deleteAddress(this)" value="'+data.datas[i].useraddressid+'">删除</a>'+
+									'</li>');
+								var accountInfo=$('.account').find('span');
+								//结算的收货地址
+								accountInfo.eq(1).html(data.datas[i].useraddr);
+								//结算的收货人
+								accountInfo.eq(2).html(data.datas[i].userconsignee);
+								//结算的电话
+								accountInfo.eq(3).html(data.datas[i].usertel);	
+							} else {
+								$('.ulAddress').append('<li class="' + "address" + '"><b>寄送到：</b>' +
+									'<input type="' + "radio" + '" name="' + "item" + '" >' +
+									'<span>' + data.datas[i].useraddr +'</span>'+'<span>&emsp;（</span>'+'<span>' + data.datas[i].userconsignee +'</span>'+'<span>&emsp;收）</span>'+'<span>' + data.datas[i].usertel +'</span>'+
+									'<a onclick="deleteAddress(this)" value="'+data.datas[i].useraddressid+' ">删除</a>'+
+									'</li>');
+							}
+						}
+					/*success结束*/
+					},
+					error: function() {
+						console.log("错了");
+					}
+				});
+				
+				
+				
+				
+				
+				
+
+				var goodslist = JSON.parse(window.sessionStorage.getItem('goodsList'));
+				console.log(goodslist);
+				var allGoodsPriceTotal = 0;
+				for(var i = 0; i < goodslist.length; i++) {
+					$('.tbody').append('<tr>' +
+						'<td class="storeName">' + goodslist[i]["goodsbrand"] + '</td>' +
+						'<td class="cartImg">' +
+						'<img class="goodsPhotoCode" src="' + goodslist[i]["goodsphotocode"] + '" alt="">' +
+						'<div class="goodsDetails">' + goodslist[i]["goodsinfo"] + '</div>' +
+						'<div class="goodsName">' + goodslist[i]["goodsname"] + '</div>' +
+						'<div class="goodsBrand">' + goodslist[i]["goodsbrand"] + '</div>' +
+						'</td>' +
+						'<td class="unitPrice">' + goodslist[i]["goodsprice"] + '</td>' +
+						'<td class="addOrDel">' +
+						'<input type="text" readonly  class="goodsNumber"  value="' + goodslist[i]["goodsnum"] + '">' +
+						'</td>' +
+						'<td class="unitTotal">' + goodslist[i]["total"] + '</td>' +
+						'</tr>');
+					allGoodsPriceTotal += parseInt(goodslist[i]["total"]);
+					
+				}
+				$('#totalPrice').html(allGoodsPriceTotal);
+				
+				
+
+				//模拟城市-无联动/无搜索
+				var selector = $('#city-picker-selector').cityPicker({
+					dataJson: cityData,
+					renderMode: true,
+					search: false,
+					linkage: false
+				});
+				var $selectorName = $('.selector-name');
+				$('#city-picker-selector').on('choose-district.citypicker', function(event, tagert, storage) {
+					console.log(storage);
+					var address = "";
+					for(var i = 0; i < $selectorName.length; i++) {
+						address += $selectorName.eq(i).html();
+					}
+					window.sessionStorage.setItem('newAddress',address);
+				});
+
+				//设置城市
+				selector.setCityVal([{
+					'id': '110000',
+					'name': '北京市'
+				}, {
+					'id': '110100',
+					'name': '北京市'
+				}, {
+					'id': '110108',
+					'name': '海淀区'
+				}]);
+
+				
+
+			});
+		</script>
+		<!--页脚“关注我们”模块特效开始-->
+		<script>
+			$('#wechat').mouseenter(function() {
+				$('.wechat').css({
+					display: "block"
+				})
+			}).mouseleave(function() {
+				$('.wechat').css({
+					display: "none"
+				})
+			})
+			$('#phone').mouseenter(function() {
+				$('.phone').css({
+					display: "block"
+				})
+			}).mouseleave(function() {
+				$('.phone').css({
+					display: "none"
+				})
+			})
+		</script>
+		<!--页脚“关注我们”模块特效结束-->
+
+		<script>
+			
+			
+			
+			
+			
+			/*选择地址*/
+			$('.ulAddress').on("click", 'input', function() {
+				
+				if(this.checked) {
+					$(".ulAddress .address b").removeAttr("class", "arriveAddress")
+					$(this).siblings("b").attr("class", "arriveAddress")
+					//这是一个信息集合(包括收货地址，收货人以及电话)
+					var infos=$(this).siblings("span");
+					var accountInfo=$('.account').find('span');
+					//结算的收货地址
+					accountInfo.eq(1).html(infos.eq(0).html());
+					//结算的收货人
+					accountInfo.eq(2).html(infos.eq(2).html());
+					//结算的电话
+					accountInfo.eq(3).html(infos.eq(4).html());
+					
+					//设置当前收货的地址
+					window.sessionStorage.setItem('userAddress', $(this).siblings("span").html());
+					window.sessionStorage.setItem('userTel',infos.eq(4).html());
+					window.sessionStorage.setItem('userName',infos.eq(2).html());
+				}
+			})
+
+			//结算方法(多个商品)
+			function payMoney() {
+				
+				
+				
+				
+				console.log("结算");
+				/*var userid = window.sessionStorage.getItem('userId');*/
+				var currentUser = JSON.parse(sessionStorage.getItem("currentUser"));
+				/*var userid=currentUser.userid;*/
+				var userid=currentUser.userid;
+				//获取收货地址
+				var useraddress = window.sessionStorage.getItem('userAddress');
+				var goodslist = JSON.parse(window.sessionStorage.getItem('goodsList'));
+				var gs=new Array();
+				for(i in goodslist){
+					var g=new Map();
+					g['goodsid']=goodslist[i]['goodsid'];
+					g['goodsstock']=goodslist[i]['goodsnum'];
+					gs.push(g);
+				}
+				
+				console.log(gs);
+				
+				$.ajax({
+					type: "post",
+					url: "http://192.168.1.109:8901/insertOrders?userid=" + userid + "&useraddr=" + useraddress,
+					headers: {
+						'Access-Control-Allow-Origin': '*',
+					},
+					contentType: "application/json;charset=UTF-8",
+					dataType: "json",
+					data: JSON.stringify(gs),
+					async: true,
+					success: function(data) {
+						console.log(data);
+						
+						console.log(data.message);
+						
+						$('#orderNumber').html(data.message);
+						$('#modelUserName').html(window.sessionStorage.getItem('userTel'));
+						$('#modelUserTel').html(window.sessionStorage.getItem('userName'));
+						$('#modelUserAddress').html(useraddress);
+						var goodslist = JSON.parse(window.sessionStorage.getItem('goodsList'));
+						var totalprice=0;
+						
+						var oldgoods=$('#orderDetailList').children();
+						for(var i=1;i<oldgoods.length;i++){
+							oldgoods[i].remove();
+						}
+						for(var i=0;i<goodslist.length;i++){
+							$('#orderDetailList').append('<div class="row" style="min-height: 100px;">'+
+					   			'<div class="col-md-5" style="width: 150px;height: 100px;">'+
+					   				'<img src="'+goodslist[i].goodsphotocode+'" alt="" style="width: 100px;height: 100px;border: 1px solid #CCCCCC;"/>'+
+					   			'</div>'+
+					   			'<div class="col-md-7">'+
+					   				'<div>商品名字：'+goodslist[i].goodsname+'</div>'+
+					   				'<div>商品简介：'+goodslist[i].goodsinfo+'</div>'+
+					   				'<div>商品价格：'+goodslist[i].goodsprice+'</div>'+
+					   				'<div>购买数量：'+goodslist[i].goodsnum+'</div>'+
+					   			'</div>'+
+					   		'</div>');
+					   		totalprice+=parseInt(goodslist[i].total);
+						}
+						$('#modelTotalPrice').html('总价：'+totalprice);
+						/*window.load.href = "myOrder.html";*/
+					},
+					error: function() {
+						console.log("错了");
+					}
+				});
+				
+				
+				
+
+			}
+			
+			
+			//为当前用户添加新的收货地址  
+			function addNewAddress(){
+				var userid=window.sessionStorage.getItem('userId');
+				//省市
+				var useraddr1=window.sessionStorage.getItem('newAddress');
+				//详细地址
+				var useraddr2=$('#addressDetail').val();
+				//地址拼接
+				var useraddr=useraddr1+useraddr2;
+				//收货人联系方式
+				var usertel=$('#userTel').val();
+				//收货人姓名
+				var userconsignee=$('#userConsignee').val();
+				var m=new Map();
+				m['userid']=userid;
+				m['useraddr']=useraddr;
+				m['usertel']=usertel;
+				m['userconsignee']=userconsignee;
+				console.log(m);
+				$.ajax({
+					type: "post",
+					url: "http://192.168.1.102:8909/insertUserAddress",
+					headers: {
+						'Access-Control-Allow-Origin': '*',
+					},
+					contentType: "application/json;charset=UTF-8",
+					dataType: "json",
+					data: JSON.stringify(m),
+					async: true,
+					success: function(data) {
+						
+						window.location.href = "payments.html";
+					},
+					error: function() {
+						console.log("错了");
+					}
+				});
+			}
+			
+			
+			
+			//删除当前用户的地址
+			function deleteAddress(myinfo){
+				var d=new Array();
+				d.push(myinfo.getAttribute('value'));
+				console.log(d);
+				$.ajax({
+					type: "delete",
+					url: "http://192.168.1.102:8909/deleteAddress",
+					headers: {
+						'Access-Control-Allow-Origin': '*',
+					},
+					dataType: "json",
+					data: {"useraddressid":d},
+					async: true,
+					success: function(data) {
+						console.log(data);
+						window.location.href = "payments.html";
+					},
+					error: function() {
+						console.log("错了");
+					}
+				});
+			}
+			
+			
+			
+			
+		</script>
+
+		<!--地址拼串-->
+		<script>
+			var $selectorName = $('.selector-name');
+			console.log($selectorName);
+
+			function createAddress() {
+				console.log("11");
+				var address = "";
+				for(var i = 0; i < $selectorName.length; i++) {
+					address += $selectorName.eq(i).html();
+				}
+			}
+
+			/*页面跳转*/
+			function functionone(){
+				$.ajax({
+					type: "post",
+					url: "http://192.168.1.102:8903/selectgoodstype",
+					dataType:"json",
+					headers: {
+						'Access-Control-Allow-Origin': '*'
+					},
+					data: {
+						"gtypeId": 1,
+						"pageSize": 9,
+						"pageNum":1
+					},
+					async: false,
+					success: function(data){
+						window.location.href="productList.html";
+					},
+				});
+			}
+		</script>
+
+		<!--用户头像-->
+		<script type="text/javascript" th:inline="javascript">
+			var currentUser = JSON.parse(sessionStorage.getItem("currentUser"));
+			console.log(currentUser);
+			if(currentUser != null){
+				var useraccount = currentUser.useraccount;
+				var usericon = currentUser.usericon;
+				if(usericon != null){
+					$("#li-login").css({display: "none"});
+					$("#li-useraccount").css({display: "none"});
+					$("#li-usericon").css({display: "block"});
+					$("#li-usericon").attr("src",usericon);
+				}else if(useraccount != null){
+					$("#li-login").css({display: "none"});
+					$("#li-usericon").css({display: "none"});
+					$("#li-useraccount").css({display: "block"});
+					$("#useraccount").text(useraccount);
+				}
+			}else{
+				$("#li-login").css({display: "block"});
+				$("#li-usericon").css({display: "none"});
+				$("#li-useraccount").css({display: "none"});
+			}
+
+			//点击支付后调用的方法
+			$('#payButton').click(function() {
+				$.ajax({
+					type: "put",
+					url: "http://192.168.1.109:8901/updateOrders",
+					headers: {
+						'Access-Control-Allow-Origin': '*',
+					},
+					contentType: "application/json;charset=UTF-8",
+					dataType: "json",
+					data: JSON.stringify({"ordersid":$('#orderNumber').html(),"ispay":"已支付"}),
+					async: true,
+					success: function (data) {
+						
+						alert('支付成功，快去查看订单吧!');
+						window.location.href='myOrder.html';
+					},
+					error: function () {
+						alert('支付失败');
+					}
+				});
+			})
+			
+			
+			//支付成功后更改商品库存数量
+			function  updateGoodsNum(){
+				/*var goodslist = JSON.parse(window.sessionStorage.getItem('goodsList'));
+				var goods=new Array();
+				if(var i=0;i<goodslist.length;i++){
+					var good={};
+					good.goodsid= goodslist[i]['goodsid'];
+					good.goodsstock=goodslist[i]['goodsnum'];
+					goods.push(good);
+				}
+				console.log(goods);*/
+				
+				
+				/*$.ajax({
+					type: "put",
+					url: "http://192.168.1.102:8901/getGoodsFromProvider2",
+					headers: {
+						'Access-Control-Allow-Origin': '*',
+					},
+					contentType: "application/json;charset=UTF-8",
+					dataType: "json",
+					data: JSON.stringify(goods);
+					async: true,
+					success: function (data) {
+					},
+					error: function () {
+						alert('ajax错误');
+					}
+				});*/
+			}
+
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html xmlns:th="http:www.thymeleaf.org">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>登陆</title>
+		<link rel="stylesheet" th:href="@{/css/base.css}">
+		<link rel="stylesheet" th:href="@{/css/login.css}">
+		<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+	</head>
+
+	<body>
+		<!--头部开始-->
+		<div class="header ">
+			<div class="inner">
+				<div class="left clearfix">
+					<a th:href="@{/index.html}">
+						<img th:src="@{images/logo.png}" alt="">
+					</a>
+				</div>
+				<div class="right">
+					<ul class="clearfix">
+						<li>
+							<a th:href="@{/index.html}">首页</a>
+						</li>
+						<li>
+							<a href="#">全部产品</a>
+						</li>
+						<li>
+							<a href="#">专柜地址</a>
+						</li>
+						<li>
+							<a href="#" style="margin-right: 50px">客服中心</a>
+						</li>
+						<li>
+							<a href="#">订阅电子杂志</a>
+						</li>
+						<li>
+							<a th:href="@{/login.html}">登录</a>
+							<a th:href="@{/resiter.html}">注册</a>
+						</li>
+						<li>
+							<a th:href="@{/aboutUs.html}">我的购物车<span></span></a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<!--头部结束-->
+		<div class="clear"></div>
+		<!--导航栏开始-->
+		<div class="nav">
+			<div class="inner">
+				<ul class="clearfix">
+					<li>
+						<a href="#">脸部护理</a>
+					</li>
+					<li>
+						<a href="#">身体护理</a>
+					</li>
+					<li>
+						<a href="#">防晒隔离</a>
+					</li>
+					<li>
+						<a href="#">明星产品</a>
+					</li>
+					<li>
+						<a href="#">会员中心</a>
+					</li>
+					<li>
+						<a href="#">特惠礼盒</a>
+					</li>
+					<li>
+						<a href="#">品牌资讯</a>
+					</li>
+					<li>
+						<a href="#">关于我们</a>
+					</li>
+				</ul>
+				<div class="search">
+					<input type="text" id="searchGoods" placeholder="搜索三体">
+					<span></span>
+				</div>
+			</div>
+		</div>
+		<!--导航栏结束-->
+		<div class="banner">
+			<div class="inner">
+				<a href="#"><img th:src="@{images/banner1.jpg}" alt=""></a>
+			</div>
+		</div>
+		<!--登陆模块开始-->
+		<div class="login">
+			<div class="inner clearfix">
+				<h1><a th:href="@{index.html}">ThreeBody男妆官网</a></h1>
+				<div class="left clearfix">
+					<form id="from-login">
+						<h2>用户登录</h2>
+						<span>账号:</span> <input type="text" id="useraccount" name="useraccount" placeholder="请输入您的账号">
+						<br>
+						<br>
+						<span>密码：</span><input type="password" id="userpassword" name="userpassword" placeholder="请输入您的密码">
+						<br>
+						<br>
+						<br>
+						<a class="btn btn-info" id="loginBtn">登录</a>
+						<br>
+						<br>
+						<a th:href="@{resiter.html}">新用户点击这里注册，享受更多优惠</a>
+					</form>
+				</div>
+				<div class="right clearfix">
+					<img th:src="@{images/threebody.png}" alt="">
+					<p>欢迎来到ThreeBody男妆官网</p>
+				</div>
+			</div>
+		</div>
+		<!--登陆模块结束-->
+
+		<!--页脚开始-->
+		<div class="foot">
+			<div class="inner">
+				<ul>
+					<li>
+						<h1>脸部护理</h1>
+						<div>活泉系列-保湿</div>
+						<div>蓝源系列-抗老</div>
+						<div>奇迹系列-修护</div>
+						<div>滢澈皙白系列-美白</div>
+					</li>
+					<li>
+						<h1>身体护理</h1>
+						<div>凝乳丝滑系列-润肤</div>
+						<div>光感纤体系列-塑身</div>
+						<div>保湿香氛系列-香氛</div>
+						<div>阳光欢愉系列-清爽</div>
+					</li>
+					<li>
+						<h1>防晒隔离</h1>
+						<div>防晒</div>
+						<div>隔离</div>
+						<div>气垫</div>
+					</li>
+					<li>
+						<h1>品牌故事</h1>
+						<div>ThreeBody故事</div>
+						<div>逾60年致力于护肤 </div>
+						<div>ThreeBody灵魂成分 </div>
+						<div>ThreeBody的承诺 </div>
+					</li>
+					<li>
+						<h1>帮助中心</h1>
+						<div>订单查询</div>
+						<div>常见问题</div>
+						<div>联系我们</div>
+						<div>法律信息</div>
+						<div>网站地图</div>
+					</li>
+					<li class="footRight">
+						<h1>关注我们</h1>
+						<a href="https://weibo.com/u/6434760509"> <span style="color: red"></span></a>
+						<span id="wechat" style="color: lawngreen"></span>
+						<span id="phone" style="color: deepskyblue"></span>
+						<section class="wechat">
+							<p>了解详情请关注我们的官方微信号</p>
+							<img th:src="@{images/wechat.jpg}" alt="">
+						</section>
+						<section class="phone">
+							<p>欢迎您致电我们的服务电话!</p>
+							<p>&emsp;15363391819</p>
+						</section>
+					</li>
+				</ul>
+				<div class="clear"></div>
+				<div class="copyright">
+					<p> ©ThreeBody男妆版权所有:韩山师范学院计算机与信息工程学院“三体”小组，其中成员有丘彪、徐奕海、杨小辉、廖伟俊、何佳佳、崔灵涛。
+					</p>
+					<p>
+						抄袭必追究法律责任。欢迎探讨学习！
+					</p>
+				</div>
+			</div>
+		</div>
+		<!--页脚结束-->
+
+		<!--js开始-->
+		<script th:src="@{/js/jquery.min.js}"></script>
+		<script th:src="@{/js/bootstrap.min.js}"></script>
+		<!--页脚“关注我们”模块特效start-->
+		<script>
+			$('#wechat').mouseenter(function() {
+				$('.wechat').css({
+					display: "block"
+				})
+			}).mouseleave(function() {
+				$('.wechat').css({
+					display: "none"
+				})
+			})
+			$('#phone').mouseenter(function() {
+				$('.phone').css({
+					display: "block"
+				})
+			}).mouseleave(function() {
+				$('.phone').css({
+					display: "none"
+				})
+			})
+		</script>
+		<!--页脚“关注我们”模块特效end-->
+		
+		<!-- 登录start -->
+		<script type="text/javascript" th:inline="javascript">
+		/*
+			初始化  serializeObject
+		*/
+		function initSerializeObject() {
+		    $.fn.serializeObject = function () {
+		        var o = {};
+		        var a = this.serializeArray();
+		        $.each(a, function () {
+		            if (o[this.name]) {
+		                if (!o[this.name].push) {
+		                    o[this.name] = [o[this.name]];
+		                }
+		                o[this.name].push(this.value || '');
+		            } else {
+		                o[this.name] = this.value || '';
+		            }
+		        });
+		        return o;
+		    };
+		}
+		 
+		$("#loginBtn")function submit(){
+		    // 初始化 序列化对象的方法
+		    initSerializeObject();
+		    //获取 from表单的数据
+		    var jsonData = $("#from-login").serializeObject();
+		    $.ajax({
+		            type: "post",
+		            url: "usersLogin",
+		            contentType: "application/json; charset=utf-8",
+		            cache: false,
+		            async: false,
+		            data: JSON.stringify(jsonData), //转换成json数据
+		            success: function (resultData) {
+		                alert("登录结果："+resultData);
+		            }
+		        });
+		}
+		</script>
+		<!-- 登录end -->
+		
+		<!--js结束-->
+	</body>
+
+</html>

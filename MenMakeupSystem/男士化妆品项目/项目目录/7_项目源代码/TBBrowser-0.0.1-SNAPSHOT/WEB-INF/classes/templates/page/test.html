@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../../static/css/city-picker.css">
+</head>
+<body>
+<div class="city-picker-selector" id="city-picker-search">
+    <div class="selector-item storey province">
+        <a href="javascript:;" class="selector-name reveal df-color ">请选择省份</a>
+        <input type="hidden" name="userProvinceId" class="input-price val-error" value="" data-required="userProvinceId">
+        <div class="selector-list listing hide">
+            <div class="selector-search">
+                <input type="text" class="input-search" value="" placeholder="拼音、中文搜索">
+            </div>
+            <ul>
+                <li>北京市</li>
+                <li>天津市</li>
+            </ul>
+        </div>
+    </div>
+    <div class="selector-item storey city">
+        <a href="javascript:;" class="selector-name reveal df-color forbid">请选择城市</a>
+        <input type="hidden" name="userCityId" class="input-price val-error" value="" data-required="userCityId">
+        <div class="selector-list listing hide">
+            <div class="selector-search">
+                <input type="text" class="input-search" value="" placeholder="拼音、中文搜索">
+            </div>
+            <ul></ul>
+        </div>
+    </div>
+    <div class="selector-item storey district">
+        <a href="javascript:;" class="selector-name reveal df-color forbid">请选择区县</a>
+        <input type="hidden" name="userDistrictId" class="input-price val-error" value="" data-required="userDistrictId">
+        <div class="selector-list listing hide">
+            <div class="selector-search">
+                <input type="text" class="input-search" value="" placeholder="拼音、中文搜索">
+            </div>
+            <ul></ul>
+        </div>
+    </div>
+</div>
+<!-- end .city-picker-selector -->
+<script src="../../static/js/jquery-1.10.2.js"></script>
+<script src="../../static/js/bootstrap.min.js"></script>
+<script src="../../static/js/citydata.js"></script>
+<script src="../../static/js/cityPicker-1.0.0.js"></script>
+<script type="text/javascript">
+    $(function () {
+        //模拟城市-联动/搜索
+        $('#city-picker-search').cityPicker({
+            dataJson: cityData,
+            renderMode: true,
+            search: true,
+            linkage: true
+        });
+    });
+</script>
+</body>
+</html>

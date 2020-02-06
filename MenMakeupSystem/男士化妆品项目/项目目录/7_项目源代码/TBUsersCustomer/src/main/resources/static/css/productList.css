@@ -1,0 +1,57 @@
+.inner {
+    position: relative;
+}
+
+.banner {
+    margin-top: 20px;
+    font-size: 25px;
+    margin-bottom: 30px;
+}
+.banner img  {
+    margin-bottom: 20px;
+    width: 1080px;
+}
+.banner h4 {
+    display: inline-block;
+}
+.banner .face {
+    position: absolute;
+    top: 50px;
+    left: 300px;
+    text-align: center;
+    color: white;
+}
+.mian {
+    min-height: 500px;
+}
+.slide {
+    width: 200px;
+    float: left;
+}
+.slideRight {
+    width: 850px;
+    float: right;
+}
+.col-md-3 {
+    text-align: center;
+    position: relative;
+}
+.col-md-3 span {
+    position: absolute;
+    top:5px;
+    right: 10px;
+    color: grey;
+    cursor: pointer;
+}
+.col-md-3 img {
+    width: 220px;
+    height: 237px;
+    margin-bottom: 5px;
+}
+.col-md-3 button {
+    width: 125px;
+    height: 30px;
+    background-color: red;
+    border: none;
+    color: white;
+}

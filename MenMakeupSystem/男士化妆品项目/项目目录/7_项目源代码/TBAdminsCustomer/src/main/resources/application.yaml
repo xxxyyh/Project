@@ -1,0 +1,14 @@
+spring: 
+  application:   
+    name: eureka-client-customer-admins
+    
+    
+server: 
+  port: 8907
+  
+#feign自带断路器
+feign: 
+  hystrix:    enabled: false
+#ribbon:
+ # eureka:
+  #  enabled: true

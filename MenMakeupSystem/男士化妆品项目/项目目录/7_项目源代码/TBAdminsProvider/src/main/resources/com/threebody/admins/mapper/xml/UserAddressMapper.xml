@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.threebody.admins.mapper.UserAddressMapper" >
+  <resultMap id="BaseResultMap" type="com.threebody.admins.entity.UserAddress" >
+    <result column="userId" property="userid" jdbcType="INTEGER" />
+    <result column="userAddr" property="useraddr" jdbcType="VARCHAR" />
+    <result column="userTel" property="usertel" jdbcType="VARCHAR" />
+    <result column="userConsignee" property="userconsignee" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    userId, userAddr, userTel, userConsignee
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.threebody.admins.entity.UserAddressExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from useraddress
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.threebody.admins.entity.UserAddressExample" >
+    delete from useraddress
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.threebody.admins.entity.UserAddress" >
+    insert into useraddress (userId, userAddr, userTel, 
+      userConsignee)
+    values (#{userid,jdbcType=INTEGER}, #{useraddr,jdbcType=VARCHAR}, #{usertel,jdbcType=VARCHAR}, 
+      #{userconsignee,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.threebody.admins.entity.UserAddress" >
+    insert into useraddress
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        userId,
+      </if>
+      <if test="useraddr != null" >
+        userAddr,
+      </if>
+      <if test="usertel != null" >
+        userTel,
+      </if>
+      <if test="userconsignee != null" >
+        userConsignee,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="useraddr != null" >
+        #{useraddr,jdbcType=VARCHAR},
+      </if>
+      <if test="usertel != null" >
+        #{usertel,jdbcType=VARCHAR},
+      </if>
+      <if test="userconsignee != null" >
+        #{userconsignee,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.threebody.admins.entity.UserAddressExample" resultType="java.lang.Integer" >
+    select count(*) from useraddress
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update useraddress
+    <set >
+      <if test="record.userid != null" >
+        userId = #{record.userid,jdbcType=INTEGER},
+      </if>
+      <if test="record.useraddr != null" >
+        userAddr = #{record.useraddr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usertel != null" >
+        userTel = #{record.usertel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userconsignee != null" >
+        userConsignee = #{record.userconsignee,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update useraddress
+    set userId = #{record.userid,jdbcType=INTEGER},
+      userAddr = #{record.useraddr,jdbcType=VARCHAR},
+      userTel = #{record.usertel,jdbcType=VARCHAR},
+      userConsignee = #{record.userconsignee,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>
